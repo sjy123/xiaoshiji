@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
+import com.tencent.map.geolocation.TencentLocation;
+import com.tencent.map.geolocation.TencentLocationListener;
+import com.tencent.map.geolocation.TencentLocationManager;
+import com.tencent.map.geolocation.TencentLocationRequest;
 
 import view.RippleBackground;
 
@@ -37,6 +42,10 @@ public class FragmentAll extends Fragment {
     public ImageView mFoundDevice;
     public RippleBackground mRippleBackground;
     public TextView mTextViewTip;
+
+    public TencentLocationRequest tencentLocationRequest;
+    public TencentLocationManager tencentLocationManager;
+    public TencentLocationListener tencentLocationListener;
 
     public FragmentTransaction fragmentTransaction;
 
@@ -79,6 +88,34 @@ public class FragmentAll extends Fragment {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_all,container,false);
 
+        /*
+        腾讯定位功能进行定位
+        appkey：6QLBZ-TTKAD-M4M4M-P5GUB-WWULF-OWF2Y
+        设置成自动缓存模式
+         */
+        tencentLocationManager = TencentLocationManager.getInstance(getActivity());
+        tencentLocationRequest = TencentLocationRequest.create();
+        tencentLocationRequest.setAllowCache(true);
+        tencentLocationRequest.setRequestLevel(TencentLocationRequest.REQUEST_LEVEL_GEO);
+        tencentLocationListener = new TencentLocationListener() {
+            @Override
+            public void onLocationChanged(TencentLocation tencentLocation, int i, String s) {
+                if (i==TencentLocation.ERROR_OK){
+                    double lat = tencentLocation.getLatitude();
+                    double lng = tencentLocation.getLongitude();
+                    Log.v("test",String.valueOf(lat+","+lng+","+String.valueOf(i)));
+                }else {
+                    Log.v("merror",s);
+                }
+            }
+
+            @Override
+            public void onStatusUpdate(String s, int i, String s2) {
+
+            }
+        };
+
+
         mFoundDevice = (ImageView)RootView.findViewById(R.id.founddevice);
         mRippleBackground=(RippleBackground)RootView.findViewById(R.id.content);
         mTextViewTip = (TextView)RootView.findViewById(R.id.textview_tip);
@@ -89,6 +126,13 @@ public class FragmentAll extends Fragment {
             public void onClick(View view) {
                 mRippleBackground.startRippleAnimation();
                 mTextViewTip.setText("正在搜索附近的食堂...");
+                /*
+                创建定位事件，并将地理卫视的数据数据传给FragmentDiningRoom
+                */
+                int error = tencentLocationManager.requestLocationUpdates(tencentLocationRequest,tencentLocationListener);
+                Log.v("mb",String.valueOf(error));
+
+
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -125,6 +169,7 @@ public class FragmentAll extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

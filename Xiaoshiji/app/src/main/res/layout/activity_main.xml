@@ -5,30 +5,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/actionbar"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="32dp">
 
-            </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textColor="@color/actionbartitle"
-                android:text="所有食堂"/>
-            </LinearLayout>
-        </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/details_comment_press"
+            android:drawableTop="@drawable/ic_todo_detail_reminder"
             android:paddingTop="12dp"
             android:text="所有"
             android:textColor="@android:color/darker_gray"
@@ -59,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/error_map"
+            android:drawableTop="@drawable/ic_event_location"
             android:paddingTop="12dp"
             android:text="发现"
             android:textColor="@android:color/darker_gray"
@@ -71,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/comment_face"
+            android:drawableTop="@drawable/ic_event_attendee"
             android:paddingTop="12dp"
             android:text="我的"
             android:textColor="@android:color/darker_gray"
