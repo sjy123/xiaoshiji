@@ -5,6 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+>>>>>>> temp
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +16,20 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.db.xiaoshiji.R;
+<<<<<<< HEAD
 import com.tencent.tencentmap.mapsdk.map.MapView;
+=======
+import com.tencent.lbssearch.TencentSearch;
+import com.tencent.lbssearch.httpresponse.BaseObject;
+import com.tencent.lbssearch.httpresponse.HttpResponseListener;
+import com.tencent.lbssearch.object.param.SearchParam;
+import com.tencent.lbssearch.object.result.SearchResultObject;
+import com.tencent.map.geolocation.TencentLocation;
+import com.tencent.map.geolocation.TencentLocationListener;
+import com.tencent.tencentmap.mapsdk.map.MapView;
+
+import org.apache.http.Header;
+>>>>>>> temp
 
 import adapter.DiningRoomListAdapter;
 
@@ -24,7 +41,7 @@ import adapter.DiningRoomListAdapter;
  * Use the {@link FragmentDiningRoom#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentDiningRoom extends Fragment {
+public class FragmentDiningRoom extends Fragment implements TencentLocationListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,6 +56,12 @@ public class FragmentDiningRoom extends Fragment {
     public Button mBack;
 
     public FragmentTransaction fragmentTransaction;
+<<<<<<< HEAD
+=======
+    public TencentSearch tencentSearch;
+    public SearchParam.Region region;
+    public SearchParam searchParam;
+>>>>>>> temp
 
     private OnFragmentInteractionListener mListener;
 
@@ -78,13 +101,49 @@ public class FragmentDiningRoom extends Fragment {
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
 
+<<<<<<< HEAD
+=======
+        /*
+        腾讯地图的周边搜索功能，关键词是"食堂"
+        采用圆形区域检索,搜索半径为1000m
+         */
+        tencentSearch = new TencentSearch(getActivity());
+        region = new SearchParam.Region().poi("武汉");
+        searchParam = new SearchParam().keyword("食堂").boundary(region);
+        tencentSearch.search(searchParam,new HttpResponseListener() {
+            @Override
+            public void onSuccess(int i, Header[] headers, BaseObject baseObject) {
+                if (baseObject!=null){
+                    SearchResultObject searchResultObject = (SearchResultObject)baseObject;
+                    if (searchResultObject.data!=null){
+                        String result = "搜索武汉地区的食堂poi\n\n";
+                        for(SearchResultObject.SearchResultData data : searchResultObject.data){
+                            Log.v("demo", "title:" + data.address);
+                            result += data.address+"\n";
+                        }
+//                        Log.v("hahah",result);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                Log.v("doubi",s);
+            }
+        });
+
+>>>>>>> temp
         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 
         mBack = (Button)RootView.findViewById(R.id.back);
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                 fragmentTransaction.replace(R.id.container,new FragmentDiningRoom()).commit();
+=======
+                fragmentTransaction.replace(R.id.container,new FragmentAll()).commit();
+>>>>>>> temp
             }
         });
 
@@ -121,6 +180,16 @@ public class FragmentDiningRoom extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onLocationChanged(TencentLocation tencentLocation, int i, String s) {
+
+    }
+
+    @Override
+    public void onStatusUpdate(String s, int i, String s2) {
+
     }
 
     /**
