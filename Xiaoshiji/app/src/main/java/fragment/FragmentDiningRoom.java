@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.db.xiaoshiji.R;
+import com.tencent.tencentmap.mapsdk.map.MapView;
 
 import adapter.DiningRoomListAdapter;
 
@@ -32,6 +35,10 @@ public class FragmentDiningRoom extends Fragment {
     private String mParam2;
 
     public ListView mListView;
+    public MapView mMapView;
+    public Button mBack;
+
+    public FragmentTransaction fragmentTransaction;
 
     private OnFragmentInteractionListener mListener;
 
@@ -52,7 +59,6 @@ public class FragmentDiningRoom extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     public FragmentDiningRoom() {
         // Required empty public constructor
     }
@@ -60,6 +66,7 @@ public class FragmentDiningRoom extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -71,7 +78,21 @@ public class FragmentDiningRoom extends Fragment {
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
 
+        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        mBack = (Button)RootView.findViewById(R.id.back);
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction.replace(R.id.container,new FragmentDiningRoom()).commit();
+            }
+        });
+
         mListView = (ListView)RootView.findViewById(R.id.listview_diningroom);
+        View mHeadView = inflater.inflate(R.layout.dinindroom_list_head,null);
+        mMapView = (MapView)mHeadView.findViewById(R.id.mapview);
+        mMapView.onCreate(savedInstanceState);
+        mListView.addHeaderView(mHeadView);
         DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity());
         mListView.setAdapter(diningRoomListAdapter);
 
