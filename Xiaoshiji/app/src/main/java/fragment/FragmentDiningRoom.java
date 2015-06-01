@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
 
@@ -72,8 +75,20 @@ public class FragmentDiningRoom extends Fragment {
         View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
 
         mListView = (ListView)RootView.findViewById(R.id.listview_diningroom);
-        DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity());
+        final DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity());
         mListView.setAdapter(diningRoomListAdapter);
+        //进入食堂介绍fragment
+       mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+
+               fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("西一食堂",""),"null");
+               fragmentTransaction.addToBackStack(null);
+               fragmentTransaction.commit();
+
+           }
+       });
 
         return RootView;
     }

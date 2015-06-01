@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import fragment.DiningRoomInfoFragment;
 import fragment.FragmentAll;
 import fragment.FragmentDiningRoom;
 import fragment.FragmentFind;
@@ -19,7 +20,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                                                 ,FragmentAll.OnFragmentInteractionListener
                                                                 ,FragmentFind.OnFragmentInteractionListener
                                                                 ,FragmentMy.OnFragmentInteractionListener
-                                                                , FragmentDiningRoom.OnFragmentInteractionListener{
+                                                                , FragmentDiningRoom.OnFragmentInteractionListener
+, DiningRoomInfoFragment.OnFragmentInteractionListener{
 
     public TextView mTextViewAll,mTextViewFind,mTextViewMy;
     public FragmentTransaction fragmentTransaction;
