@@ -8,15 +8,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import fragment.FragmentAll;
+import fragment.FragmentDiningRoom;
 import fragment.FragmentFind;
 import fragment.FragmentMy;
 import utils.AppConstant;
+import view.RippleBackground;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener
                                                                 ,FragmentAll.OnFragmentInteractionListener
                                                                 ,FragmentFind.OnFragmentInteractionListener
-                                                                ,FragmentMy.OnFragmentInteractionListener{
+                                                                ,FragmentMy.OnFragmentInteractionListener
+                                                                , FragmentDiningRoom.OnFragmentInteractionListener{
 
     public TextView mTextViewAll,mTextViewFind,mTextViewMy;
     public FragmentTransaction fragmentTransaction;
@@ -64,7 +67,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 break;
             case R.id.textview_find:
                 fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container,new FragmentFind()).commit();
+                fragmentTransaction.replace(R.id.container, new FragmentFind()).commit();
                 break;
             case R.id.textview_my:
                 fragmentTransaction = this.getSupportFragmentManager().beginTransaction();

@@ -3,28 +3,25 @@ package fragment;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.example.db.xiaoshiji.R;
 
-import view.RippleBackground;
+import adapter.DiningRoomListAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentAll.OnFragmentInteractionListener} interface
+ * {@link FragmentDiningRoom.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentAll#newInstance} factory method to
+ * Use the {@link FragmentDiningRoom#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentAll extends Fragment {
+public class FragmentDiningRoom extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,11 +31,7 @@ public class FragmentAll extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ImageView mFoundDevice;
-    public RippleBackground mRippleBackground;
-    public TextView mTextViewTip;
-
-    public FragmentTransaction fragmentTransaction;
+    public ListView mListView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -48,11 +41,11 @@ public class FragmentAll extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentAll.
+     * @return A new instance of fragment FragmentDiningRoom.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentAll newInstance(String param1, String param2) {
-        FragmentAll fragment = new FragmentAll();
+    public static FragmentDiningRoom newInstance(String param1, String param2) {
+        FragmentDiningRoom fragment = new FragmentDiningRoom();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,7 +53,7 @@ public class FragmentAll extends Fragment {
         return fragment;
     }
 
-    public FragmentAll() {
+    public FragmentDiningRoom() {
         // Required empty public constructor
     }
 
@@ -76,28 +69,11 @@ public class FragmentAll extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
 
-        View RootView = inflater.inflate(R.layout.fragment_fragment_all,container,false);
-
-        mFoundDevice = (ImageView)RootView.findViewById(R.id.founddevice);
-        mRippleBackground=(RippleBackground)RootView.findViewById(R.id.content);
-        mTextViewTip = (TextView)RootView.findViewById(R.id.textview_tip);
-
-        final Handler handler=new Handler();
-        mFoundDevice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mRippleBackground.startRippleAnimation();
-                mTextViewTip.setText("正在搜索附近的食堂...");
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        foundDevice();
-                    }
-                },3000);
-            }
-        });
-
+        mListView = (ListView)RootView.findViewById(R.id.listview_diningroom);
+        DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity());
+        mListView.setAdapter(diningRoomListAdapter);
 
         return RootView;
     }
@@ -141,15 +117,4 @@ public class FragmentAll extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-
-    private void foundDevice(){
-
-        mRippleBackground.stopRippleAnimation();
-        mTextViewTip.setText("点击发现附近的食堂");
-
-        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
-        fragmentTransaction.replace(R.id.container,new FragmentDiningRoom()).commit();
-
-    }
 }

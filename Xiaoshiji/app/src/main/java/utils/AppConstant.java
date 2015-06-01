@@ -23,6 +23,10 @@ public class AppConstant {
     public static boolean LOGIN_STATUS=false;
 
     /*
+    6QLBZ-TTKAD-M4M4M-P5GUB-WWULF-OWF2Y
+     */
+
+    /*
     生成沉浸式状态栏
      */
     public static void setStatus(boolean on,Activity context){
