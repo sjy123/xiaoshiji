@@ -49,10 +49,6 @@
             android:layout_height="match_parent"
             android:dividerHeight="8dp"
             android:divider="#f3f3f3"
-<<<<<<< HEAD
-            android:layout_marginBottom="8dp"
-=======
->>>>>>> temp
             android:background="#f3f3f3"
             android:scrollbars="none"
             android:id="@+id/listview_diningroom">

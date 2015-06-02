@@ -27,21 +27,13 @@
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
-<<<<<<< HEAD
-                    android:layout_height="match_parent"
-=======
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
->>>>>>> temp
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textSize="20sp"
                     android:textColor="@color/actionbartitle"
                     android:text="我的"/>
-<<<<<<< HEAD
-            </LinearLayout>
-        </LinearLayout>
-=======
 
             </LinearLayout>
         </LinearLayout>
@@ -84,7 +76,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
-
                         </LinearLayout>
                     <ImageView
                         android:layout_width="16dp"
@@ -104,7 +95,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
-
                     </LinearLayout>
                     </LinearLayout>
                 <LinearLayout
@@ -313,7 +303,6 @@
                 </LinearLayout>
             </LinearLayout>
             </LinearLayout>
->>>>>>> temp
         </LinearLayout>
 
 </FrameLayout>

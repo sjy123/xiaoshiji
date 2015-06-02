@@ -1,14 +1,15 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-<<<<<<< HEAD
-=======
 import android.util.Log;
->>>>>>> temp
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.db.xiaoshiji.R;
-<<<<<<< HEAD
-import com.tencent.tencentmap.mapsdk.map.MapView;
-=======
 import com.tencent.lbssearch.TencentSearch;
 import com.tencent.lbssearch.httpresponse.BaseObject;
 import com.tencent.lbssearch.httpresponse.HttpResponseListener;
@@ -29,7 +27,6 @@ import com.tencent.map.geolocation.TencentLocationListener;
 import com.tencent.tencentmap.mapsdk.map.MapView;
 
 import org.apache.http.Header;
->>>>>>> temp
 
 import adapter.DiningRoomListAdapter;
 
@@ -56,12 +53,9 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
     public Button mBack;
 
     public FragmentTransaction fragmentTransaction;
-<<<<<<< HEAD
-=======
     public TencentSearch tencentSearch;
     public SearchParam.Region region;
     public SearchParam searchParam;
->>>>>>> temp
 
     private OnFragmentInteractionListener mListener;
 
@@ -96,13 +90,12 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
 
-<<<<<<< HEAD
-=======
         /*
         腾讯地图的周边搜索功能，关键词是"食堂"
         采用圆形区域检索,搜索半径为1000m
@@ -132,18 +125,13 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
             }
         });
 
->>>>>>> temp
         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 
         mBack = (Button)RootView.findViewById(R.id.back);
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
-                fragmentTransaction.replace(R.id.container,new FragmentDiningRoom()).commit();
-=======
                 fragmentTransaction.replace(R.id.container,new FragmentAll()).commit();
->>>>>>> temp
             }
         });
 
