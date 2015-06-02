@@ -1,10 +1,6 @@
 package fragment;
 
 import android.app.Activity;
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
 import com.tencent.lbssearch.TencentSearch;
 import com.tencent.lbssearch.httpresponse.BaseObject;
 import com.tencent.lbssearch.httpresponse.HttpResponseListener;
+import com.tencent.lbssearch.object.Location;
 import com.tencent.lbssearch.object.param.SearchParam;
 import com.tencent.lbssearch.object.result.SearchResultObject;
 import com.tencent.map.geolocation.TencentLocation;
@@ -28,7 +26,10 @@ import com.tencent.tencentmap.mapsdk.map.MapView;
 
 import org.apache.http.Header;
 
+import java.util.ArrayList;
+
 import adapter.DiningRoomListAdapter;
+import beans.DiningRoomInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,11 +52,18 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
     public ListView mListView;
     public MapView mMapView;
     public Button mBack;
+    public TextView mCount;
 
     public FragmentTransaction fragmentTransaction;
     public TencentSearch tencentSearch;
     public SearchParam.Region region;
     public SearchParam searchParam;
+    public Location location;
+    public SearchParam.Nearby nearBy;
+    public double latitude;
+    public double longitude;
+
+    public ArrayList<DiningRoomInfo> diningRoomInfos;
 
     private OnFragmentInteractionListener mListener;
 
@@ -97,24 +105,53 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
         View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
 
         /*
+        接受FragmentAll传递过来的经纬度数据
+         */
+        Bundle bundle = getArguments();
+        if (bundle!=null){
+            latitude = bundle.getDouble("lat");
+            longitude = bundle.getDouble("lng");
+
+            Log.v("nmbe",String.valueOf(latitude+" "+longitude));
+        }
+
+        mListView = (ListView)RootView.findViewById(R.id.listview_diningroom);
+        final View mHeadView = inflater.inflate(R.layout.dinindroom_list_head,null);
+        mCount = (TextView)mHeadView.findViewById(R.id.diningroom_count);
+        mMapView = (MapView)mHeadView.findViewById(R.id.mapview);
+        mMapView.onCreate(savedInstanceState);
+        mListView.addHeaderView(mHeadView);
+
+        /*
         腾讯地图的周边搜索功能，关键词是"食堂"
         采用圆形区域检索,搜索半径为1000m
          */
         tencentSearch = new TencentSearch(getActivity());
-        region = new SearchParam.Region().poi("武汉");
-        searchParam = new SearchParam().keyword("食堂").boundary(region);
+        location = new Location().lat((float)latitude).lng((float) longitude);
+        nearBy = new SearchParam.Nearby().point(location);
+        nearBy.r((int)1000f);
+        searchParam = new SearchParam().keyword("华科食堂").boundary(nearBy);
         tencentSearch.search(searchParam,new HttpResponseListener() {
             @Override
             public void onSuccess(int i, Header[] headers, BaseObject baseObject) {
                 if (baseObject!=null){
                     SearchResultObject searchResultObject = (SearchResultObject)baseObject;
                     if (searchResultObject.data!=null){
-                        String result = "搜索武汉地区的食堂poi\n\n";
+                        diningRoomInfos = new ArrayList<DiningRoomInfo>();
                         for(SearchResultObject.SearchResultData data : searchResultObject.data){
-                            Log.v("demo", "title:" + data.address);
-                            result += data.address+"\n";
+                            DiningRoomInfo diningRoomInfo = new DiningRoomInfo();
+                            diningRoomInfo.setTitle(data.title);
+                            diningRoomInfo.setType(data.type);
+                            diningRoomInfo.setAddress(data.address);
+                            diningRoomInfo.setCategory(data.category);
+                            diningRoomInfo.setId(data.id);
+                            diningRoomInfo.setLocation(data.location.lat+" "+data.location.lng);
+                            diningRoomInfo.setPano("暂时没有消息");
+                            diningRoomInfos.add(diningRoomInfo);
                         }
-//                        Log.v("hahah",result);
+                        mCount.setText("一共发现"+String.valueOf(diningRoomInfos.size())+"个食堂");
+                        DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity(),diningRoomInfos);
+                        mListView.setAdapter(diningRoomListAdapter);
                     }
                 }
             }
@@ -135,13 +172,6 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
             }
         });
 
-        mListView = (ListView)RootView.findViewById(R.id.listview_diningroom);
-        View mHeadView = inflater.inflate(R.layout.dinindroom_list_head,null);
-        mMapView = (MapView)mHeadView.findViewById(R.id.mapview);
-        mMapView.onCreate(savedInstanceState);
-        mListView.addHeaderView(mHeadView);
-        DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity());
-        mListView.setAdapter(diningRoomListAdapter);
 
         return RootView;
     }
