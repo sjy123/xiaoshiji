@@ -115,7 +115,7 @@ public class DiningRoomInfo implements Parcelable {
         this.pano = in.readString();
     }
 
-    public static final Parcelable.Creator<DiningRoomInfo> CREATOR = new Parcelable.Creator<DiningRoomInfo>() {
+    public static final Creator<DiningRoomInfo> CREATOR = new Creator<DiningRoomInfo>() {
         public DiningRoomInfo createFromParcel(Parcel source) {
             return new DiningRoomInfo(source);
         }

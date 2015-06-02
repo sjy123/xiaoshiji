@@ -10,7 +10,9 @@ import android.widget.TextView;
 import fragment.FragmentAll;
 import fragment.FragmentDiningRoom;
 import fragment.FragmentFind;
+import fragment.FragmentHelpDetails;
 import fragment.FragmentMy;
+import fragment.FragmentPutForward;
 import utils.AppConstant;
 import view.RippleBackground;
 
@@ -19,7 +21,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                                                 ,FragmentAll.OnFragmentInteractionListener
                                                                 ,FragmentFind.OnFragmentInteractionListener
                                                                 ,FragmentMy.OnFragmentInteractionListener
-                                                                , FragmentDiningRoom.OnFragmentInteractionListener{
+                                                                , FragmentDiningRoom.OnFragmentInteractionListener
+                                                                , FragmentPutForward.OnFragmentInteractionListener
+                                                                , FragmentHelpDetails.OnFragmentInteractionListener{
 
     public TextView mTextViewAll,mTextViewFind,mTextViewMy;
     public FragmentTransaction fragmentTransaction;

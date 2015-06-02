@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,7 +24,10 @@ import com.tencent.lbssearch.object.param.SearchParam;
 import com.tencent.lbssearch.object.result.SearchResultObject;
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
+import com.tencent.mapsdk.raster.model.GeoPoint;
+import com.tencent.mapsdk.raster.model.LatLng;
 import com.tencent.tencentmap.mapsdk.map.MapView;
+import com.tencent.tencentmap.mapsdk.map.OverlayItem;
 
 import org.apache.http.Header;
 
@@ -62,6 +67,10 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
     public SearchParam.Nearby nearBy;
     public double latitude;
     public double longitude;
+    public ArrayList<GeoPoint> geoPoints;
+    public ArrayList<OverlayItem> overlayItems;
+    public Drawable marker;
+    public ArrayList<LatLng> latLngs;
 
     public ArrayList<DiningRoomInfo> diningRoomInfos;
 
@@ -129,6 +138,7 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
         tencentSearch = new TencentSearch(getActivity());
         location = new Location().lat((float)latitude).lng((float) longitude);
         nearBy = new SearchParam.Nearby().point(location);
+        marker = getResources().getDrawable(R.drawable.ic_event_location);
         nearBy.r((int)1000f);
         searchParam = new SearchParam().keyword("华科食堂").boundary(nearBy);
         tencentSearch.search(searchParam,new HttpResponseListener() {
@@ -138,6 +148,9 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                     SearchResultObject searchResultObject = (SearchResultObject)baseObject;
                     if (searchResultObject.data!=null){
                         diningRoomInfos = new ArrayList<DiningRoomInfo>();
+                        latLngs = new ArrayList<LatLng>();
+                        geoPoints = new ArrayList<GeoPoint>();
+                        overlayItems = new ArrayList<OverlayItem>();
                         for(SearchResultObject.SearchResultData data : searchResultObject.data){
                             DiningRoomInfo diningRoomInfo = new DiningRoomInfo();
                             diningRoomInfo.setTitle(data.title);
@@ -145,13 +158,35 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                             diningRoomInfo.setAddress(data.address);
                             diningRoomInfo.setCategory(data.category);
                             diningRoomInfo.setId(data.id);
-                            diningRoomInfo.setLocation(data.location.lat+" "+data.location.lng);
+                            diningRoomInfo.setLocation(data.location.lat + " " + data.location.lng);
                             diningRoomInfo.setPano("暂时没有消息");
+                            GeoPoint geoPoint = new GeoPoint((int)(data.location.lat*1E6),(int)(data.location.lng*1E6));
+                            OverlayItem overlayItem = new OverlayItem(geoPoint,data.title,"",marker);
+                            LatLng latLng = new LatLng(data.location.lat,data.location.lng);
+                            geoPoints.add(geoPoint);
+                            overlayItems.add(overlayItem);
+                            latLngs.add(latLng);
                             diningRoomInfos.add(diningRoomInfo);
                         }
                         mCount.setText("一共发现"+String.valueOf(diningRoomInfos.size())+"个食堂");
                         DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity(),diningRoomInfos);
                         mListView.setAdapter(diningRoomListAdapter);
+
+                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentHelpDetails()).commit();
+                            }
+                        });
+
+                        /*
+                        利用腾讯地图的标注功能对附近的食堂进行标注
+                        */
+                        for (int j=0;j<overlayItems.size();j++){
+                            mMapView.add(overlayItems.get(j));
+                        }
+                        mMapView.refreshMap();
+
                     }
                 }
             }
@@ -161,6 +196,7 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                 Log.v("doubi",s);
             }
         });
+
 
         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 

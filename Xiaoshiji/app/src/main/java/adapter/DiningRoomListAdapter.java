@@ -69,6 +69,7 @@ public class DiningRoomListAdapter extends BaseAdapter {
         viewHolder.name.setText(diningRoomInfos.get(i).getTitle());
         viewHolder.address.setText(diningRoomInfos.get(i).getAddress());
 
+
         return view;
     }
 
