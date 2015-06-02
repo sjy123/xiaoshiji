@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -142,6 +143,17 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
         mListView.addHeaderView(mHeadView);
         DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity());
         mListView.setAdapter(diningRoomListAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+
+                fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("西一食堂",""),"null");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
 
         return RootView;
     }
