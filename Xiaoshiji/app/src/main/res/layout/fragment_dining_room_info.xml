@@ -1,0 +1,161 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent" tools:context="fragment.DiningRoomInfoFragment">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <LinearLayout
+                    android:padding="8dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="192dp">
+                    <ImageView
+                        android:id="@+id/iv_diningImage"
+                        android:background="@drawable/profile2"
+                        android:layout_width="168dp"
+                        android:layout_height="168dp" />
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/textview_name"
+                            android:layout_marginTop="16dp"
+                            android:text="东一食堂"
+                            android:textSize="32sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/background_dark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/textview_location"
+                            android:text="董斌勾搭妹子的地方"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:textColor="@color/actionbar"
+                            android:textSize="24sp"
+                            android:text="4.7分"
+                            android:layout_marginTop="12dp"
+                            android:id="@+id/textview_rank"/>
+                        <LinearLayout
+                            android:layout_marginTop="12dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="我要评价"
+                                android:textSize="16sp"
+                                android:gravity="center"
+                                android:textColor="@android:color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" />
+                            <ImageButton
+                                android:background="@drawable/profile2"
+                                android:layout_marginLeft="16dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+        </LinearLayout>
+        </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TabHost
+                android:layout_marginBottom="8dp"
+                android:layout_above="@+id/bt_lookupDishes"
+                android:id="@+id/tabHost"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TabWidget
+                    android:orientation="horizontal"
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/abc_action_bar_default_height_material"
+                        android:orientation="vertical"
+                        android:id="@+id/view1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/textview_info"
+                            android:text="位于阿斯顿的麻辣隔壁的东一食堂是一座NB的养猪厂，每人流量30000次，都疯了"
+                            android:textColor="@color/content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/abc_action_bar_default_height_material"
+                        android:orientation="vertical"
+                        android:id="@+id/view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ListView
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="8dp"
+                            android:dividerHeight="16dp"
+                            android:divider="@android:color/white"
+                            android:scrollbars="none"
+                            android:id="@+id/listview_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"></ListView>
+                    </LinearLayout>
+                </FrameLayout>
+            </TabHost>
+            <Button
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/bt_lookupDishes"
+                android:layout_gravity="bottom|center"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                android:text="查看菜品"
+                android:textSize="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
