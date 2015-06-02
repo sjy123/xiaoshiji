@@ -1,18 +1,32 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
+import com.tencent.lbssearch.TencentSearch;
+import com.tencent.lbssearch.httpresponse.BaseObject;
+import com.tencent.lbssearch.httpresponse.HttpResponseListener;
+import com.tencent.lbssearch.object.param.SearchParam;
+import com.tencent.lbssearch.object.result.SearchResultObject;
+import com.tencent.map.geolocation.TencentLocation;
+import com.tencent.map.geolocation.TencentLocationListener;
+import com.tencent.tencentmap.mapsdk.map.MapView;
+
+import org.apache.http.Header;
 
 import adapter.DiningRoomListAdapter;
 
@@ -24,7 +38,7 @@ import adapter.DiningRoomListAdapter;
  * Use the {@link FragmentDiningRoom#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentDiningRoom extends Fragment {
+public class FragmentDiningRoom extends Fragment implements TencentLocationListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,6 +49,13 @@ public class FragmentDiningRoom extends Fragment {
     private String mParam2;
 
     public ListView mListView;
+    public MapView mMapView;
+    public Button mBack;
+
+    public FragmentTransaction fragmentTransaction;
+    public TencentSearch tencentSearch;
+    public SearchParam.Region region;
+    public SearchParam searchParam;
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,7 +76,6 @@ public class FragmentDiningRoom extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     public FragmentDiningRoom() {
         // Required empty public constructor
     }
@@ -63,32 +83,65 @@ public class FragmentDiningRoom extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
 
+        /*
+        腾讯地图的周边搜索功能，关键词是"食堂"
+        采用圆形区域检索,搜索半径为1000m
+         */
+        tencentSearch = new TencentSearch(getActivity());
+        region = new SearchParam.Region().poi("武汉");
+        searchParam = new SearchParam().keyword("食堂").boundary(region);
+        tencentSearch.search(searchParam,new HttpResponseListener() {
+            @Override
+            public void onSuccess(int i, Header[] headers, BaseObject baseObject) {
+                if (baseObject!=null){
+                    SearchResultObject searchResultObject = (SearchResultObject)baseObject;
+                    if (searchResultObject.data!=null){
+                        String result = "搜索武汉地区的食堂poi\n\n";
+                        for(SearchResultObject.SearchResultData data : searchResultObject.data){
+                            Log.v("demo", "title:" + data.address);
+                            result += data.address+"\n";
+                        }
+//                        Log.v("hahah",result);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+                Log.v("doubi",s);
+            }
+        });
+
+        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        mBack = (Button)RootView.findViewById(R.id.back);
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction.replace(R.id.container,new FragmentAll()).commit();
+            }
+        });
+
         mListView = (ListView)RootView.findViewById(R.id.listview_diningroom);
-        final DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity());
+        View mHeadView = inflater.inflate(R.layout.dinindroom_list_head,null);
+        mMapView = (MapView)mHeadView.findViewById(R.id.mapview);
+        mMapView.onCreate(savedInstanceState);
+        mListView.addHeaderView(mHeadView);
+        DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity());
         mListView.setAdapter(diningRoomListAdapter);
-        //进入食堂介绍fragment
-       mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-
-               fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("西一食堂",""),"null");
-               fragmentTransaction.addToBackStack(null);
-               fragmentTransaction.commit();
-
-           }
-       });
 
         return RootView;
     }
@@ -115,6 +168,16 @@ public class FragmentDiningRoom extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onLocationChanged(TencentLocation tencentLocation, int i, String s) {
+
+    }
+
+    @Override
+    public void onStatusUpdate(String s, int i, String s2) {
+
     }
 
     /**

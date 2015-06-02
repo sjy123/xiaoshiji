@@ -32,7 +32,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="小食记"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <meta-data
             android:name="TencentMapSDK"

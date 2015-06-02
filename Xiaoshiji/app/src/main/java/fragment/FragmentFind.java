@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
 import com.example.db.xiaoshiji.R;
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ScrollDirectionListener;
 
+import adapter.FindListAdapter;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -27,6 +33,9 @@ public class FragmentFind extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public ListView mListView;
+    public FloatingActionButton floatingActionButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,8 +73,44 @@ public class FragmentFind extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_find, container, false);
+        View RootView = inflater.inflate(R.layout.fragment_fragment_find, container, false);
+
+        floatingActionButton = (FloatingActionButton)RootView.findViewById(R.id.fab);
+
+        mListView = (ListView)RootView.findViewById(R.id.listview_find);
+        FindListAdapter findListAdapter=new FindListAdapter(getActivity());
+        mListView.setAdapter(findListAdapter);
+
+        floatingActionButton.attachToListView(mListView, new ScrollDirectionListener() {
+            @Override
+            public void onScrollDown() {
+                Log.d("ListViewFragment", "onScrollDown()");
+            }
+
+            @Override
+            public void onScrollUp() {
+                Log.d("ListViewFragment", "onScrollUp()");
+            }}, new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.d("ListViewFragment", "onScrollStateChanged()");
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Log.d("ListViewFragment", "onScroll()");
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        return RootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

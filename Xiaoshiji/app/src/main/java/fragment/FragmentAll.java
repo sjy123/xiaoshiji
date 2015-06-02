@@ -1,11 +1,16 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
+import com.tencent.map.geolocation.TencentLocation;
 
 import view.RippleBackground;
 
@@ -37,6 +43,9 @@ public class FragmentAll extends Fragment {
     public ImageView mFoundDevice;
     public RippleBackground mRippleBackground;
     public TextView mTextViewTip;
+
+    public LocationManager locationManager;
+    public Location location;
 
     public FragmentTransaction fragmentTransaction;
 
@@ -79,6 +88,60 @@ public class FragmentAll extends Fragment {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_all,container,false);
 
+        /*
+        利用系统自带的GPS和NetWork来实现定位
+         */
+        locationManager = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(location != null)
+            {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                Log.v("nmb",String.valueOf(latitude+longitude));
+            }
+        }else {
+            LocationListener locationListener = new LocationListener() {
+
+                // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+                // Provider被enable时触发此函数，比如GPS被打开
+                @Override
+                public void onProviderEnabled(String provider) {
+
+                }
+
+                // Provider被disable时触发此函数，比如GPS被关闭
+                @Override
+                public void onProviderDisabled(String provider) {
+
+                }
+
+                //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
+                @Override
+                public void onLocationChanged(Location location) {
+                    if (location != null) {
+                        Log.e("Map", "Location changed : Lat: "
+                                + location.getLatitude() + " Lng: "
+                                + location.getLongitude());
+                    }
+                }
+            };
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1000, 0,locationListener);
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if(location != null)
+            {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                Log.v("nmba",String.valueOf(latitude+longitude));
+            }
+        }
+
+
         mFoundDevice = (ImageView)RootView.findViewById(R.id.founddevice);
         mRippleBackground=(RippleBackground)RootView.findViewById(R.id.content);
         mTextViewTip = (TextView)RootView.findViewById(R.id.textview_tip);
@@ -89,12 +152,17 @@ public class FragmentAll extends Fragment {
             public void onClick(View view) {
                 mRippleBackground.startRippleAnimation();
                 mTextViewTip.setText("正在搜索附近的食堂...");
+                /*
+                创建定位事件，并将地理卫视的数据数据传给FragmentDiningRoom
+                */
+
+
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         foundDevice();
                     }
-                },3000);
+                }, 3000);
             }
         });
 
@@ -125,6 +193,7 @@ public class FragmentAll extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
