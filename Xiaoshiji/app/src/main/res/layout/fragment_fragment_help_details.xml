@@ -105,6 +105,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginLeft="48dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="80dp"
@@ -117,6 +118,7 @@
                     android:textColor="@color/content"
                     android:text="带饭食堂"/>
                 <TextView
+                    android:id="@+id/mealname"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -133,6 +135,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginLeft="48dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="80dp"
@@ -145,6 +148,7 @@
                     android:textColor="@color/content"
                     android:text="求带菜品"/>
                 <TextView
+                    android:id="@+id/mealtype"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -161,6 +165,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginLeft="48dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="80dp"
@@ -173,6 +178,7 @@
                     android:textColor="@color/content"
                     android:text="送饭地点"/>
                 <TextView
+                    android:id="@+id/destination"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -189,6 +195,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginLeft="48dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="80dp"
@@ -201,6 +208,7 @@
                     android:textColor="@color/content"
                     android:text="付款方式"/>
                 <TextView
+                    android:id="@+id/paytype"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -217,6 +225,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginLeft="48dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="80dp"
@@ -229,6 +238,7 @@
                     android:textColor="@color/content"
                     android:text="联系方式"/>
                 <TextView
+                    android:id="@+id/contacttype"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

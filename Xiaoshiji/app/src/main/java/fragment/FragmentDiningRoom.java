@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.db.xiaoshiji.R;
 import com.tencent.lbssearch.TencentSearch;
@@ -136,7 +137,6 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
         mCount = (TextView)mHeadView.findViewById(R.id.diningroom_count);
         mMapView = (MapView)mHeadView.findViewById(R.id.mapview);
         mMapView.onCreate(savedInstanceState);
-
         mListView.addHeaderView(mHeadView);
 
         /*
@@ -180,12 +180,21 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                             diningRoomInfos.add(diningRoomInfo);
                         }
                         mCount.setText("一共发现"+String.valueOf(diningRoomInfos.size())+"个食堂");
-                        DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity(),diningRoomInfos);
-                        mListView.setAdapter(diningRoomListAdapter);
+                        if (diningRoomInfos!=null){
+                            DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity(),diningRoomInfos);
+                            mListView.setAdapter(diningRoomListAdapter);
+                        }else {
+                            Toast.makeText(getActivity(),"没有发现食堂惹~",Toast.LENGTH_SHORT).show();
+                        }
 
                         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("名字","地点"),"");
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+
 
                             }
                         });
@@ -193,7 +202,7 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                         /*
                         利用腾讯地图的标注功能对附近的食堂进行标注
                         */
-                        for (int j=0;j<overlayItems.size();j++){
+                        for (int j=0;j<overlayItems.size()-1;j++){
                             mMapView.add(overlayItems.get(j));
                             mMapView.addMarker(new MarkerOptions()
                                     .position(new LatLng(latLngs.get(j).getLatitude(),latLngs.get(j).getLongitude()))

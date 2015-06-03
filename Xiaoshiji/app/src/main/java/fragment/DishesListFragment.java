@@ -7,44 +7,42 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.db.xiaoshiji.R;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentMy.OnFragmentInteractionListener} interface
+ * {@link DishesListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentMy#newInstance} factory method to
+ * Use the {@link DishesListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentMy extends Fragment {
+public class DishesListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private String diningRoomName;
     private String mParam2;
 
-    public CircleImageView mLogo;
-
     private OnFragmentInteractionListener mListener;
-
+    private ListView listView;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentMy.
+     * @return A new instance of fragment DishesListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentMy newInstance(String param1, String param2) {
-        FragmentMy fragment = new FragmentMy();
+    public static DishesListFragment newInstance(String param1, String param2) {
+        DishesListFragment fragment = new DishesListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -52,7 +50,7 @@ public class FragmentMy extends Fragment {
         return fragment;
     }
 
-    public FragmentMy() {
+    public DishesListFragment() {
         // Required empty public constructor
     }
 
@@ -60,26 +58,19 @@ public class FragmentMy extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            diningRoomName = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+//TODO:
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view =inflater.inflate(R.layout.fragment_dishes_list, container, false);
+        listView = (ListView) view.findViewById(R.id.listview_disheslist);
 
-        View RootView = inflater.inflate(R.layout.fragment_fragment_my, container, false);
-
-        mLogo = (CircleImageView)RootView.findViewById(R.id.person_logo);
-        mLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentAccountInfo()).commit();
-            }
-        });
-
-        return RootView;
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,9 +1,13 @@
 package fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +15,24 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.example.db.xiaoshiji.R;
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ScrollDirectionListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import adapter.FindListAdapter;
+import beans.BringMealInfo;
+import utils.LeanCloudService;
+import view.OverScrollView;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -34,6 +50,8 @@ public class FragmentFind extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public SwipeRefreshLayout mSwipeRefreshLayout;
 
     public ListView mListView;
     public FloatingActionButton floatingActionButton;
@@ -76,11 +94,24 @@ public class FragmentFind extends Fragment {
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_find, container, false);
 
-        floatingActionButton = (FloatingActionButton)RootView.findViewById(R.id.fab);
-
         mListView = (ListView)RootView.findViewById(R.id.listview_find);
-        FindListAdapter findListAdapter=new FindListAdapter(getActivity());
-        mListView.setAdapter(findListAdapter);
+        floatingActionButton = (FloatingActionButton)RootView.findViewById(R.id.fab);
+        mSwipeRefreshLayout=(SwipeRefreshLayout)RootView.findViewById(R.id.find_refreshlayout);
+
+        new RemoteDataTask().execute();
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new RemoteDataTask().execute();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -157,6 +188,54 @@ public class FragmentFind extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    public class RemoteDataTask extends AsyncTask<Void, Void, ArrayList<BringMealInfo>> {
+
+        public AVQuery<AVObject> query;
+        public ArrayList<BringMealInfo> bringMealInfos = new ArrayList<BringMealInfo>();
+
+        @Override
+        protected ArrayList<BringMealInfo> doInBackground(Void... params) {
+
+            bringMealInfos = LeanCloudService.findBringMealInfos();
+
+            return bringMealInfos;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+        @Override
+        protected void onPostExecute(final ArrayList<BringMealInfo> result) {
+
+            if (result!=null){
+                final FindListAdapter findListAdapter=new FindListAdapter(getActivity(),result);
+                mListView.setAdapter(findListAdapter);
+                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        FragmentHelpDetails fragmentHelpDetails = new FragmentHelpDetails();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("mealname",result.get(i).getMealname());
+                        bundle.putString("mealtype",result.get(i).getMealtype());
+                        bundle.putString("paytype",result.get(i).getPaytype());
+                        bundle.putString("contacttype",result.get(i).getContacttype());
+                        bundle.putString("destination",result.get(i).getDestination());
+                        fragmentHelpDetails.setArguments(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).commit();
+
+                    }
+                });
+            }else {
+                Toast.makeText(getActivity(),"没有发现惹~",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

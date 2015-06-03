@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.SaveCallback;
 import com.example.db.xiaoshiji.R;
 
 import beans.BringMealInfo;
+import utils.AppConstant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,7 +82,7 @@ public class FragmentPutForward extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_put_forward, container, false);
 
@@ -102,29 +104,48 @@ public class FragmentPutForward extends Fragment {
         mPutForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 mealname = mMealName.getText().toString();
                 mealtype = mMealType.getText().toString();
                 destination = mDestination.getText().toString();
                 contacttype = mContactType.getText().toString();
                 paytype = mPayType.getText().toString();
 
-                BringMealInfo bringMealInfo = new BringMealInfo();
-                bringMealInfo.setMealname(mealname);
-                bringMealInfo.setMealtype(mealtype);
-                bringMealInfo.setContacttype(contacttype);
-                bringMealInfo.setDestination(destination);
-                bringMealInfo.setPaytype(paytype);
+                if (mealname!=null&&mealtype!=null&&destination!=null&&contacttype!=null&&paytype!=null){
+                    /*
+                    验证手机号
+                     */
+                    if (AppConstant.isMobile(contacttype)){
 
-                bringMealInfo.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(AVException e) {
-                        if (e==null){
-                            Log.v("mlgb","successful");
-                        }else {
-                            Log.v("mmmlegb",e.getMessage());
-                        }
+                        BringMealInfo bringMealInfo = new BringMealInfo();
+                        bringMealInfo.setMealname(mealname);
+                        bringMealInfo.setMealtype(mealtype);
+                        bringMealInfo.setContacttype(contacttype);
+                        bringMealInfo.setDestination(destination);
+                        bringMealInfo.setPaytype(paytype);
+
+                        bringMealInfo.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                if (e==null){
+                                    Toast.makeText(getActivity(),"发布成功惹~",Toast.LENGTH_SHORT).show();
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentFind()).commit();
+                                    Log.v("mlgb","successful");
+                                }else {
+                                    Toast.makeText(getActivity(),"发布失败惹,查看下网络吧~",Toast.LENGTH_SHORT).show();
+                                    Log.v("mmmlegb",e.getMessage());
+                                }
+                            }
+                        });
+
+                    }else {
+                        Toast.makeText(getActivity(),"请输入正确的手机号码!",Toast.LENGTH_SHORT).show();
                     }
-                });
+                }else {
+                    Toast.makeText(getActivity(),"请输入完整的信息!",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 

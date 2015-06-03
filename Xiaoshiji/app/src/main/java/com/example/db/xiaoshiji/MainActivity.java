@@ -7,10 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import fragment.DiningRoomInfoFragment;
+import fragment.DishesListFragment;
+import fragment.FragmentAccountInfo;
 import fragment.FragmentAll;
 import fragment.FragmentDiningRoom;
 import fragment.FragmentFind;
 import fragment.FragmentHelpDetails;
+import fragment.FragmentLogin;
 import fragment.FragmentMy;
 import fragment.FragmentPutForward;
 import utils.AppConstant;
@@ -18,12 +22,16 @@ import view.RippleBackground;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener
-                                                                ,FragmentAll.OnFragmentInteractionListener
-                                                                ,FragmentFind.OnFragmentInteractionListener
-                                                                ,FragmentMy.OnFragmentInteractionListener
+                                                                , FragmentAll.OnFragmentInteractionListener
+                                                                , FragmentFind.OnFragmentInteractionListener
+                                                                , FragmentMy.OnFragmentInteractionListener
                                                                 , FragmentDiningRoom.OnFragmentInteractionListener
+                                                                , DiningRoomInfoFragment.OnFragmentInteractionListener
+                                                                , DishesListFragment.OnFragmentInteractionListener
                                                                 , FragmentPutForward.OnFragmentInteractionListener
-                                                                , FragmentHelpDetails.OnFragmentInteractionListener{
+                                                                , FragmentHelpDetails.OnFragmentInteractionListener
+                                                                , FragmentLogin.OnFragmentInteractionListener
+                                                                , FragmentAccountInfo.OnFragmentInteractionListener{
 
     public TextView mTextViewAll,mTextViewFind,mTextViewMy;
     public FragmentTransaction fragmentTransaction;
