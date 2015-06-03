@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.ListView;
 
 import com.example.db.xiaoshiji.R;
 
-import adapter.DishListAdpater;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +32,6 @@ public class DishesListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private ListView listView;
-    private DishListAdpater listAdpater;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -65,15 +62,13 @@ public class DishesListFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+//TODO:
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_dishes_list, container, false);
         listView = (ListView) view.findViewById(R.id.listview_disheslist);
-        listAdpater=new DishListAdpater();
-        listView.setAdapter(listAdpater);
 
         return view;
     }
