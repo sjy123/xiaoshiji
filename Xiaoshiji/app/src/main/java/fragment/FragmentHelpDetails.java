@@ -7,8 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
+
+import beans.BringMealInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +30,9 @@ public class FragmentHelpDetails extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public TextView mealname,mealtype,contacttype,destination,paytype;
+    public BringMealInfo bringMealInfo;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,6 +72,29 @@ public class FragmentHelpDetails extends Fragment {
                              Bundle savedInstanceState) {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_help_details, container, false);
+
+        bringMealInfo = new BringMealInfo();
+
+        Bundle bundle = this.getArguments();
+        if ((bundle!=null)){
+            bringMealInfo.setMealname(bundle.getString("mealname"));
+            bringMealInfo.setMealtype(bundle.getString("mealtype"));
+            bringMealInfo.setDestination(bundle.getString("destination"));
+            bringMealInfo.setContacttype(bundle.getString("contacttype"));
+            bringMealInfo.setPaytype(bundle.getString("paytype"));
+        }
+
+        mealname = (TextView)RootView.findViewById(R.id.mealname);
+        mealtype = (TextView)RootView.findViewById(R.id.mealtype);
+        destination = (TextView)RootView.findViewById(R.id.destination);
+        paytype = (TextView)RootView.findViewById(R.id.paytype);
+        contacttype = (TextView)RootView.findViewById(R.id.contacttype);
+
+        mealname.setText(bringMealInfo.getMealname());
+        mealtype.setText(bringMealInfo.getMealtype());
+        destination.setText(bringMealInfo.getDestination());
+        paytype.setText(bringMealInfo.getPaytype());
+        contacttype.setText(bringMealInfo.getContacttype());
 
         return RootView;
     }

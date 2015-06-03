@@ -1,13 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
-    android:layout_height="match_parent" tools:context="fragment.DishesListFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-<ListView
-    android:divider="#f3f3f3"
-    android:background="#f3f3f3"
-    android:scrollbars="none"
-    android:id="@+id/listview_disheslist"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"></ListView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_disheslist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</RelativeLayout>

@@ -37,6 +37,8 @@ public class DiningRoomInfoFragment extends Fragment {
     private String diningRoomName;
     private String mParam2;
 
+    public Button mback;
+
     private OnFragmentInteractionListener mListener;
 
     private ListView listView;
@@ -77,6 +79,9 @@ public class DiningRoomInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_dining_room_info, container, false);
+
+        mback = (Button)view.findViewById(R.id.back);
+
         TabHost tabHost= (TabHost) view.findViewById(R.id.tabHost);
         tabHost.setup();
 
@@ -115,6 +120,13 @@ public class DiningRoomInfoFragment extends Fragment {
 //                }
 //            }
 //        });
+        mback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentDiningRoom()).commit();
+            }
+        });
+
         return view;
     }
 

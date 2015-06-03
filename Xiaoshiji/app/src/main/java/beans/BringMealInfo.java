@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVObject;
  */
 @AVClassName(BringMealInfo.BRINGMEALINFO_CLASS)
 public class BringMealInfo extends AVObject{
+
     public static final String BRINGMEALINFO_CLASS="bringmealinfo";
     private String MEALNAME="mealname";
     private String MEALTYPE="mealtype";

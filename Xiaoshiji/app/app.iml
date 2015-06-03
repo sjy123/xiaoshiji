@@ -87,6 +87,7 @@
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="fastjson" level="project" />
+    <orderEntry type="library" exported="" name="recyclerview-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="TencentPanoramaSDKv1.1.0_15232" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="floatingactionbutton-1.2.0" level="project" />
@@ -103,7 +104,6 @@
     <orderEntry type="library" exported="" name="fadingactionbar-abc-3.1.2" level="project" />
     <orderEntry type="library" exported="" name="avossearch-v2.6.9.1" level="project" />
     <orderEntry type="library" exported="" name="circleimageview-1.2.2" level="project" />
-    <orderEntry type="library" exported="" name="recyclerview-v7-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="avoscloud-statistics-v2.7" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.6" level="project" />
     <orderEntry type="library" exported="" name="TencentSearch1.1.1" level="project" />

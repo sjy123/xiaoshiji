@@ -51,6 +51,8 @@
             android:divider="#f3f3f3"
             android:background="#f3f3f3"
             android:scrollbars="none"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:id="@+id/listview_diningroom">
 
         </ListView>

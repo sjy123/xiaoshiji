@@ -12,6 +12,8 @@ import android.view.WindowManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by db on 4/18/15.
@@ -23,6 +25,7 @@ public class AppConstant {
     public static boolean LOGIN_STATUS=false;
 
     /*
+    腾讯地图的APPKEY
     6QLBZ-TTKAD-M4M4M-P5GUB-WWULF-OWF2Y
      */
 
@@ -51,7 +54,6 @@ public class AppConstant {
         Bitmap bitmap=null;
         bitmap= BitmapFactory.decodeFile(cursor.getString(column_index));
 
-
         return bitmap;
 
     }
@@ -66,4 +68,17 @@ public class AppConstant {
         String day=str.substring(8,10);
         return month+"."+day;
     }
+    /*
+    利用正则表达式来验证输入的手机号码是否为合法的格式
+     */
+    public static boolean isMobile(String str) {
+        Pattern p = null;
+        Matcher m = null;
+        boolean b = false;
+        p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$"); // 验证手机号
+        m = p.matcher(str);
+        b = m.matches();
+        return b;
+    }
+
 }
