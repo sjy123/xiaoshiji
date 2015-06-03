@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.SaveCallback;
 import com.example.db.xiaoshiji.R;
+
+import beans.BringMealInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +43,8 @@ public class FragmentPutForward extends Fragment {
 
     public Button mBack,mPutForward;
     public EditText mMealType,mMealName,mDestination,mContactType,mPayType;
+
+    public SaveCallback saveCallback;
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,7 +99,34 @@ public class FragmentPutForward extends Fragment {
             }
         });
 
+        mPutForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mealname = mMealName.getText().toString();
+                mealtype = mMealType.getText().toString();
+                destination = mDestination.getText().toString();
+                contacttype = mContactType.getText().toString();
+                paytype = mPayType.getText().toString();
 
+                BringMealInfo bringMealInfo = new BringMealInfo();
+                bringMealInfo.setMealname(mealname);
+                bringMealInfo.setMealtype(mealtype);
+                bringMealInfo.setContacttype(contacttype);
+                bringMealInfo.setDestination(destination);
+                bringMealInfo.setPaytype(paytype);
+
+                bringMealInfo.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e==null){
+                            Log.v("mlgb","successful");
+                        }else {
+                            Log.v("mmmlegb",e.getMessage());
+                        }
+                    }
+                });
+            }
+        });
 
 
         return RootView;

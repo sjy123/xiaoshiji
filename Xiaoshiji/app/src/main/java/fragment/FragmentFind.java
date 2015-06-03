@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.db.xiaoshiji.R;
@@ -80,6 +81,12 @@ public class FragmentFind extends Fragment {
         mListView = (ListView)RootView.findViewById(R.id.listview_find);
         FindListAdapter findListAdapter=new FindListAdapter(getActivity());
         mListView.setAdapter(findListAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentHelpDetails()).commit();
+            }
+        });
 
         floatingActionButton.attachToListView(mListView, new ScrollDirectionListener() {
             @Override

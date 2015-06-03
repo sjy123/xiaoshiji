@@ -42,8 +42,9 @@
             android:value="6QLBZ-TTKAD-M4M4M-P5GUB-WWULF-OWF2Y"/>
 
         <activity
+            android:icon="@drawable/ic_launcher"
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="小食记" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

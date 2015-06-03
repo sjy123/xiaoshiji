@@ -1,6 +1,8 @@
 package fragment;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,8 +26,10 @@ import com.tencent.lbssearch.object.param.SearchParam;
 import com.tencent.lbssearch.object.result.SearchResultObject;
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
+import com.tencent.mapsdk.raster.model.BitmapDescriptorFactory;
 import com.tencent.mapsdk.raster.model.GeoPoint;
 import com.tencent.mapsdk.raster.model.LatLng;
+import com.tencent.mapsdk.raster.model.MarkerOptions;
 import com.tencent.tencentmap.mapsdk.map.MapView;
 import com.tencent.tencentmap.mapsdk.map.OverlayItem;
 
@@ -71,6 +75,9 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
     public ArrayList<OverlayItem> overlayItems;
     public Drawable marker;
     public ArrayList<LatLng> latLngs;
+    public int iTipTranslateX = 0;
+    public int iTipTranslateY = 0;
+
 
     public ArrayList<DiningRoomInfo> diningRoomInfos;
 
@@ -109,7 +116,7 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
 
@@ -129,6 +136,7 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
         mCount = (TextView)mHeadView.findViewById(R.id.diningroom_count);
         mMapView = (MapView)mHeadView.findViewById(R.id.mapview);
         mMapView.onCreate(savedInstanceState);
+
         mListView.addHeaderView(mHeadView);
 
         /*
@@ -139,6 +147,9 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
         location = new Location().lat((float)latitude).lng((float) longitude);
         nearBy = new SearchParam.Nearby().point(location);
         marker = getResources().getDrawable(R.drawable.ic_event_location);
+        this.iTipTranslateY = marker.getIntrinsicHeight();
+        marker.setBounds(0, 0, marker.getIntrinsicWidth(),
+                marker.getIntrinsicHeight());
         nearBy.r((int)1000f);
         searchParam = new SearchParam().keyword("华科食堂").boundary(nearBy);
         tencentSearch.search(searchParam,new HttpResponseListener() {
@@ -175,7 +186,7 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentHelpDetails()).commit();
+
                             }
                         });
 
@@ -184,8 +195,17 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                         */
                         for (int j=0;j<overlayItems.size();j++){
                             mMapView.add(overlayItems.get(j));
+                            mMapView.addMarker(new MarkerOptions()
+                                    .position(new LatLng(latLngs.get(j).getLatitude(),latLngs.get(j).getLongitude()))
+                                    .title("武汉")
+                                    .anchor(0.5f, 0.5f)
+                                    .icon(BitmapDescriptorFactory
+                                            .defaultMarker())
+                                    .draggable(true));
                         }
+
                         mMapView.refreshMap();
+                        mMapView.invalidate();
 
                     }
                 }
