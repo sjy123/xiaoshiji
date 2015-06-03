@@ -46,6 +46,8 @@ public class FragmentAll extends Fragment {
 
     public LocationManager locationManager;
     public Location location;
+    public double latitude;
+    public double longitude;
 
     public FragmentTransaction fragmentTransaction;
 
@@ -96,9 +98,8 @@ public class FragmentAll extends Fragment {
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if(location != null)
             {
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                Log.v("nmb",String.valueOf(latitude+longitude));
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
             }
         }else {
             LocationListener locationListener = new LocationListener() {
@@ -135,9 +136,8 @@ public class FragmentAll extends Fragment {
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if(location != null)
             {
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                Log.v("nmba",String.valueOf(latitude+longitude));
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
             }
         }
 
@@ -152,11 +152,6 @@ public class FragmentAll extends Fragment {
             public void onClick(View view) {
                 mRippleBackground.startRippleAnimation();
                 mTextViewTip.setText("正在搜索附近的食堂...");
-                /*
-                创建定位事件，并将地理卫视的数据数据传给FragmentDiningRoom
-                */
-
-
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -216,9 +211,19 @@ public class FragmentAll extends Fragment {
         mRippleBackground.stopRippleAnimation();
         mTextViewTip.setText("点击发现附近的食堂");
 
+        /*
+        创建定位事件，并将地理卫视的数据数据传给FragmentDiningRoom
+        */
         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putDouble("lat",latitude);
+        bundle.putDouble("lng",longitude);
+        FragmentDiningRoom fragmentDiningRoom = new FragmentDiningRoom();
+        fragmentDiningRoom.setArguments(bundle);
         fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
-        fragmentTransaction.replace(R.id.container,new FragmentDiningRoom()).commit();
+        fragmentTransaction.replace(R.id.container,fragmentDiningRoom).commit();
+
+        Log.v("nmba",String.valueOf(latitude+" "+longitude));
 
     }
 }

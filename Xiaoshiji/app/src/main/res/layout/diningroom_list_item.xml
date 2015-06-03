@@ -51,7 +51,9 @@
                         android:textSize="18sp"
                         android:textColor="@color/content"
                         android:text="西一学生食堂"
-                        android:id="@+id/textview_name"/>
+                        android:id="@+id/textview_name"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="match_parent"
@@ -76,7 +78,9 @@
                         android:gravity="left|center"
                         android:textSize="13sp"
                         android:textColor="@color/content"
-                        android:text="华科紫崧西操旁"/>
+                        android:text="华科紫崧西操旁"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="match_parent"

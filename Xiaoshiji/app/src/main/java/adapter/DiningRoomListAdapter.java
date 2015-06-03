@@ -11,21 +11,32 @@ import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
 
+import java.util.ArrayList;
+
+import beans.DiningRoomInfo;
+
 /**
  * Created by db on 6/1/15.
  */
 public class DiningRoomListAdapter extends BaseAdapter {
 
     public Context context;
+    public ArrayList<DiningRoomInfo> diningRoomInfos;
 
-    public DiningRoomListAdapter(Context context){
+    public DiningRoomListAdapter(Context context,ArrayList<DiningRoomInfo> diningRoomInfos){
         super();
         this.context = context;
+        this.diningRoomInfos = diningRoomInfos;
     }
 
     @Override
     public int getCount() {
-        return 8;
+        if (diningRoomInfos!=null){
+            return diningRoomInfos.size();
+
+        }else {
+            return 0;
+        }
     }
 
     @Override
@@ -54,6 +65,10 @@ public class DiningRoomListAdapter extends BaseAdapter {
         }else {
             viewHolder=(ViewHolder)view.getTag();
         }
+
+        viewHolder.name.setText(diningRoomInfos.get(i).getTitle());
+        viewHolder.address.setText(diningRoomInfos.get(i).getAddress());
+
 
         return view;
     }
