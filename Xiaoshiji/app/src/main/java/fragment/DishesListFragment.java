@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 
 import adapter.DishesListAdpter;
@@ -36,9 +38,9 @@ public class DishesListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String diningRoomName;
     private String mParam2;
-
+    public static final String TITLE="菜品";
     private OnFragmentInteractionListener mListener;
-    private ListView listView;
+    private Toolbar toolBar;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -80,6 +82,15 @@ public class DishesListFragment extends Fragment {
         DishesListAdpter dishesListAdpter=new DishesListAdpter(getActivity(),imageLib);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setAdapter(dishesListAdpter);
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         return view;
     }
 

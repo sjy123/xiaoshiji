@@ -4,8 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:background="@color/material_orange_900"
+        android:layout_width="match_parent"
+        android:layout_height="25dp">
 
+    </LinearLayout>
 
+    <include
+        layout="@layout/toolbar"></include>
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 import com.tencent.map.geolocation.TencentLocation;
 
@@ -39,6 +41,9 @@ public class FragmentAll extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Toolbar toolBar;
+    public static final String TITLE="发现食堂";
 
     public ImageView mFoundDevice;
     public RippleBackground mRippleBackground;
@@ -89,7 +94,10 @@ public class FragmentAll extends Fragment {
                              Bundle savedInstanceState) {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_all,container,false);
-
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+       
         /*
         利用系统自带的GPS和NetWork来实现定位
          */
@@ -221,7 +229,7 @@ public class FragmentAll extends Fragment {
         FragmentDiningRoom fragmentDiningRoom = new FragmentDiningRoom();
         fragmentDiningRoom.setArguments(bundle);
         fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
-        fragmentTransaction.replace(R.id.container,fragmentDiningRoom).commit();
+        fragmentTransaction.replace(R.id.container,fragmentDiningRoom).addToBackStack(null).commit();
 
         Log.v("nmba",String.valueOf(latitude+" "+longitude));
 

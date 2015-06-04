@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ScrollDirectionListener;
@@ -50,6 +52,9 @@ public class FragmentFind extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Toolbar toolBar;
+    public static final String TITLE="发现";
 
     public SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -93,6 +98,9 @@ public class FragmentFind extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_find, container, false);
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
 
         mListView = (ListView)RootView.findViewById(R.id.listview_find);
         floatingActionButton = (FloatingActionButton)RootView.findViewById(R.id.fab);
@@ -115,7 +123,7 @@ public class FragmentFind extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentHelpDetails()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentHelpDetails()).addToBackStack(null).commit();
             }
         });
 
@@ -144,7 +152,7 @@ public class FragmentFind extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentPutForward()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentPutForward()).addToBackStack(null).commit();
             }
         });
 
@@ -228,7 +236,7 @@ public class FragmentFind extends Fragment {
                         bundle.putString("contacttype",result.get(i).getContacttype());
                         bundle.putString("destination",result.get(i).getDestination());
                         fragmentHelpDetails.setArguments(bundle);
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).addToBackStack(null).commit();
 
                     }
                 });

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.SaveCallback;
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 
 import beans.BringMealInfo;
@@ -32,7 +34,8 @@ public class FragmentPutForward extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private Toolbar toolBar;
+    public static final String TITLE="发布帮助";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -43,7 +46,7 @@ public class FragmentPutForward extends Fragment {
     public String paytype;
     public String contacttype;
 
-    public Button mBack,mPutForward;
+    public Button mPutForward;
     public EditText mMealType,mMealName,mDestination,mContactType,mPayType;
 
     public SaveCallback saveCallback;
@@ -85,8 +88,15 @@ public class FragmentPutForward extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_put_forward, container, false);
-
-        mBack = (Button)RootView.findViewById(R.id.back);
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         mPutForward = (Button)RootView.findViewById(R.id.putforward);
         mMealName = (EditText)RootView.findViewById(R.id.mealname);
         mMealType = (EditText)RootView.findViewById(R.id.mealtype);
@@ -94,12 +104,6 @@ public class FragmentPutForward extends Fragment {
         mContactType = (EditText)RootView.findViewById(R.id.contacttype);
         mPayType = (EditText)RootView.findViewById(R.id.paytype);
 
-        mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentFind()).commit();
-            }
-        });
 
         mPutForward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +133,7 @@ public class FragmentPutForward extends Fragment {
                             public void done(AVException e) {
                                 if (e==null){
                                     Toast.makeText(getActivity(),"发布成功惹~",Toast.LENGTH_SHORT).show();
-                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentFind()).commit();
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentFind()).addToBackStack(null).commit();
                                     Log.v("mlgb","successful");
                                 }else {
                                     Toast.makeText(getActivity(),"发布失败惹,查看下网络吧~",Toast.LENGTH_SHORT).show();

@@ -9,40 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/actionbar"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="32dp">
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/back"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="16dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@drawable/abc_ic_ab_back_mtrl_am_alpha"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
-                android:gravity="left|center"
-                android:textSize="20sp"
-                android:textColor="@color/actionbartitle"
-                android:text="帮助详情"/>
-        </LinearLayout>
-
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -29,7 +31,8 @@ public class FragmentMy extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private Toolbar toolBar;
+    public static final String TITLE="我的";
     public CircleImageView mLogo;
 
     private OnFragmentInteractionListener mListener;
@@ -70,12 +73,15 @@ public class FragmentMy extends Fragment {
                              Bundle savedInstanceState) {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_my, container, false);
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
 
         mLogo = (CircleImageView)RootView.findViewById(R.id.person_logo);
         mLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentAccountInfo()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentAccountInfo()).addToBackStack(null).commit();
             }
         });
 

@@ -1,9 +1,15 @@
 package com.example.db.xiaoshiji;
 
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,7 +26,7 @@ import fragment.FragmentPutForward;
 import utils.AppConstant;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener
+public class MainActivity extends AppCompatActivity implements View.OnClickListener
                                                                 ,FragmentAll.OnFragmentInteractionListener
                                                                 ,FragmentFind.OnFragmentInteractionListener
                                                                 ,FragmentMy.OnFragmentInteractionListener
@@ -34,15 +40,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     public TextView mTextViewAll,mTextViewFind,mTextViewMy;
     public FragmentTransaction fragmentTransaction;
+    public Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        AppConstant.setStatus(true,this);
+        AppConstant.setStatus(true, this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().hide();
 
         init();
 
@@ -58,7 +64,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
 
     public void init(){
-
+        //toolBar init
+        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        toolbar.setTitle("发现食堂");
+        if (Build.VERSION.SDK_INT>=21)
+        toolbar.setElevation(24);
+        setSupportActionBar(toolbar);
         mTextViewAll = (TextView)findViewById(R.id.textview_all);
         mTextViewFind = (TextView)findViewById(R.id.textview_find);
         mTextViewMy = (TextView)findViewById(R.id.textview_my);
@@ -67,7 +78,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mTextViewFind.setOnClickListener(this);
         mTextViewMy.setOnClickListener(this);
     }
-
+    public Toolbar getToolbar(){
+        return toolbar;
+    }
     @Override
     public void onClick(View view) {
 
@@ -90,5 +103,16 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }
