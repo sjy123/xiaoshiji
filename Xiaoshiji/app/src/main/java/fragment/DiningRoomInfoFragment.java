@@ -1,24 +1,19 @@
 package fragment;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TabHost;
-import android.widget.TabWidget;
 
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
-
-import adapter.DiningRoomCommentListAdpter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,11 +32,13 @@ public class DiningRoomInfoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String diningRoomName;
     private String mParam2;
-    private Toolbar toolBar;
+
     private OnFragmentInteractionListener mListener;
     public static final String TITLE="食堂详情";
-    private ListView listView;
-    private DiningRoomCommentListAdpter diningRoomCommentListAdpter;
+
+    private TabLayout tabLayout;
+    private Toolbar toolBar;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -78,6 +75,39 @@ public class DiningRoomInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_dining_room_info, container, false);
+        //设置tabLayout
+        tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
+        tabLayout.addTab(tabLayout.newTab().setText("食堂信息"));
+        tabLayout.addTab(tabLayout.newTab().setText("食堂评价"));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.v("sjy","selected"+tab.getPosition());
+                android.support.v4.app.FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+                if (tab.getPosition()==0)
+                {
+                    fragmentTransaction.replace(R.id.diningroom_container,new DiningRoomInfo_fragmentPos0());
+                    fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
+                    fragmentTransaction.commit();
+                }else{
+                    fragmentTransaction.replace(R.id.diningroom_container,new DiningRoomInfo_fragmentPos1());
+                    fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
+                    fragmentTransaction.commit();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                Log.v("sjy","unselected"+tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                Log.v("sjy","reselected"+tab.getPosition());
+
+            }
+        });
         //设置toolBar
         (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         toolBar=(((MainActivity)getActivity()).getToolbar());
@@ -88,7 +118,11 @@ public class DiningRoomInfoFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-
+        //默认开始fragment是介绍食堂
+        android.support.v4.app.FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.diningroom_container,new DiningRoomInfo_fragmentPos0());
+        fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
+        fragmentTransaction.commit();
 //        TabHost tabHost= (TabHost) view.findViewById(R.id.tabHost);
 //        tabHost.setup();
 //

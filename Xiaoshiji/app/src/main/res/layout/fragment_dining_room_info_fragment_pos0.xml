@@ -1,0 +1,14 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="fragment.DiningRoomInfo_fragmentPos0">
+    <TextView
+        android:id="@+id/textview_info"
+        android:text="位于阿斯顿的麻辣隔壁的东一食堂是一座NB的养猪厂，每人流量30000次，都疯了"
+        android:textColor="@color/content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="10dp"
+        android:textSize="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

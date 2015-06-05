@@ -97,7 +97,7 @@ public class FragmentAll extends Fragment {
         (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         toolBar=(((MainActivity)getActivity()).getToolbar());
         toolBar.setTitle(TITLE);
-       
+        toolBar.setSubtitle(null);
         /*
         利用系统自带的GPS和NetWork来实现定位
          */

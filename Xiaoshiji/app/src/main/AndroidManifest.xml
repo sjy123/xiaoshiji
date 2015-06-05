@@ -35,7 +35,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="小食记"
         android:name="utils.MyApplication"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/AppTheme">
 
         <meta-data
             android:name="TencentMapSDK"

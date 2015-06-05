@@ -4,25 +4,24 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import adapter.DiningRoomCommentListAdpter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentMy.OnFragmentInteractionListener} interface
+ * {@link DiningRoomInfo_fragmentPos1.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentMy#newInstance} factory method to
+ * Use the {@link DiningRoomInfo_fragmentPos1#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentMy extends Fragment {
+public class DiningRoomInfo_fragmentPos1 extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,9 +30,6 @@ public class FragmentMy extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Toolbar toolBar;
-    public static final String TITLE="我的";
-    public CircleImageView mLogo;
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,11 +39,11 @@ public class FragmentMy extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentMy.
+     * @return A new instance of fragment DiningRoomInfo_fragmentPos1.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentMy newInstance(String param1, String param2) {
-        FragmentMy fragment = new FragmentMy();
+    public static DiningRoomInfo_fragmentPos1 newInstance(String param1, String param2) {
+        DiningRoomInfo_fragmentPos1 fragment = new DiningRoomInfo_fragmentPos1();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -55,7 +51,7 @@ public class FragmentMy extends Fragment {
         return fragment;
     }
 
-    public FragmentMy() {
+    public DiningRoomInfo_fragmentPos1() {
         // Required empty public constructor
     }
 
@@ -71,21 +67,12 @@ public class FragmentMy extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View RootView = inflater.inflate(R.layout.fragment_fragment_my, container, false);
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
-        toolBar.setTitle(TITLE);
-        toolBar.setSubtitle(null);
-        mLogo = (CircleImageView)RootView.findViewById(R.id.person_logo);
-        mLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentAccountInfo()).addToBackStack(null).commit();
-            }
-        });
-
-        return RootView;
+        // Inflate the layout for this fragment
+        View view=inflater.inflate(R.layout.fragment_dining_room_info_fragment_pos1, container, false);
+         DiningRoomCommentListAdpter diningRoomCommentListAdpter=new DiningRoomCommentListAdpter();
+        ListView listView= (ListView) view.findViewById(R.id.listview_comment);
+        listView.setAdapter(diningRoomCommentListAdpter);
+        return  view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

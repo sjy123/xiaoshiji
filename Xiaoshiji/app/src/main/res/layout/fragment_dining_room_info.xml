@@ -98,8 +98,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tablayout"
+                app:tabIndicatorColor="@color/material_orange_1000"
+                app:tabTextColor="@color/content"
+                app:tabSelectedTextColor="@color/material_orange_1000"
+                android:layout_below="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/abc_action_bar_default_height_material"
+                ></android.support.design.widget.TabLayout>
             <FrameLayout
+                android:layout_below="@+id/tablayout"
                 android:layout_above="@+id/bt_lookupDishes"
                 android:id="@+id/diningroom_container"
                 android:layout_width="match_parent"
@@ -110,10 +120,10 @@
                 android:id="@+id/bt_lookupDishes"
                 android:layout_gravity="bottom|center"
                 android:layout_marginBottom="8dp"
-                android:background="@null"
+                android:background="@drawable/border_selector"
                 android:text="查看菜品"
                 android:textSize="18dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>

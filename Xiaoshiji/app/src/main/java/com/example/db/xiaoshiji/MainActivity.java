@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import fragment.DiningRoomInfoFragment;
+import fragment.DiningRoomInfo_fragmentPos0;
+import fragment.DiningRoomInfo_fragmentPos1;
+import fragment.DishesDetailFragment;
 import fragment.DishesListFragment;
 import fragment.FragmentAccountInfo;
 import fragment.FragmentAll;
@@ -36,7 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                 , FragmentPutForward.OnFragmentInteractionListener
                                                                 , FragmentHelpDetails.OnFragmentInteractionListener
                                                                 , FragmentLogin.OnFragmentInteractionListener
-                                                                , FragmentAccountInfo.OnFragmentInteractionListener{
+                                                                , FragmentAccountInfo.OnFragmentInteractionListener
+                                                                , DiningRoomInfo_fragmentPos0.OnFragmentInteractionListener
+                                                                , DiningRoomInfo_fragmentPos1.OnFragmentInteractionListener
+                                                                , DishesDetailFragment.OnFragmentInteractionListener{
 
     public TextView mTextViewAll,mTextViewFind,mTextViewMy;
     public FragmentTransaction fragmentTransaction;
@@ -67,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //toolBar init
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle("发现食堂");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.actionbar_title_color));
+        toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
         if (Build.VERSION.SDK_INT>=21)
         toolbar.setElevation(24);
         setSupportActionBar(toolbar);
@@ -114,5 +122,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        toolbar.setSubtitle(null);
+        super.onBackPressed();
     }
 }

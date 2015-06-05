@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:background="@drawable/profile2"
+        android:id="@+id/iv_dish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tv_dishName"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:textSize="32sp"
+            android:text="红烧小猫"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_dishCost"
+            android:layout_alignBottom="@id/tv_dishName"
+            android:layout_alignParentRight="true"
+            android:textSize="24sp"
+            android:text="$2333"
+            android:padding="5dp"
+            android:textColor="@color/material_orange_1000"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/content"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="#comment"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:paddingRight="8dp"
+                android:id="@+id/ll_dishShare"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:background="@drawable/widget_icon_write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_centerVertical="true"
+                android:id="@+id/line1"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@+id/ll_dishShare"
+                android:background="@color/white"
+                android:layout_width="1dp"
+                android:layout_height="20dp"></View>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:id="@+id/ll_dishLike"
+                android:layout_toLeftOf="@+id/line1"
+                android:layout_marginRight="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/widget_icon_write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/content"
+                    android:id="@+id/tv_dishLiKeNum"
+                    android:text="1433"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_centerVertical="true"
+                android:id="@+id/line2"
+                android:layout_marginRight="4dp"
+                android:layout_toLeftOf="@+id/ll_dishLike"
+                android:background="@color/white"
+                android:layout_width="1dp"
+                android:layout_height="20dp"></View>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_centerVertical="true"
+                android:id="@+id/ll_dishComment"
+                android:layout_toLeftOf="@+id/line2"
+                android:layout_marginRight="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/widget_icon_write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_dishCommentNum"
+                    android:text="200"
+                    android:textColor="@color/content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

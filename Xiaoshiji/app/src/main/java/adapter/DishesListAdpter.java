@@ -15,7 +15,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+
+import fragment.DishesDetailFragment;
 
 /**
  * Created by Jay on 15-6-4.
@@ -41,6 +44,14 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
     @Override
     public MyHoler onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(context).inflate(R.layout.dishes_list_item,null);
+        //设置dishesListItem点击进入菜品详情
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.support.v4.app.FragmentTransaction fragmentTransaction=((MainActivity) context).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container,new DishesDetailFragment()).addToBackStack(null).commit();
+            }
+        });
         MyHoler myHoler=new MyHoler(view);
         return myHoler;
     }

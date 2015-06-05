@@ -101,6 +101,7 @@ public class FragmentFind extends Fragment {
         (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         toolBar=(((MainActivity)getActivity()).getToolbar());
         toolBar.setTitle(TITLE);
+        toolBar.setSubtitle(null);
 
         mListView = (ListView)RootView.findViewById(R.id.listview_find);
         floatingActionButton = (FloatingActionButton)RootView.findViewById(R.id.fab);
