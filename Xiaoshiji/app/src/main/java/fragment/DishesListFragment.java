@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+
+import adapter.DishesListAdpter;
 
 
 /**
@@ -25,13 +31,16 @@ public class DishesListFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
+    /**For test;*/
+    int[] imageLib={R.drawable.m1,R.drawable.m2,R.drawable.m3,R.drawable.m4,R.drawable.m5,R.drawable.m7,R.drawable.m8,R.drawable.m9,R.drawable.m10,R.drawable.m11,R.drawable.m12};
 
     // TODO: Rename and change types of parameters
     private String diningRoomName;
     private String mParam2;
-
+    public static final String TITLE="菜品";
     private OnFragmentInteractionListener mListener;
-    private ListView listView;
+    private Toolbar toolBar;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -68,8 +77,20 @@ public class DishesListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_dishes_list, container, false);
-        listView = (ListView) view.findViewById(R.id.listview_disheslist);
-
+        recyclerView= (RecyclerView) view.findViewById(R.id.recycler_disheslist);
+        StaggeredGridLayoutManager staggeredGridLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        DishesListAdpter dishesListAdpter=new DishesListAdpter(getActivity(),imageLib);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        recyclerView.setAdapter(dishesListAdpter);
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         return view;
     }
 

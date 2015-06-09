@@ -2,6 +2,7 @@ package beans;
 
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
 
 /**
  * Created by db on 6/2/15.
@@ -9,12 +10,21 @@ import com.avos.avoscloud.AVObject;
 @AVClassName(BringMealInfo.BRINGMEALINFO_CLASS)
 public class BringMealInfo extends AVObject{
 
-    public static final String BRINGMEALINFO_CLASS="bringmealinfo";
+    public static final String BRINGMEALINFO_CLASS="bminfo";
     private String MEALNAME="mealname";
     private String MEALTYPE="mealtype";
     private String DESTINATION="destination";
     private String PAYTYPE="paytype";
     private String CONTACTTYPE="contacttype";
+    private String AVUSER="avuser";
+
+    public AVUser getAVUser() {
+        return this.getAVUser(AVUSER);
+    }
+
+    public void setAVUser(AVUser avuser) {
+        this.put(AVUSER,avuser);
+    }
 
     public String getMealname() {
         return this.getString(MEALNAME);

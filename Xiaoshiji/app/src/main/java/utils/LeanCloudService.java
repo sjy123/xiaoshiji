@@ -44,7 +44,6 @@ public class LeanCloudService {
             bringMealInfoList = query.find();
         }catch (AVException e){
             Log.e("tag", "Query todos failed.", e);
-            bringMealInfoList = Collections.emptyList();
         }
         return (ArrayList<BringMealInfo>)bringMealInfoList;
     }

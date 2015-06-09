@@ -2,6 +2,7 @@ package adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.GetCallback;
 import com.example.db.xiaoshiji.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import beans.BringMealInfo;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -65,6 +73,18 @@ public class FindListAdapter extends BaseAdapter {
         }else {
             viewHolder=(ViewHolder)view.getTag();
         }
+
+//        AVUser avUser = bringMealInfos.get(bringMealInfos.size()-i-1).getAVUser();
+//        AVQuery<AVUser> query = AVUser.getQuery();
+//        query.whereEqualTo("avuser",avUser);
+//        query.findInBackground(new FindCallback<AVUser>() {
+//            @Override
+//            public void done(List<AVUser> avUsers, AVException e) {
+//                if (e==null){
+//                    Log.v("dbdb",avUsers.get(0).getUsername());
+//                }
+//            }
+//        });
 
         viewHolder.logo.setText(bringMealInfos.get(bringMealInfos.size()-i-1).getMealname());
         viewHolder.name.setText(bringMealInfos.get(bringMealInfos.size()-i-1).getMealtype());

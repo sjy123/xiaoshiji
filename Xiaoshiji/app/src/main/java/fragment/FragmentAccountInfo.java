@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 
 /**
@@ -27,6 +29,8 @@ public class FragmentAccountInfo extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Toolbar toolBar;
+    public static final String TITLE="账户信息";
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,6 +69,15 @@ public class FragmentAccountInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         return inflater.inflate(R.layout.fragment_fragment_account_info, container, false);
     }
 

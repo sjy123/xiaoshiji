@@ -12,14 +12,52 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#f3f3f3">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/actionbar"
+            android:layout_height="48dp"
+            android:layout_marginLeft="32dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="32dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="left|center"
+                android:textColor="@color/content"
+                android:textSize="18sp"
+                android:text="公告栏"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="97dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp"
+            android:background="@drawable/edit"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="32dp">
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_lost"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="32dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/content"
+                    android:text="寻物　Lost"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+                    android:drawableRight="@drawable/tableview_arrow_pressed"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/actionbar">
 
             </LinearLayout>
             <LinearLayout
@@ -27,40 +65,84 @@
                 android:layout_height="48dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_found"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="32dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/content"
+                    android:text="寻物　Found"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:textColor="@color/actionbartitle"
-                    android:text="发现"/>
-
+                    android:gravity="left|center"
+                    android:drawableRight="@drawable/tableview_arrow_pressed"/>
             </LinearLayout>
         </LinearLayout>
-        <android.support.v4.widget.SwipeRefreshLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/find_refreshlayout">
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listview_find"
-            android:dividerHeight="8dp"
-            android:divider="#f3f3f3"
-            android:scrollbars="none">
-
-            </ListView>
-        </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="48dp"
+            android:layout_marginLeft="32dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="32dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="left|center"
+                android:textColor="@color/content"
+                android:textSize="18sp"
+                android:text="推荐"/>
         </LinearLayout>
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@drawable/fab_new_post"
-        fab:fab_colorNormal="@color/white"
-        fab:fab_colorPressed="@color/white_pressed"
-        fab:fab_colorRipple="@color/actionbar" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="97dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp"
+            android:background="@drawable/edit"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_help"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="32dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/content"
+                    android:text="帮助　Help"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+                    android:drawableRight="@drawable/tableview_arrow_pressed"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/actionbar">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="32dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/content"
+                    android:text="约饭　Date"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+                    android:drawableRight="@drawable/tableview_arrow_pressed"/>
+            </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
+
 </FrameLayout>

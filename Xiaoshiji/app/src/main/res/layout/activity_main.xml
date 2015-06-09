@@ -4,8 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:background="@color/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="25dp">
 
+    </LinearLayout>
 
+    <include
+        layout="@layout/toolbar"></include>
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -26,7 +33,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_todo_detail_reminder"
             android:paddingTop="12dp"
-            android:text="所有"
+            android:text="附近"
             android:textColor="@android:color/darker_gray"
             android:textSize="10sp"
             android:layout_gravity="center"

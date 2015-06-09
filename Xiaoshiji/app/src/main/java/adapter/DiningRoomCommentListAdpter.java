@@ -13,7 +13,6 @@ import com.example.db.xiaoshiji.R;
  * Created by Jay on 15-6-1.
  */
 public class DiningRoomCommentListAdpter extends BaseAdapter {
-
     @Override
     public int getCount() {
         return 8;

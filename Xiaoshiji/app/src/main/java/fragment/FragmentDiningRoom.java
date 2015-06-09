@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 import com.tencent.lbssearch.TencentSearch;
 import com.tencent.lbssearch.httpresponse.BaseObject;
@@ -59,9 +61,11 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
     private String mParam1;
     private String mParam2;
 
+    private Toolbar toolBar;
+    public static final String TITLE="所有食堂";
+
     public ListView mListView;
     public MapView mMapView;
-    public Button mBack;
     public TextView mCount;
 
     public FragmentTransaction fragmentTransaction;
@@ -120,7 +124,15 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
-
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         /*
         接受FragmentAll传递过来的经纬度数据
          */
@@ -228,14 +240,6 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
 
 
         fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-        mBack = (Button)RootView.findViewById(R.id.back);
-        mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentTransaction.replace(R.id.container,new FragmentAll()).commit();
-            }
-        });
 
 
         return RootView;

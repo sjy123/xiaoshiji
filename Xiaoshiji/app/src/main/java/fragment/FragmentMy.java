@@ -1,13 +1,19 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -30,7 +36,12 @@ public class FragmentMy extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Toolbar toolBar;
+    public static final String TITLE="我的";
     public CircleImageView mLogo;
+
+    public TextView mPersonalMenu,mPutForward,mSetting,mPersonName;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -71,11 +82,55 @@ public class FragmentMy extends Fragment {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_my, container, false);
 
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setSubtitle(null);
+
+        mPersonalMenu = (TextView)RootView.findViewById(R.id.person_menu);
+        mPutForward = (TextView)RootView.findViewById(R.id.person_notice);
+        mSetting = (TextView)RootView.findViewById(R.id.person_settings);
+        mPersonName = (TextView)RootView.findViewById(R.id.person_name);
+
         mLogo = (CircleImageView)RootView.findViewById(R.id.person_logo);
         mLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentAccountInfo()).commit();
+                AVUser avUser = AVUser.getCurrentUser();
+                if (avUser!=null){
+                    getActivity().getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .replace(R.id.container, new FragmentSignIn())
+                                 .addToBackStack(null)
+                                 .commit();
+                }else {
+                    getActivity().getSupportFragmentManager()
+                                 .beginTransaction()
+                                 .replace(R.id.container, new FragmentSignUp())
+                                 .addToBackStack(null)
+                                 .commit();
+                }
+            }
+        });
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.uniBoys.Xiaoshiji", Context.MODE_PRIVATE);
+        mPersonName.setText(sharedPreferences.getString("NAME","未登录惹~"));
+
+        mPersonalMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mPutForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

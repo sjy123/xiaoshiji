@@ -61,6 +61,7 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_marginRight="8dp"
                             app:border_width="2dp"
                             app:border_color="#fafafa"
                             android:src="@drawable/profile2"
@@ -78,7 +79,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_gravity="center"
                         android:gravity="left|center"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textColor="@color/content"
                         android:text="送至紫崧八栋513"/>
                     <TextView
@@ -87,11 +88,9 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="@color/content"
-                        android:textSize="10sp"
-                        android:paddingRight="12dp"
-                        android:text="了解详情"
-                        android:id="@+id/diningroom_details"
-                        android:drawableRight="@drawable/tableview_arrow_pressed"/>
+                        android:textSize="14sp"
+                        android:text="已经过期"
+                        android:id="@+id/diningroom_details"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

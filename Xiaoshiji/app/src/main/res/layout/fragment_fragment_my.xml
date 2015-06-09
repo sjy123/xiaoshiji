@@ -11,32 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#f3f3f3">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/actionbar"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="32dp">
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:textColor="@color/actionbartitle"
-                    android:text="我的"/>
-
-            </LinearLayout>
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="184dp"
@@ -67,7 +42,7 @@
                 </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="32dp"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -81,9 +56,10 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="center"
+                        android:layout_marginRight="8dp"
                         android:background="@drawable/icon_homepage_gender_male"/>
                     <TextView
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -97,20 +73,7 @@
                         android:layout_weight="1">
                     </LinearLayout>
                     </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        android:textColor="@color/content"
-                        android:text="五星级好人"
-                        android:paddingLeft="28dp"
-                        android:id="@+id/person_comment"/>
-                    </LinearLayout>
+
                 </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -155,7 +118,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -185,7 +148,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -194,14 +157,14 @@
 
                 </LinearLayout>
                 <TextView
-                    android:id="@+id/person_myhelp"
+                    android:id="@+id/person_notice"
                     android:layout_width="130dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="left|center"
                     android:textColor="@color/content"
                     android:textSize="14sp"
-                    android:text="我发布的帮助"
+                    android:text="我发布的公告"
                     android:drawableRight="@drawable/tableview_arrow_pressed"
                     android:background="@drawable/border_selector"
                     android:clickable="true"/>
@@ -212,70 +175,11 @@
 
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/person_collecthelp"
-                    android:layout_width="130dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="left|center"
-                    android:textColor="@color/content"
-                    android:textSize="14sp"
-                    android:text="我采集的帮助"
-                    android:drawableRight="@drawable/tableview_arrow_pressed"
-                    android:background="@drawable/border_selector"
-                    android:clickable="true"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/person_mycomment"
-                    android:layout_width="130dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="left|center"
-                    android:textColor="@color/content"
-                    android:textSize="14sp"
-                    android:text="我的评价"
-                    android:drawableRight="@drawable/tableview_arrow_pressed"
-                    android:background="@drawable/border_selector"
-                    android:clickable="true"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="wrap_content"

@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 
 import beans.BringMealInfo;
@@ -31,6 +33,8 @@ public class FragmentHelpDetails extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Toolbar toolBar;
+    public static final String TITLE="帮助详情";
     public TextView mealname,mealtype,contacttype,destination,paytype;
     public BringMealInfo bringMealInfo;
 
@@ -72,7 +76,15 @@ public class FragmentHelpDetails extends Fragment {
                              Bundle savedInstanceState) {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_help_details, container, false);
-
+        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((MainActivity)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         bringMealInfo = new BringMealInfo();
 
         Bundle bundle = this.getArguments();
