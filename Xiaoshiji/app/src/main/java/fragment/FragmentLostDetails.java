@@ -36,7 +36,7 @@ public class FragmentLostDetails extends Fragment {
     private String mParam2;
 
     private Toolbar toolBar;
-    public static final String TITLE="失物详情";
+    public static final String TITLE="Lost详情";
     public LostInfo lostInfo;
     public TextView mLostName,mLostPlace,mLostDescription,mLostContact,mLostAttach;
 

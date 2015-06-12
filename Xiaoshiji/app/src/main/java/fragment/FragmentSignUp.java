@@ -102,7 +102,7 @@ public class FragmentSignUp extends Fragment {
             public void onClick(View v) {
                 username = mUserName.getText().toString();
                 userpsd = mUserPsd.getText().toString();
-                if (username!=null&&userpsd!=null){
+                if (username.length()!=0&&userpsd.length()!=0){
                     AVUser avUser = new AVUser();
                     avUser.setUsername(username);
                     avUser.setPassword(userpsd);

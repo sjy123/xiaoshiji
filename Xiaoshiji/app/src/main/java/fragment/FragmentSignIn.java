@@ -98,7 +98,7 @@ public class FragmentSignIn extends Fragment {
             public void onClick(View v) {
                 username = mUserName.getText().toString();
                 userpsd = mUserPsd.getText().toString();
-                if (userpsd!=null&&username!=null){
+                if (userpsd.length()!=0&&username.length()!=0){
                     AVUser.logInInBackground(username, userpsd, new LogInCallback<AVUser>() {
                         @Override
                         public void done(AVUser avUser, AVException e) {

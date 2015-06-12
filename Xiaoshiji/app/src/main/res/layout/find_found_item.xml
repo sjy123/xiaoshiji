@@ -33,8 +33,8 @@
                     android:gravity="center"
                     android:textSize="28sp"
                     android:textColor="@color/white_pressed"
-                    android:text="L"
-                    android:background="@drawable/btn_skittle_background"/>
+                    android:text="F"
+                    android:background="@drawable/btn_skittle_blue_background"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                         android:textSize="18sp"
                         android:textColor="@color/content"
                         android:text="西一"
-                        android:id="@+id/lost_address"/>
+                        android:id="@+id/found_address"/>
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="36dp"
@@ -67,14 +67,14 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="2015.06.12"
-                        android:id="@+id/lost_date"/>
+                        android:id="@+id/found_date"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
                     android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/lost_contaent"
+                        android:id="@+id/found_contaent"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -93,10 +93,11 @@
                         android:textSize="11sp"
                         android:paddingRight="12dp"
                         android:text="了解详情"
-                        android:id="@+id/lost_details"
+                        android:id="@+id/found_details"
                         android:drawableRight="@drawable/tableview_arrow_pressed"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
+

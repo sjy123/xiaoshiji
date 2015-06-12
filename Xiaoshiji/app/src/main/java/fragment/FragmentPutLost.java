@@ -23,6 +23,7 @@ import com.example.db.xiaoshiji.activity.ActivityPutLost;
 
 import beans.LostInfo;
 import utils.AppConstant;
+import view.materialedittext.MaterialEditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +44,7 @@ public class FragmentPutLost extends Fragment {
     private String mParam2;
 
     private Toolbar toolBar;
-    public static final String TITLE="发布失物";
+    public static final String TITLE="发布Lost";
 
     public EditText mLostName,mLostPlace,mLostDescription,mLostContact,mLostAttach;
     public Button mSend;

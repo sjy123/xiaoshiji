@@ -54,7 +54,7 @@ public class FragmentLost extends Fragment {
     private String mParam2;
 
     private Toolbar toolBar;
-    public static final String TITLE="失物";
+    public static final String TITLE="Lost";
 
     public SwipeRefreshLayout mSwipeRefreshLayout;
 

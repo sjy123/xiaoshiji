@@ -16,7 +16,7 @@ public class LostInfo extends AVObject{
     public String LOSTDESCRIPTION="lostdescription";
     public String LOSTCONTACT="lostcontact";
     public String LOSTATTACH="lostattach";
-    public String LOstDATE="lostdate";
+    public String LOSTDATE ="lostdate";
 
     public String getLostAttach() {
         return this.getString(LOSTATTACH);
@@ -59,11 +59,11 @@ public class LostInfo extends AVObject{
     }
 
     public void setLostDate(String lostdate){
-        this.put(LOstDATE,lostdate);
+        this.put(LOSTDATE,lostdate);
     }
 
     public String getLostDate(){
-        return this.getString(LOstDATE);
+        return this.getString(LOSTDATE);
     }
 
 }

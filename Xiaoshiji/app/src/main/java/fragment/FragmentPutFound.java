@@ -1,17 +1,29 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.SaveCallback;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityFound;
+import com.example.db.xiaoshiji.activity.ActivityLost;
 import com.example.db.xiaoshiji.activity.ActivityPutFound;
 import com.example.db.xiaoshiji.activity.ActivityPutLost;
+
+import beans.FoundInfo;
+import utils.AppConstant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +44,10 @@ public class FragmentPutFound extends Fragment {
     private String mParam2;
 
     private Toolbar toolBar;
-    public static final String TITLE="发布失物";
+    public static final String TITLE="发布Found";
+    public EditText mFoundName,mFoundPlace,mFoundDescription,mFoundContact,mFoundAttach;
+    public Button mSend;
+    public String foundname,foundplace,founddescription,foundattach,foundcontact;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,6 +94,60 @@ public class FragmentPutFound extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
+            }
+        });
+
+        mFoundName  = (EditText)RootView.findViewById(R.id.found_name);
+        mFoundPlace = (EditText)RootView.findViewById(R.id.found_place);
+        mFoundDescription = (EditText)RootView.findViewById(R.id.found_description);
+        mFoundContact = (EditText)RootView.findViewById(R.id.contacttype);
+        mFoundAttach = (EditText)RootView.findViewById(R.id.found_attach);
+        mSend = (Button)RootView.findViewById(R.id.putforward);
+
+        mSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                foundname = mFoundName.getText().toString();
+                foundplace = mFoundPlace.getText().toString();
+                founddescription = mFoundDescription.getText().toString();
+                foundattach = mFoundAttach.getText().toString();
+                foundcontact = mFoundContact.getText().toString();
+
+                if (foundname!=null&&foundplace!=null&&founddescription!=null&&foundattach!=null&&mFoundContact!=null){
+                    /*
+                    验证手机号
+                     */
+                    if (AppConstant.isMobile(foundcontact)){
+
+                        FoundInfo foundInfo = new FoundInfo();
+                        foundInfo.setFoundName(foundname);
+                        foundInfo.setFoundPlace(foundplace);
+                        foundInfo.setFoundAttach(foundattach);
+                        foundInfo.setFoundContact(foundcontact);
+                        foundInfo.setFoundDescription(founddescription);
+                        foundInfo.setFoundDate(AppConstant.getCurrentTime());
+
+                        foundInfo.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                if (e==null){
+                                    Toast.makeText(getActivity(),"发布成功惹~",Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getActivity(), ActivityFound.class));
+                                    Log.v("mlgb", "successful");
+                                }else {
+                                    Toast.makeText(getActivity(),"发布失败惹,查看下网络吧~",Toast.LENGTH_SHORT).show();
+                                    Log.v("mmmlegb",e.getMessage());
+                                }
+                            }
+                        });
+
+                    }else {
+                        Toast.makeText(getActivity(), "请输入正确的手机号码!", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(getActivity(), "请输入完整的信息!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -21,6 +21,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.example.db.xiaoshiji.R;
 import com.example.db.xiaoshiji.activity.ActivityFound;
+import com.example.db.xiaoshiji.activity.ActivityFoundDetails;
 import com.example.db.xiaoshiji.activity.ActivityLost;
 import com.example.db.xiaoshiji.activity.ActivityPutFound;
 import com.example.db.xiaoshiji.activity.ActivityPutLost;
@@ -30,7 +31,9 @@ import com.melnykov.fab.ScrollDirectionListener;
 import java.util.ArrayList;
 
 import adapter.FindListAdapter;
+import adapter.FoundListAdapter;
 import beans.BringMealInfo;
+import beans.FoundInfo;
 import utils.LeanCloudService;
 
 /**
@@ -52,7 +55,7 @@ public class FragmentFound extends Fragment {
     private String mParam2;
 
     private Toolbar toolBar;
-    public static final String TITLE="寻物";
+    public static final String TITLE="Found";
 
     public SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -113,9 +116,12 @@ public class FragmentFound extends Fragment {
         floatingActionButton = (FloatingActionButton)RootView.findViewById(R.id.fab);
         mSwipeRefreshLayout=(SwipeRefreshLayout)RootView.findViewById(R.id.find_refreshlayout);
 
+        new RemoteDataTask().execute();
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                new RemoteDataTask().execute();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -123,17 +129,6 @@ public class FragmentFound extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container,new FragmentLostDetails())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
 
         floatingActionButton.attachToListView(mListView, new ScrollDirectionListener() {
             @Override
@@ -211,15 +206,15 @@ public class FragmentFound extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    public class RemoteDataTask extends AsyncTask<Void, Void, ArrayList<BringMealInfo>> {
+    public class RemoteDataTask extends AsyncTask<Void, Void, ArrayList<FoundInfo>> {
 
         public AVQuery<AVObject> query;
-        public ArrayList<BringMealInfo> bringMealInfos = new ArrayList<BringMealInfo>();
+        public ArrayList<FoundInfo> bringMealInfos = new ArrayList<FoundInfo>();
 
         @Override
-        protected ArrayList<BringMealInfo> doInBackground(Void... params) {
+        protected ArrayList<FoundInfo> doInBackground(Void... params) {
 
-            bringMealInfos = LeanCloudService.findBringMealInfos();
+            bringMealInfos = LeanCloudService.findFoundInfos();
 
             return bringMealInfos;
         }
@@ -232,25 +227,28 @@ public class FragmentFound extends Fragment {
             super.onProgressUpdate(values);
         }
         @Override
-        protected void onPostExecute(final ArrayList<BringMealInfo> result) {
+        protected void onPostExecute(final ArrayList<FoundInfo> result) {
 
             if (result!=null){
-                final FindListAdapter findListAdapter=new FindListAdapter(getActivity(),result);
-                mListView.setAdapter(findListAdapter);
+                final FoundListAdapter foundListAdapter = new FoundListAdapter(getActivity(),result);
+                mListView.setAdapter(foundListAdapter);
                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        FragmentHelpDetails fragmentHelpDetails = new FragmentHelpDetails();
+//                        FragmentHelpDetails fragmentHelpDetails = new FragmentHelpDetails();
+                        Intent intent = new Intent(getActivity(),ActivityFoundDetails.class);
                         Bundle bundle = new Bundle();
-                        bundle.putString("mealname",result.get(result.size()-i-1).getMealname());
-                        bundle.putString("mealtype",result.get(result.size()-i-1).getMealtype());
-                        bundle.putString("paytype",result.get(result.size()-i-1).getPaytype());
-                        bundle.putString("contacttype",result.get(result.size()-i-1).getContacttype());
-                        bundle.putString("destination",result.get(result.size()-i-1).getDestination());
-                        fragmentHelpDetails.setArguments(bundle);
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).addToBackStack(null).commit();
-
+                        bundle.putString("foundname",result.get(result.size()-i).getFoundName());
+                        bundle.putString("foundplace",result.get(result.size()-i).getFoundPlace());
+                        bundle.putString("foundcontact",result.get(result.size()-i).getFoundContact());
+                        bundle.putString("founddescription",result.get(result.size()-i).getFoundDescription());
+                        bundle.putString("foundattach",result.get(result.size()-i).getFoundAttach());
+                        bundle.putString("founddate",result.get(result.size()-i).getFoundDate());
+//                        fragmentHelpDetails.setArguments(bundle);
+                        intent.putExtras(bundle);
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).addToBackStack(null).commit();
+                        startActivity(intent);
                     }
                 });
             }else {

@@ -4,11 +4,18 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityFoundDetails;
+import com.example.db.xiaoshiji.activity.ActivityLostDetails;
+
+import beans.FoundInfo;
+import beans.LostInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +34,11 @@ public class FragmentFoundDetails extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Toolbar toolBar;
+    public static final String TITLE="Found详情";
+    public FoundInfo foundInfo;
+    public TextView mFoundName,mFoundPlace,mFoundDescription,mFoundContact,mFoundAttach;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,8 +76,44 @@ public class FragmentFoundDetails extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_frament_found_details, container, false);
+        View RootView = inflater.inflate(R.layout.fragment_frament_found_details,container, false);
+
+        (((ActivityFoundDetails)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivityFoundDetails)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        foundInfo = new FoundInfo();
+
+        Bundle bundle = this.getArguments();
+
+        if (bundle!=null){
+            foundInfo.setFoundName(bundle.getString("foundname"));
+            foundInfo.setFoundPlace(bundle.getString("foundplace"));
+            foundInfo.setFoundDate(bundle.getString("founddate"));
+            foundInfo.setFoundAttach(bundle.getString("foundattach"));
+            foundInfo.setFoundContact(bundle.getString("foundcontact"));
+            foundInfo.setFoundDescription(bundle.getString("founddescription"));
+        }
+
+        mFoundName  = (TextView)RootView.findViewById(R.id.found_name);
+        mFoundPlace = (TextView)RootView.findViewById(R.id.found_place);
+        mFoundDescription = (TextView)RootView.findViewById(R.id.found_description);
+        mFoundContact = (TextView)RootView.findViewById(R.id.contacttype);
+        mFoundAttach = (TextView)RootView.findViewById(R.id.found_attach);
+
+        mFoundName.setText(foundInfo.getFoundName());
+        mFoundPlace.setText(foundInfo.getFoundPlace());
+        mFoundDescription.setText(foundInfo.getFoundDescription());
+        mFoundAttach.setText(foundInfo.getFoundAttach());
+        mFoundContact.setText(foundInfo.getFoundContact());
+
+        return RootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

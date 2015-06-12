@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import beans.BringMealInfo;
+import beans.FoundInfo;
 import beans.LostInfo;
 
 /**
@@ -32,6 +33,7 @@ public class LeanCloudService {
         // 注册子类
         AVObject.registerSubclass(BringMealInfo.class);
         AVObject.registerSubclass(LostInfo.class);
+        AVObject.registerSubclass(FoundInfo.class);
     }
     /*
     后台查找BringMealInfo对象
@@ -64,5 +66,21 @@ public class LeanCloudService {
             Log.e("tag1", "Query todos failed.", e);
         }
         return (ArrayList<LostInfo>)lostInfos;
+    }
+    /*
+    后台查找FoundInfo对象
+     */
+    public static ArrayList<FoundInfo> findFoundInfos(){
+
+        AVQuery<FoundInfo> query = AVQuery.getQuery(FoundInfo.class);
+        query.orderByAscending("updateAt");
+        query.limit(1000);
+        List<FoundInfo> foundInfos = new ArrayList<FoundInfo>();
+        try {
+            foundInfos = query.find();
+        }catch (AVException e){
+            Log.e("tag1", "Query todos failed.", e);
+        }
+        return (ArrayList<FoundInfo>)foundInfos;
     }
 }

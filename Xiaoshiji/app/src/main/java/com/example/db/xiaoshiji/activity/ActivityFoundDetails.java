@@ -19,6 +19,7 @@ public class ActivityFoundDetails extends AppCompatActivity implements FragmentF
 
     public FragmentTransaction fragmentTransaction;
     public Toolbar toolbar;
+    public Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +28,18 @@ public class ActivityFoundDetails extends AppCompatActivity implements FragmentF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_found_details);
 
+        bundle = this.getIntent().getExtras();
+
         init();
 
         if (savedInstanceState==null){
             fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
-
-            fragmentTransaction.replace(R.id.container_found_details,new FragmentFoundDetails()).commit();
+            if (bundle!=null){
+                FragmentFoundDetails fragmentFoundDetails = new FragmentFoundDetails();
+                fragmentFoundDetails.setArguments(bundle);
+                fragmentTransaction.replace(R.id.container_found_details,fragmentFoundDetails).commit();
+            }
         }
     }
 
