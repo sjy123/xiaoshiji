@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,9 +34,9 @@ public class AppConstant {
     生成沉浸式状态栏
      */
     public static void setStatus(boolean on,Activity context){
-        Window window=context.getWindow();
+        Window window = context.getWindow();
         WindowManager.LayoutParams layoutParams=window.getAttributes();
-        final int bits=WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         if (on){
             layoutParams.flags |=bits;
         }else {
@@ -47,12 +48,12 @@ public class AppConstant {
     根据Uri来获得图片，并将其转化成Bitmap
      */
     public static Bitmap getBitmap(Uri uri,Context context){
-        String[] protection={MediaStore.Images.Media.DATA};
-        Cursor cursor=context.getContentResolver().query(uri,protection,null,null,null);
-        int column_index=cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        String[] protection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(uri,protection,null,null,null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
-        Bitmap bitmap=null;
-        bitmap= BitmapFactory.decodeFile(cursor.getString(column_index));
+        Bitmap bitmap = null;
+        bitmap = BitmapFactory.decodeFile(cursor.getString(column_index));
 
         return bitmap;
 
@@ -64,9 +65,10 @@ public class AppConstant {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
         String str = formatter.format(curDate);
-        String month=str.substring(5,7);
-        String day=str.substring(8,10);
-        return month+"."+day;
+        String year = str.substring(0,4);
+        String month = str.substring(5,7);
+        String day = str.substring(8,10);
+        return year+"."+month+"."+day;
     }
     /*
     利用正则表达式来验证输入的手机号码是否为合法的格式

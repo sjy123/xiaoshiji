@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityBringMeal;
+import com.example.db.xiaoshiji.activity.ActivityHelpDetails;
+import com.example.db.xiaoshiji.activity.ActivityPutForward;
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ScrollDirectionListener;
 
@@ -93,8 +97,8 @@ public class FragmentBringMeal extends Fragment {
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_bring_meal, container, false);
 
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
+        (((ActivityBringMeal)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivityBringMeal)getActivity()).getToolbar());
         toolBar.setTitle(TITLE);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,17 +127,6 @@ public class FragmentBringMeal extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container,new FragmentHelpDetails())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
         floatingActionButton.attachToListView(mListView, new ScrollDirectionListener() {
             @Override
             public void onScrollDown() {
@@ -159,11 +152,12 @@ public class FragmentBringMeal extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container,new FragmentPutForward())
-                        .addToBackStack(null)
-                        .commit();
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.container,new FragmentPutForward())
+//                        .addToBackStack(null)
+//                        .commit();
+                startActivity(new Intent(getActivity(), ActivityPutForward.class));
             }
         });
 
@@ -239,15 +233,18 @@ public class FragmentBringMeal extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        FragmentHelpDetails fragmentHelpDetails = new FragmentHelpDetails();
+//                        FragmentHelpDetails fragmentHelpDetails = new FragmentHelpDetails();
+                        Intent intent =new Intent(getActivity(),ActivityHelpDetails.class);
                         Bundle bundle = new Bundle();
-                        bundle.putString("mealname",result.get(result.size()-i-1).getMealname());
-                        bundle.putString("mealtype",result.get(result.size()-i-1).getMealtype());
-                        bundle.putString("paytype",result.get(result.size()-i-1).getPaytype());
-                        bundle.putString("contacttype",result.get(result.size()-i-1).getContacttype());
-                        bundle.putString("destination",result.get(result.size()-i-1).getDestination());
-                        fragmentHelpDetails.setArguments(bundle);
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).addToBackStack(null).commit();
+                        bundle.putString("mealname",result.get(result.size()-i).getMealname());
+                        bundle.putString("mealtype",result.get(result.size()-i).getMealtype());
+                        bundle.putString("paytype",result.get(result.size()-i).getPaytype());
+                        bundle.putString("contacttype",result.get(result.size()-i).getContacttype());
+                        bundle.putString("destination",result.get(result.size()-i).getDestination());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+//                        fragmentHelpDetails.setArguments(bundle);
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).addToBackStack(null).commit();
 
                     }
                 });

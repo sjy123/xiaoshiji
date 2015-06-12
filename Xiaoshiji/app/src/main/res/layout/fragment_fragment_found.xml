@@ -1,9 +1,42 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="fragment.FragmentFound">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    tools:context="fragment.FragmentFound">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#f3f3f3">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/find_refreshlayout">
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listview_find"
+                android:dividerHeight="8dp"
+                android:divider="#f3f3f3"
+                android:scrollbars="none">
+
+            </ListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/fab_new_post"
+        fab:fab_colorNormal="@color/white"
+        fab:fab_colorPressed="@color/white_pressed"
+        fab:fab_colorRipple="@color/actionbar" />
+
 
 </FrameLayout>

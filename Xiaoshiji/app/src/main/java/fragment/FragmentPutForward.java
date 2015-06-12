@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityBringMeal;
+import com.example.db.xiaoshiji.activity.ActivityPutForward;
 
 import beans.BringMealInfo;
 import utils.AppConstant;
@@ -89,8 +92,8 @@ public class FragmentPutForward extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_put_forward, container, false);
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
+        (((ActivityPutForward)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivityPutForward)getActivity()).getToolbar());
         toolBar.setTitle(TITLE);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +107,6 @@ public class FragmentPutForward extends Fragment {
         mDestination = (EditText)RootView.findViewById(R.id.destination);
         mContactType = (EditText)RootView.findViewById(R.id.contacttype);
         mPayType = (EditText)RootView.findViewById(R.id.paytype);
-
 
         mPutForward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,16 +131,12 @@ public class FragmentPutForward extends Fragment {
                         bringMealInfo.setDestination(destination);
                         bringMealInfo.setPaytype(paytype);
 
-//                        AVUser avUser = new AVUser();
-//                        avUser.setUsername("小暖");
-//                        bringMealInfo.setAVUser(avUser);
-
                         bringMealInfo.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(AVException e) {
                                 if (e==null){
                                     Toast.makeText(getActivity(),"发布成功惹~",Toast.LENGTH_SHORT).show();
-                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentFind()).addToBackStack(null).commit();
+                                    startActivity(new Intent(getActivity(), ActivityBringMeal.class));
                                     Log.v("mlgb","successful");
                                 }else {
                                     Toast.makeText(getActivity(),"发布失败惹,查看下网络吧~",Toast.LENGTH_SHORT).show();

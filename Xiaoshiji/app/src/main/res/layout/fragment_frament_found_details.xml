@@ -1,8 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="fragment.FragmentLostDetails">
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="fragment.FragmentFoundDetails">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -65,7 +63,7 @@
                             android:gravity="left|center"
                             android:textSize="14sp"
                             android:textColor="@color/content"
-                            android:text="发布的Lost"/>
+                            android:text="发布的帮助"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -83,9 +81,9 @@
                     android:gravity="center"
                     android:textSize="14sp"
                     android:textColor="@color/content"
-                    android:text="遗失地点"/>
+                    android:text="带饭食堂"/>
                 <TextView
-                    android:id="@+id/lost_place"
+                    android:id="@+id/mealname"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -113,9 +111,9 @@
                     android:gravity="center"
                     android:textSize="14sp"
                     android:textColor="@color/content"
-                    android:text="遗失物品"/>
+                    android:text="求带菜品"/>
                 <TextView
-                    android:id="@+id/lost_name"
+                    android:id="@+id/mealtype"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -127,7 +125,7 @@
                     android:textColor="@color/content"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:text="节操"/>
+                    android:text="求带一份卤肉饭"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,9 +141,9 @@
                     android:gravity="center"
                     android:textSize="14sp"
                     android:textColor="@color/content"
-                    android:text="描述"/>
+                    android:text="送饭地点"/>
                 <TextView
-                    android:id="@+id/lost_description"
+                    android:id="@+id/destination"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -157,7 +155,37 @@
                     android:textColor="@color/content"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:text="一不小心就特么丢了"/>
+                    android:text="紫松八栋513"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="48dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/content"
+                    android:text="付款方式"/>
+                <TextView
+                    android:id="@+id/paytype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+                    android:textSize="16sp"
+                    android:textColor="@color/content"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="货到付款"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -188,36 +216,6 @@
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:text="18627804616"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginLeft="48dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:textColor="@color/content"
-                    android:text="备注"/>
-                <TextView
-                    android:id="@+id/lost_attach"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_gravity="center"
-                    android:gravity="left|center"
-                    android:textSize="16sp"
-                    android:textColor="@color/content"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:text="有重谢！"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -259,5 +257,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>

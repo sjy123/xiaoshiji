@@ -10,10 +10,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<view.OverScrollView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1">-->
+        <view.OverScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
 
             <LinearLayout
@@ -40,7 +40,7 @@
                     android:layout_height="36dp"
                     android:orientation="horizontal">
                     <EditText
-                        android:id="@+id/mealname"
+                        android:id="@+id/lost_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit"
@@ -74,7 +74,7 @@
                     android:layout_height="36dp"
                     android:orientation="horizontal">
                     <EditText
-                        android:id="@+id/mealtype"
+                        android:id="@+id/lost_place"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit"
@@ -108,7 +108,7 @@
                     android:layout_height="72dp"
                     android:orientation="horizontal">
                     <EditText
-                        android:id="@+id/destination"
+                        android:id="@+id/lost_description"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit"
@@ -176,7 +176,7 @@
                     android:layout_height="36dp"
                     android:orientation="horizontal">
                     <EditText
-                        android:id="@+id/paytype"
+                        android:id="@+id/lost_attach"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edit"
@@ -217,7 +217,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-        <!--</view.OverScrollView>-->
+        </view.OverScrollView>
 
     </LinearLayout>
 

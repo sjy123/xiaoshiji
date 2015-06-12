@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,13 +21,18 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityLost;
+import com.example.db.xiaoshiji.activity.ActivityLostDetails;
+import com.example.db.xiaoshiji.activity.ActivityPutLost;
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ScrollDirectionListener;
 
 import java.util.ArrayList;
 
 import adapter.FindListAdapter;
+import adapter.LostListAdapter;
 import beans.BringMealInfo;
+import beans.LostInfo;
 import utils.LeanCloudService;
 
 /**
@@ -91,10 +97,10 @@ public class FragmentLost extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View RootView = inflater.inflate(R.layout.fragment_fragment_bring_meal, container, false);
+        View RootView = inflater.inflate(R.layout.fragment_fragment_lost, container, false);
 
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
+        (((ActivityLost)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivityLost)getActivity()).getToolbar());
         toolBar.setTitle(TITLE);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,9 +115,12 @@ public class FragmentLost extends Fragment {
         floatingActionButton = (FloatingActionButton)RootView.findViewById(R.id.fab);
         mSwipeRefreshLayout=(SwipeRefreshLayout)RootView.findViewById(R.id.find_refreshlayout);
 
+        new RemoteDataTask().execute();
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                new RemoteDataTask().execute();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -119,17 +128,6 @@ public class FragmentLost extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container,new FragmentLostDetails())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
 
         floatingActionButton.attachToListView(mListView, new ScrollDirectionListener() {
             @Override
@@ -156,11 +154,12 @@ public class FragmentLost extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container,new FragmentPutLost())
-                        .addToBackStack(null)
-                        .commit();
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.container,new FragmentPutLost())
+//                        .addToBackStack(null)
+//                        .commit();
+                startActivity(new Intent(getActivity(), ActivityPutLost.class));
             }
         });
 
@@ -205,15 +204,15 @@ public class FragmentLost extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-    public class RemoteDataTask extends AsyncTask<Void, Void, ArrayList<BringMealInfo>> {
+    public class RemoteDataTask extends AsyncTask<Void, Void, ArrayList<LostInfo>> {
 
         public AVQuery<AVObject> query;
-        public ArrayList<BringMealInfo> bringMealInfos = new ArrayList<BringMealInfo>();
+        public ArrayList<LostInfo> bringMealInfos = new ArrayList<LostInfo>();
 
         @Override
-        protected ArrayList<BringMealInfo> doInBackground(Void... params) {
+        protected ArrayList<LostInfo> doInBackground(Void... params) {
 
-            bringMealInfos = LeanCloudService.findBringMealInfos();
+            bringMealInfos = LeanCloudService.findLostInfos();
 
             return bringMealInfos;
         }
@@ -226,24 +225,28 @@ public class FragmentLost extends Fragment {
             super.onProgressUpdate(values);
         }
         @Override
-        protected void onPostExecute(final ArrayList<BringMealInfo> result) {
+        protected void onPostExecute(final ArrayList<LostInfo> result) {
 
             if (result!=null){
-                final FindListAdapter findListAdapter=new FindListAdapter(getActivity(),result);
-                mListView.setAdapter(findListAdapter);
+                final LostListAdapter lostListAdapter = new LostListAdapter(getActivity(),result);
+                mListView.setAdapter(lostListAdapter);
                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        FragmentHelpDetails fragmentHelpDetails = new FragmentHelpDetails();
+//                        FragmentHelpDetails fragmentHelpDetails = new FragmentHelpDetails();
+                        Intent intent =new Intent(getActivity(),ActivityLostDetails.class);
                         Bundle bundle = new Bundle();
-                        bundle.putString("mealname",result.get(result.size()-i-1).getMealname());
-                        bundle.putString("mealtype",result.get(result.size()-i-1).getMealtype());
-                        bundle.putString("paytype",result.get(result.size()-i-1).getPaytype());
-                        bundle.putString("contacttype",result.get(result.size()-i-1).getContacttype());
-                        bundle.putString("destination",result.get(result.size()-i-1).getDestination());
-                        fragmentHelpDetails.setArguments(bundle);
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).addToBackStack(null).commit();
+                        bundle.putString("lostname",result.get(result.size()-i).getLostName());
+                        bundle.putString("lostplace",result.get(result.size()-i).getLostPlace());
+                        bundle.putString("lostcontact",result.get(result.size()-i).getLostContact());
+                        bundle.putString("lostdescription",result.get(result.size()-i).getLostDescription());
+                        bundle.putString("lostattach",result.get(result.size()-i).getLostAttach());
+                        bundle.putString("lostdate",result.get(result.size()-i).getLostDate());
+//                        fragmentHelpDetails.setArguments(bundle);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+//                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).addToBackStack(null).commit();
 
                     }
                 });

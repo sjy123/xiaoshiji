@@ -4,28 +4,21 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
-import com.example.db.xiaoshiji.activity.ActivityLostDetails;
-
-import beans.LostInfo;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentLostDetails.OnFragmentInteractionListener} interface
+ * {@link Fragmentfound.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentLostDetails#newInstance} factory method to
+ * Use the {@link Fragmentfound#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentLostDetails extends Fragment {
+public class Fragmentfound extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,11 +28,6 @@ public class FragmentLostDetails extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Toolbar toolBar;
-    public static final String TITLE="失物详情";
-    public LostInfo lostInfo;
-    public TextView mLostName,mLostPlace,mLostDescription,mLostContact,mLostAttach;
-
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -48,11 +36,11 @@ public class FragmentLostDetails extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentLostDetails.
+     * @return A new instance of fragment Fragmentfound.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentLostDetails newInstance(String param1, String param2) {
-        FragmentLostDetails fragment = new FragmentLostDetails();
+    public static Fragmentfound newInstance(String param1, String param2) {
+        Fragmentfound fragment = new Fragmentfound();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,7 +48,7 @@ public class FragmentLostDetails extends Fragment {
         return fragment;
     }
 
-    public FragmentLostDetails() {
+    public Fragmentfound() {
         // Required empty public constructor
     }
 
@@ -76,44 +64,8 @@ public class FragmentLostDetails extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View RootView = inflater.inflate(R.layout.fragment_fragment_lost_details,container, false);
-
-        (((ActivityLostDetails)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolBar=(((ActivityLostDetails)getActivity()).getToolbar());
-        toolBar.setTitle(TITLE);
-        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
-
-        lostInfo = new LostInfo();
-
-        Bundle bundle = this.getArguments();
-
-        if (bundle!=null){
-            lostInfo.setLostName(bundle.getString("lostname"));
-            lostInfo.setLostPlace(bundle.getString("lostplace"));
-            lostInfo.setLostDate(bundle.getString("lostdate"));
-            lostInfo.setLostAttach(bundle.getString("lostattach"));
-            lostInfo.setLostContact(bundle.getString("lostcontact"));
-            lostInfo.setLostDescription(bundle.getString("lostdescription"));
-        }
-
-        mLostName  = (TextView)RootView.findViewById(R.id.lost_name);
-        mLostPlace = (TextView)RootView.findViewById(R.id.lost_place);
-        mLostDescription = (TextView)RootView.findViewById(R.id.lost_description);
-        mLostContact = (TextView)RootView.findViewById(R.id.contacttype);
-        mLostAttach = (TextView)RootView.findViewById(R.id.lost_attach);
-
-        mLostName.setText(lostInfo.getLostName());
-        mLostPlace.setText(lostInfo.getLostPlace());
-        mLostDescription.setText(lostInfo.getLostDescription());
-        mLostAttach.setText(lostInfo.getLostAttach());
-        mLostContact.setText(lostInfo.getLostContact());
-
-        return RootView;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_fragmentfound, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

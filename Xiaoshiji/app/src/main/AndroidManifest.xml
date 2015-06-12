@@ -2,16 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.db.xiaoshiji" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- 通过GPS得到精确位置 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -31,24 +30,60 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name="utils.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="小食记"
-        android:name="utils.MyApplication"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="TencentMapSDK"
-            android:value="6QLBZ-TTKAD-M4M4M-P5GUB-WWULF-OWF2Y"/>
+            android:value="6QLBZ-TTKAD-M4M4M-P5GUB-WWULF-OWF2Y" />
 
         <activity
-            android:icon="@drawable/ic_launcher"
             android:name=".MainActivity"
+            android:icon="@drawable/ic_launcher"
             android:label="小食记" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ActivityPutForward"
+            android:label="@string/title_activity_activity_put_forward" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityBringMeal"
+            android:label="@string/title_activity_activity_bring_meal" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityHelpDetails"
+            android:label="@string/title_activity_activity_help_details" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityPutLost"
+            android:label="@string/title_activity_activity_put_lost" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityLost"
+            android:label="@string/title_activity_activity_lost" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityLostDetails"
+            android:label="@string/title_activity_activity_lost_details" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityFound"
+            android:label="@string/title_activity_activity_found" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityPutFound"
+            android:label="@string/title_activity_activity_put_found" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityFoundDetails"
+            android:label="@string/title_activity_activity_found_details" >
         </activity>
     </application>
 

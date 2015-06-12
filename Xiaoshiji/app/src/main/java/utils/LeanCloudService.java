@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import beans.BringMealInfo;
+import beans.LostInfo;
 
 /**
  * Created by db on 6/2/15.
@@ -30,14 +31,15 @@ public class LeanCloudService {
         AVAnalytics.enableCrashReport(context, true);
         // 注册子类
         AVObject.registerSubclass(BringMealInfo.class);
+        AVObject.registerSubclass(LostInfo.class);
     }
     /*
     后台查找BringMealInfo对象
      */
     public static ArrayList<BringMealInfo> findBringMealInfos(){
 
-        AVQuery<BringMealInfo> query=AVQuery.getQuery(BringMealInfo.class);
-        query.orderByDescending("updateAt");
+        AVQuery<BringMealInfo> query = AVQuery.getQuery(BringMealInfo.class);
+        query.orderByAscending("updateAt");
         query.limit(1000);
         List<BringMealInfo> bringMealInfoList = new ArrayList<BringMealInfo>();
         try {
@@ -46,5 +48,21 @@ public class LeanCloudService {
             Log.e("tag", "Query todos failed.", e);
         }
         return (ArrayList<BringMealInfo>)bringMealInfoList;
+    }
+    /*
+    后台查找LostInfo对象
+     */
+    public static ArrayList<LostInfo> findLostInfos(){
+
+        AVQuery<LostInfo> query = AVQuery.getQuery(LostInfo.class);
+        query.orderByAscending("updateAt");
+        query.limit(1000);
+        List<LostInfo> lostInfos = new ArrayList<LostInfo>();
+        try {
+            lostInfos = query.find();
+        }catch (AVException e){
+            Log.e("tag1", "Query todos failed.", e);
+        }
+        return (ArrayList<LostInfo>)lostInfos;
     }
 }

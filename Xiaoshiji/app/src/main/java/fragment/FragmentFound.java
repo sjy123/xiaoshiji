@@ -1,14 +1,37 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityFound;
+import com.example.db.xiaoshiji.activity.ActivityLost;
+import com.example.db.xiaoshiji.activity.ActivityPutFound;
+import com.example.db.xiaoshiji.activity.ActivityPutLost;
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ScrollDirectionListener;
+
+import java.util.ArrayList;
+
+import adapter.FindListAdapter;
+import beans.BringMealInfo;
+import utils.LeanCloudService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +50,14 @@ public class FragmentFound extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Toolbar toolBar;
+    public static final String TITLE="寻物";
+
+    public SwipeRefreshLayout mSwipeRefreshLayout;
+
+    public ListView mListView;
+    public FloatingActionButton floatingActionButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,8 +95,81 @@ public class FragmentFound extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_found, container, false);
+        View RootView = inflater.inflate(R.layout.fragment_fragment_found, container, false);
+
+        (((ActivityFound)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivityFound)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        mListView = (ListView)RootView.findViewById(R.id.listview_find);
+        View mHeadView = inflater.inflate(R.layout.common_head,null);
+        mListView.addHeaderView(mHeadView);
+        floatingActionButton = (FloatingActionButton)RootView.findViewById(R.id.fab);
+        mSwipeRefreshLayout=(SwipeRefreshLayout)RootView.findViewById(R.id.find_refreshlayout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container,new FragmentLostDetails())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        floatingActionButton.attachToListView(mListView, new ScrollDirectionListener() {
+            @Override
+            public void onScrollDown() {
+                Log.d("ListViewFragment", "onScrollDown()");
+            }
+
+            @Override
+            public void onScrollUp() {
+                Log.d("ListViewFragment", "onScrollUp()");
+            }}, new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.d("ListViewFragment", "onScrollStateChanged()");
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Log.d("ListViewFragment", "onScroll()");
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.container,new FragmentPutLost())
+//                        .addToBackStack(null)
+//                        .commit();
+                startActivity(new Intent(getActivity(), ActivityPutFound.class));
+            }
+        });
+
+        return RootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,6 +209,54 @@ public class FragmentFound extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    public class RemoteDataTask extends AsyncTask<Void, Void, ArrayList<BringMealInfo>> {
+
+        public AVQuery<AVObject> query;
+        public ArrayList<BringMealInfo> bringMealInfos = new ArrayList<BringMealInfo>();
+
+        @Override
+        protected ArrayList<BringMealInfo> doInBackground(Void... params) {
+
+            bringMealInfos = LeanCloudService.findBringMealInfos();
+
+            return bringMealInfos;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+        @Override
+        protected void onPostExecute(final ArrayList<BringMealInfo> result) {
+
+            if (result!=null){
+                final FindListAdapter findListAdapter=new FindListAdapter(getActivity(),result);
+                mListView.setAdapter(findListAdapter);
+                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        FragmentHelpDetails fragmentHelpDetails = new FragmentHelpDetails();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("mealname",result.get(result.size()-i-1).getMealname());
+                        bundle.putString("mealtype",result.get(result.size()-i-1).getMealtype());
+                        bundle.putString("paytype",result.get(result.size()-i-1).getPaytype());
+                        bundle.putString("contacttype",result.get(result.size()-i-1).getContacttype());
+                        bundle.putString("destination",result.get(result.size()-i-1).getDestination());
+                        fragmentHelpDetails.setArguments(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragmentHelpDetails).addToBackStack(null).commit();
+
+                    }
+                });
+            }else {
+                Toast.makeText(getActivity(), "没有发现惹~", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

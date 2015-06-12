@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityHelpDetails;
 
 import beans.BringMealInfo;
 
@@ -76,8 +77,8 @@ public class FragmentHelpDetails extends Fragment {
                              Bundle savedInstanceState) {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_help_details, container, false);
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
+        (((ActivityHelpDetails)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivityHelpDetails)getActivity()).getToolbar());
         toolBar.setTitle(TITLE);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

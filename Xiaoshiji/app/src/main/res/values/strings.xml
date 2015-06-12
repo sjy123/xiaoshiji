@@ -5,5 +5,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_activity_put_forward">ActivityPutForward</string>
+    <string name="title_activity_activity_bring_meal">ActivityBringMeal</string>
+    <string name="title_activity_activity_help_details">ActivityHelpDetails</string>
+    <string name="title_activity_activity_put_lost">ActivityPutLost</string>
+    <string name="title_activity_activity_lost">ActivityLost</string>
+    <string name="title_activity_activity_lost_details">ActivityLostDetails</string>
+    <string name="title_activity_activity_found">ActivityFound</string>
+    <string name="title_activity_activity_put_found">ActivityPutFound</string>
+    <string name="title_activity_activity_found_details">ActivityFoundDetails</string>
 
 </resources>

@@ -54,7 +54,7 @@ public class FindListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return bringMealInfos.size()-i-1;
     }
 
     @Override
