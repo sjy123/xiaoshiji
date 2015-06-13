@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
@@ -38,6 +41,7 @@ public class FragmentHelpDetails extends Fragment {
     public static final String TITLE="帮助详情";
     public TextView mealname,mealtype,contacttype,destination,paytype;
     public BringMealInfo bringMealInfo;
+    public Button mHelp;
 
     private OnFragmentInteractionListener mListener;
 
@@ -103,11 +107,31 @@ public class FragmentHelpDetails extends Fragment {
         paytype = (TextView)RootView.findViewById(R.id.paytype);
         contacttype = (TextView)RootView.findViewById(R.id.contacttype);
 
+        mHelp = (Button)RootView.findViewById(R.id.putforward);
+
         mealname.setText(bringMealInfo.getMealname());
         mealtype.setText(bringMealInfo.getMealtype());
         destination.setText(bringMealInfo.getDestination());
         paytype.setText(bringMealInfo.getPaytype());
         contacttype.setText(bringMealInfo.getContacttype());
+
+        mHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                调用系统自带的拨打电话功能
+                 */
+                if (bringMealInfo.getContacttype()!=null){
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:"+bringMealInfo.getContacttype()));
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getActivity(),"输入的手机号码不能为空惹~",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         return RootView;
     }

@@ -238,20 +238,8 @@
                     android:text="帮助他"
                     android:textSize="14sp"
                     android:background="@drawable/button0_selector"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"></LinearLayout>
-                <Button
-                    android:id="@+id/cancel"
-                    android:layout_width="96dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/white_pressed"
-                    android:text="放弃"
-                    android:textSize="14sp"
-                    android:background="@drawable/button0_selector"/>
+
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

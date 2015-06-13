@@ -14,5 +14,7 @@
     <string name="title_activity_activity_found">ActivityFound</string>
     <string name="title_activity_activity_put_found">ActivityPutFound</string>
     <string name="title_activity_activity_found_details">ActivityFoundDetails</string>
+    <string name="title_activity_activity_sign_in">ActivitySignIn</string>
+    <string name="title_activity_activity_sign_up">ActivitySignUp</string>
 
 </resources>

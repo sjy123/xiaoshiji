@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
@@ -39,6 +42,7 @@ public class FragmentLostDetails extends Fragment {
     public static final String TITLE="Lost详情";
     public LostInfo lostInfo;
     public TextView mLostName,mLostPlace,mLostDescription,mLostContact,mLostAttach;
+    public Button mHelp;
 
     private OnFragmentInteractionListener mListener;
 
@@ -107,11 +111,30 @@ public class FragmentLostDetails extends Fragment {
         mLostContact = (TextView)RootView.findViewById(R.id.contacttype);
         mLostAttach = (TextView)RootView.findViewById(R.id.lost_attach);
 
+        mHelp = (Button)RootView.findViewById(R.id.putforward);
+
         mLostName.setText(lostInfo.getLostName());
         mLostPlace.setText(lostInfo.getLostPlace());
         mLostDescription.setText(lostInfo.getLostDescription());
         mLostAttach.setText(lostInfo.getLostAttach());
         mLostContact.setText(lostInfo.getLostContact());
+
+        mHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                调用系统自带的拨打电话功能
+                 */
+                if (lostInfo.getLostContact()!=null){
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:"+lostInfo.getLostContact()));
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getActivity(), "输入的手机号码不能为空惹~", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         return RootView;
     }

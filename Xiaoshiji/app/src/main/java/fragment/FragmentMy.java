@@ -2,6 +2,7 @@ package fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivitySignIn;
+import com.example.db.xiaoshiji.activity.ActivitySignUp;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -98,17 +101,19 @@ public class FragmentMy extends Fragment {
             public void onClick(View view) {
                 AVUser avUser = AVUser.getCurrentUser();
                 if (avUser!=null){
-                    getActivity().getSupportFragmentManager()
-                                 .beginTransaction()
-                                 .replace(R.id.container, new FragmentSignIn())
-                                 .addToBackStack(null)
-                                 .commit();
+//                    getActivity().getSupportFragmentManager()
+//                                 .beginTransaction()
+//                                 .replace(R.id.container, new FragmentSignIn())
+//                                 .addToBackStack(null)
+//                                 .commit();
+                    startActivity(new Intent(getActivity(), ActivitySignIn.class));
                 }else {
-                    getActivity().getSupportFragmentManager()
-                                 .beginTransaction()
-                                 .replace(R.id.container, new FragmentSignUp())
-                                 .addToBackStack(null)
-                                 .commit();
+//                    getActivity().getSupportFragmentManager()
+//                                 .beginTransaction()
+//                                 .replace(R.id.container, new FragmentSignUp())
+//                                 .addToBackStack(null)
+//                                 .commit();
+                    startActivity(new Intent(getActivity(), ActivitySignUp.class));
                 }
             }
         });

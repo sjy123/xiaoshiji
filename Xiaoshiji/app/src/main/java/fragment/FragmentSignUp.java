@@ -20,6 +20,9 @@ import com.avos.avoscloud.RequestMobileCodeCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityFoundDetails;
+import com.example.db.xiaoshiji.activity.ActivitySignIn;
+import com.example.db.xiaoshiji.activity.ActivitySignUp;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +42,7 @@ public class FragmentSignUp extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Toolbar toolbar;
+    public Toolbar toolBar;
     public static final String TITLE="注册";
 
     public Button mSignUp,mSendCheckCode;
@@ -85,10 +88,15 @@ public class FragmentSignUp extends Fragment {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_sign_up, container, false);
 
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-        toolbar=(((MainActivity)getActivity()).getToolbar());
-        toolbar.setTitle(TITLE);
-        toolbar.setSubtitle(null);
+        (((ActivitySignUp)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivitySignIn)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         mSignUp = (Button)RootView.findViewById(R.id.btn_signup);
         mSendCheckCode = (Button)RootView.findViewById(R.id.acquire_key);

@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.db.xiaoshiji.R;
 import com.example.db.xiaoshiji.activity.ActivityFoundDetails;
@@ -39,6 +42,7 @@ public class FragmentFoundDetails extends Fragment {
     public static final String TITLE="Found详情";
     public FoundInfo foundInfo;
     public TextView mFoundName,mFoundPlace,mFoundDescription,mFoundContact,mFoundAttach;
+    public Button mHelp;
 
     private OnFragmentInteractionListener mListener;
 
@@ -107,11 +111,30 @@ public class FragmentFoundDetails extends Fragment {
         mFoundContact = (TextView)RootView.findViewById(R.id.contacttype);
         mFoundAttach = (TextView)RootView.findViewById(R.id.found_attach);
 
+        mHelp = (Button)RootView.findViewById(R.id.putforward);
+
         mFoundName.setText(foundInfo.getFoundName());
         mFoundPlace.setText(foundInfo.getFoundPlace());
         mFoundDescription.setText(foundInfo.getFoundDescription());
         mFoundAttach.setText(foundInfo.getFoundAttach());
         mFoundContact.setText(foundInfo.getFoundContact());
+
+        mHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                调用系统自带的拨打电话功能
+                 */
+                if (foundInfo.getFoundContact()!=null){
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:"+foundInfo.getFoundContact()));
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getActivity(), "输入的手机号码不能为空惹~", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         return RootView;
     }

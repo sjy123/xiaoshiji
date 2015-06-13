@@ -43,7 +43,7 @@ public class FragmentAll extends Fragment {
     private String mParam2;
 
     private Toolbar toolBar;
-    public static final String TITLE="发现食堂";
+    public static final String TITLE="附近";
 
     public ImageView mFoundDevice;
     public RippleBackground mRippleBackground;

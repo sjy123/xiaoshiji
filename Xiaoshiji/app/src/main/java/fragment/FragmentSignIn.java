@@ -20,6 +20,9 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityFoundDetails;
+import com.example.db.xiaoshiji.activity.ActivitySignIn;
+import com.example.db.xiaoshiji.activity.ActivitySignUp;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +42,7 @@ public class FragmentSignIn extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Toolbar toolbar;
+    public Toolbar toolBar;
     public static final String TITLE="登陆";
 
     public Button mSignIn;
@@ -84,10 +87,15 @@ public class FragmentSignIn extends Fragment {
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_sign_in, container, false);
 
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-        toolbar=(((MainActivity)getActivity()).getToolbar());
-        toolbar.setTitle(TITLE);
-        toolbar.setSubtitle(null);
+        (((ActivitySignIn)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivitySignIn)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         mUserName = (EditText)RootView.findViewById(R.id.user_name);
         mUserPsd = (EditText)RootView.findViewById(R.id.user_psd);
