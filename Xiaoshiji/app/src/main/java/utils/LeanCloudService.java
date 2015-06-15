@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,5 +83,57 @@ public class LeanCloudService {
             Log.e("tag1", "Query todos failed.", e);
         }
         return (ArrayList<FoundInfo>)foundInfos;
+    }
+    /*
+    根据条件查找
+     */
+    public static ArrayList<LostInfo> findLostInfosByRqs(){
+
+        AVQuery<LostInfo> query = AVQuery.getQuery(LostInfo.class);
+        //TODO:这getCurrentUser是null,我先注释掉
+//        query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
+//        query.orderByAscending("updateAt");
+//        query.limit(1000);
+        List<LostInfo> lostInfos = new ArrayList<LostInfo>();
+//        try {
+//            lostInfos = query.find();
+//        }catch (AVException e){
+//            Log.e("tag1", "Query todos failed.", e);
+//        }
+        return (ArrayList<LostInfo>)lostInfos;
+    }
+    /*
+    根据条件查找
+     */
+    public static ArrayList<FoundInfo> findFoundInfosByRqs(){
+
+        AVQuery<FoundInfo> query = AVQuery.getQuery(FoundInfo.class);
+        query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
+        query.orderByAscending("updateAt");
+        query.limit(1000);
+        List<FoundInfo> foundInfos = new ArrayList<FoundInfo>();
+        try {
+            foundInfos = query.find();
+        }catch (AVException e){
+            Log.e("tag1", "Query todos failed.", e);
+        }
+        return (ArrayList<FoundInfo>)foundInfos;
+    }
+    /*
+    根据条件查找
+     */
+    public static ArrayList<BringMealInfo> findBringMealInfosByRqs(){
+
+        AVQuery<BringMealInfo> query = AVQuery.getQuery(BringMealInfo.class);
+        query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
+        query.orderByAscending("updateAt");
+        query.limit(1000);
+        List<BringMealInfo> bringMealInfoList = new ArrayList<BringMealInfo>();
+        try {
+            bringMealInfoList = query.find();
+        }catch (AVException e){
+            Log.e("tag", "Query todos failed.", e);
+        }
+        return (ArrayList<BringMealInfo>)bringMealInfoList;
     }
 }

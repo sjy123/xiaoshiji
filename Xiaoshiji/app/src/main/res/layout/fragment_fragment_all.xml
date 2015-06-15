@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="fragment.FragmentAll"
-    android:background="#f3f3f3"
+    android:background="#ffffff"
     android:id="@+id/content"
     app:rb_color="@color/actionbar"
     app:rb_radius="32dp"
@@ -38,7 +38,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/phone2"
+                android:background="@drawable/phone1"
                 android:id="@+id/founddevice"/>
             <LinearLayout
                 android:layout_width="wrap_content"

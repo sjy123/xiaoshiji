@@ -4,8 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Xiaoshiji.iml" filepath="$PROJECT_DIR$/Xiaoshiji.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/timelytextview/timelytextview.iml" filepath="$PROJECT_DIR$/timelytextview/timelytextview.iml" />
+=======
+>>>>>>> 438ae7611cbcf49b3abe57f4052be207fc778b93
     </modules>
   </component>
 </project>

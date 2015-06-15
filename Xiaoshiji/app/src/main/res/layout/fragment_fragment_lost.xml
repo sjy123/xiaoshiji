@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#f3f3f3">
+        android:background="#ffffff">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/listview_find"
                 android:dividerHeight="8dp"
-                android:divider="#f3f3f3"
+                android:divider="#ffffff"
                 android:scrollbars="none">
 
             </ListView>

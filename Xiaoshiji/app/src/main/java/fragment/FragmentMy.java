@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityMyNotice;
+import com.example.db.xiaoshiji.activity.ActivityPersonMenu;
 import com.example.db.xiaoshiji.activity.ActivitySignIn;
 import com.example.db.xiaoshiji.activity.ActivitySignUp;
 
@@ -85,10 +87,10 @@ public class FragmentMy extends Fragment {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_my, container, false);
 
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
-        toolBar.setTitle(TITLE);
-        toolBar.setSubtitle(null);
+//        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+//        toolBar=(((MainActivity)getActivity()).getToolbar());
+//        toolBar.setTitle(TITLE);
+//        toolBar.setSubtitle(null);
 
         mPersonalMenu = (TextView)RootView.findViewById(R.id.person_menu);
         mPutForward = (TextView)RootView.findViewById(R.id.person_notice);
@@ -118,18 +120,18 @@ public class FragmentMy extends Fragment {
             }
         });
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.uniBoys.Xiaoshiji", Context.MODE_PRIVATE);
-        mPersonName.setText(sharedPreferences.getString("NAME","未登录惹~"));
+        mPersonName.setText(sharedPreferences.getString("NAME","db"));
 
         mPersonalMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), ActivityPersonMenu.class));
             }
         });
         mPutForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), ActivityMyNotice.class));
             }
         });
         mSetting.setOnClickListener(new View.OnClickListener() {

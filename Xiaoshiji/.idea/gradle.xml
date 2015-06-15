@@ -11,8 +11,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+<<<<<<< HEAD
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/timelytextview" />
+=======
+>>>>>>> 438ae7611cbcf49b3abe57f4052be207fc778b93
           </set>
         </option>
       </GradleProjectSettings>

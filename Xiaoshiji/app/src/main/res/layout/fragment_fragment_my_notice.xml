@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="fragment.FragmentMyNotice">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        app:tabIndicatorColor="@color/white_pressed"
+        app:tabTextColor="@color/white_pressed"
+        app:tabSelectedTextColor="@color/white_pressed"
+        android:layout_below="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
+        android:background="@color/actionbar"
+        ></android.support.design.widget.TabLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        android:id="@+id/container_my_notice0">
+
+    </FrameLayout>
+</FrameLayout>

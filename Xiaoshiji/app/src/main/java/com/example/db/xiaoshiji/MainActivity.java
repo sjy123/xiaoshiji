@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -96,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTextViewFind = (TextView)findViewById(R.id.textview_find);
         mTextViewMy = (TextView)findViewById(R.id.textview_my);
 
+        mTextViewAll.setTextColor(this.getResources().getColor(R.color.actionbar));
+
         mTextViewAll.setOnClickListener(this);
         mTextViewFind.setOnClickListener(this);
         mTextViewMy.setOnClickListener(this);
@@ -108,16 +111,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId()){
             case R.id.textview_all:
+
+                mTextViewAll.setTextColor(this.getResources().getColor(R.color.actionbar));
+                mTextViewFind.setTextColor(this.getResources().getColor(R.color.white_pressed));
+                mTextViewMy.setTextColor(this.getResources().getColor(R.color.white_pressed));
+
                 fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.container,new FragmentAll()).commit();
+
                 break;
             case R.id.textview_find:
+
+                mTextViewFind.setTextColor(this.getResources().getColor(R.color.actionbar));
+                mTextViewAll.setTextColor(this.getResources().getColor(R.color.white_pressed));
+                mTextViewMy.setTextColor(this.getResources().getColor(R.color.white_pressed));
+
                 fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.container, new FragmentFind()).commit();
+
                 break;
             case R.id.textview_my:
+
+                mTextViewMy.setTextColor(this.getResources().getColor(R.color.actionbar));
+                mTextViewAll.setTextColor(this.getResources().getColor(R.color.white_pressed));
+                mTextViewFind.setTextColor(this.getResources().getColor(R.color.white_pressed));
+
                 fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.container,new FragmentMy()).commit();
+
                 break;
         }
     }

@@ -20,4 +20,29 @@
     <string name="title_activity_dishes_list">DishesListActivity</string>
     <string name="title_activity_dishes_detail">DishesDetailActivity</string>
 
+
+    <string name="sign_in">Sign in</string>
+
+    <string name="inbox">首页</string>
+    <string name="starred">我的私人菜单</string>
+    <string name="sent_mail">我发布的公告</string>
+    <string name="drafts">离线记录</string>
+    <string name="more_markers">其他</string>
+    <string name="trash">历史记录</string>
+    <string name="spam">FAQ</string>
+    <string name="settings">设置</string>
+
+    <string name="add">Add</string>
+    <string name="search">Search</string>
+
+    <!-- Toast -->
+    <string name="open_user_profile">Open user profile</string>
+    <string name="open_settings">Open settings</string>
+    <!--Navigator-->
+    <string name="clear">""</string><string name="drawer_open">Open drawer navigation</string><string name="drawer_close">Navigation drawer Close</string><string name="header_not_created">Header was not created</string><string name="custom_header_not_created">Custom header was not created</string><string name="start_navigation_listener">You must start the NavigationListener in onInit() method of its main activity. Example: this.setNavigationListener(this);</string><string name="title_null_or_empty">The title can not be null or empty</string><string name="remove_selector_navigation">The option to remove the select is active. Please remove the removeSelectorNavigation method so you can use the setNewSelectorNavigation</string><string name="list_null_or_empty">List of null or empty names. Solution: mListNameItem = null mListNameItem.add (position, R.string.name);</string><string name="value_icon_should_be_0">The value of the icon for a subHeader item should be 0</string><string name="enter_item_name_position">Enter the item name position </string>
+    <string name="title_activity_activity_dining_room_info">ActivityDiningRoomInfo</string>
+    <string name="title_activity_activity_person_menu">ActivityPersonMenu</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_activity_item_dining_room_info">ActivityItemDiningRoomInfo</string>
+    <string name="title_activity_activity_my_notice">ActivityMyNotice</string>
 </resources>

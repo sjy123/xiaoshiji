@@ -23,13 +23,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-                <Button
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="4dp"
-                    android:background="@android:color/white"
+                    android:background="#ffffff"
                     android:paddingLeft="16dp"
                     android:drawableLeft="@drawable/ic_event_attendee"/>
 
@@ -51,14 +51,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-                <Button
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="16dp"
                     android:paddingLeft="16dp"
                     android:layout_marginLeft="4dp"
-                    android:background="@android:color/white"
+                    android:background="#ffffff"
                     android:drawableLeft="@drawable/ic_todo_detail_duetime"/>
 
                 <EditText
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"></LinearLayout>
-                <Button
+                <TextView
                     android:layout_width="96dp"
                     android:layout_height="36dp"
                     android:layout_gravity="center"
@@ -151,7 +151,7 @@
                 android:gravity="center"
                 android:text="注册"
                 android:background="@drawable/border_selector"
-                android:textColor="@color/actionbar"/>
+                android:textColor="@color/white_pressed"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

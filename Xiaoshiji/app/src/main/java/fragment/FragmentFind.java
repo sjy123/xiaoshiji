@@ -101,10 +101,10 @@ public class FragmentFind extends Fragment {
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_find, container, false);
 
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
-        toolBar.setTitle(TITLE);
-        toolBar.setSubtitle(null);
+//        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+//        toolBar=(((MainActivity)getActivity()).getToolbar());
+//        toolBar.setTitle(TITLE);
+//        toolBar.setSubtitle(null);
 
         mLost = (TextView)RootView.findViewById(R.id.tv_lost);
         mFound = (TextView)RootView.findViewById(R.id.tv_found);

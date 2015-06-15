@@ -35,7 +35,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="小食记"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/myTheme" >
         <meta-data
             android:name="TencentMapSDK"
             android:value="6QLBZ-TTKAD-M4M4M-P5GUB-WWULF-OWF2Y" />
@@ -94,6 +94,10 @@
             android:name=".activity.ActivitySignUp"
             android:label="@string/title_activity_activity_sign_up" >
         </activity>
+        <activity android:name="drawer.MainActivity"
+            android:label="小食记"
+            android:theme="@style/nLiveoDrawer"
+            ></activity>
         <activity
             android:name=".activity.DiningRoomInfoActivity"
             android:label="@string/title_activity_dining_room_info" >
@@ -105,7 +109,22 @@
         <activity
             android:name=".activity.DishesDetailActivity"
             android:label="@string/title_activity_dishes_detail" >
+
         </activity>
+        <activity android:name="drawer.SettingsActivity" />
+        <activity
+            android:name=".activity.ActivityDiningRoomInfo"
+            android:label="@string/title_activity_activity_dining_room_info" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityPersonMenu"
+            android:label="@string/title_activity_activity_person_menu" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityMyNotice"
+            android:label="@string/title_activity_activity_my_notice" >
+        </activity>
+
     </application>
 
 </manifest>

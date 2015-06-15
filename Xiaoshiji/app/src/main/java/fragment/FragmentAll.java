@@ -2,6 +2,7 @@ package fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,7 +21,7 @@ import android.widget.TextView;
 
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
-import com.tencent.map.geolocation.TencentLocation;
+import com.example.db.xiaoshiji.activity.ActivityDiningRoomInfo;
 
 import view.RippleBackground;
 
@@ -94,10 +95,11 @@ public class FragmentAll extends Fragment {
                              Bundle savedInstanceState) {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_all,container,false);
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
-        toolBar.setTitle(TITLE);
-        toolBar.setSubtitle(null);
+
+//        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+//        toolBar=(((MainActivity)getActivity()).getToolbar());
+//        toolBar.setTitle(TITLE);
+//        toolBar.setSubtitle(null);
         /*
         利用系统自带的GPS和NetWork来实现定位
          */
@@ -222,14 +224,17 @@ public class FragmentAll extends Fragment {
         /*
         创建定位事件，并将地理卫视的数据数据传给FragmentDiningRoom
         */
-        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
+        Intent intent = new Intent(getActivity(), ActivityDiningRoomInfo.class);
         bundle.putDouble("lat",latitude);
         bundle.putDouble("lng",longitude);
-        FragmentDiningRoom fragmentDiningRoom = new FragmentDiningRoom();
-        fragmentDiningRoom.setArguments(bundle);
-        fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
-        fragmentTransaction.replace(R.id.container,fragmentDiningRoom).addToBackStack(null).commit();
+//        FragmentDiningRoom fragmentDiningRoom = new FragmentDiningRoom();
+//        fragmentDiningRoom.setArguments(bundle);
+//        fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
+//        fragmentTransaction.replace(R.id.container,fragmentDiningRoom).addToBackStack(null).commit();
+        intent.putExtras(bundle);
+        startActivity(intent);
 
         Log.v("nmba",String.valueOf(latitude+" "+longitude));
 
