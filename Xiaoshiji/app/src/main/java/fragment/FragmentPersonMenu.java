@@ -1,36 +1,33 @@
 package fragment;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.avos.avoscloud.AVUser;
-import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityFound;
 import com.example.db.xiaoshiji.activity.ActivityPersonMenu;
-import com.example.db.xiaoshiji.activity.ActivitySignIn;
-import com.example.db.xiaoshiji.activity.ActivitySignUp;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentMy.OnFragmentInteractionListener} interface
+ * {@link FragmentPersonMenu.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentMy#newInstance} factory method to
+ * Use the {@link FragmentPersonMenu#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentMy extends Fragment {
+public class FragmentPersonMenu extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,11 +38,9 @@ public class FragmentMy extends Fragment {
     private String mParam2;
 
     private Toolbar toolBar;
-    public static final String TITLE="我的";
-    public CircleImageView mLogo;
+    public static final String TITLE="我的私人菜单";
 
-    public TextView mPersonalMenu,mPutForward,mSetting,mPersonName;
-
+    private boolean mSearchCheck;
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,11 +50,11 @@ public class FragmentMy extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentMy.
+     * @return A new instance of fragment FragmentPersonMenu.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentMy newInstance(String param1, String param2) {
-        FragmentMy fragment = new FragmentMy();
+    public static FragmentPersonMenu newInstance(String param1, String param2) {
+        FragmentPersonMenu fragment = new FragmentPersonMenu();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,7 +62,7 @@ public class FragmentMy extends Fragment {
         return fragment;
     }
 
-    public FragmentMy() {
+    public FragmentPersonMenu() {
         // Required empty public constructor
     }
 
@@ -84,59 +79,15 @@ public class FragmentMy extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View RootView = inflater.inflate(R.layout.fragment_fragment_my, container, false);
+        View RootView = inflater.inflate(R.layout.fragment_fragment_person_menu, container, false);
 
-//        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-//        toolBar=(((MainActivity)getActivity()).getToolbar());
-//        toolBar.setTitle(TITLE);
-//        toolBar.setSubtitle(null);
-
-        mPersonalMenu = (TextView)RootView.findViewById(R.id.person_menu);
-        mPutForward = (TextView)RootView.findViewById(R.id.person_notice);
-        mSetting = (TextView)RootView.findViewById(R.id.person_settings);
-        mPersonName = (TextView)RootView.findViewById(R.id.person_name);
-
-        mLogo = (CircleImageView)RootView.findViewById(R.id.person_logo);
-        mLogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AVUser avUser = AVUser.getCurrentUser();
-                if (avUser!=null){
-//                    getActivity().getSupportFragmentManager()
-//                                 .beginTransaction()
-//                                 .replace(R.id.container, new FragmentSignIn())
-//                                 .addToBackStack(null)
-//                                 .commit();
-                    startActivity(new Intent(getActivity(), ActivitySignIn.class));
-                }else {
-//                    getActivity().getSupportFragmentManager()
-//                                 .beginTransaction()
-//                                 .replace(R.id.container, new FragmentSignUp())
-//                                 .addToBackStack(null)
-//                                 .commit();
-                    startActivity(new Intent(getActivity(), ActivitySignUp.class));
-                }
-            }
-        });
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.uniBoys.Xiaoshiji", Context.MODE_PRIVATE);
-        mPersonName.setText(sharedPreferences.getString("NAME","db"));
-
-        mPersonalMenu.setOnClickListener(new View.OnClickListener() {
+        (((ActivityPersonMenu)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivityPersonMenu)getActivity()).getToolbar());
+        toolBar.setTitle(TITLE);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ActivityPersonMenu.class));
-            }
-        });
-        mPutForward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        mSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+                getActivity().onBackPressed();
             }
         });
 
@@ -181,5 +132,58 @@ public class FragmentMy extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Auto-generated method stub
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu, menu);
 
+        //Select search item
+        final MenuItem menuItem = menu.findItem(R.id.menu_search);
+        menuItem.setVisible(true);
+
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint(this.getString(R.string.search));
+
+        ((EditText) searchView.findViewById(R.id.search_src_text))
+                .setHintTextColor(getResources().getColor(R.color.nliveo_white));
+        searchView.setOnQueryTextListener(onQuerySearchView);
+
+        menu.findItem(R.id.menu_add).setVisible(true);
+
+        mSearchCheck = false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+
+        switch (item.getItemId()) {
+
+            case R.id.menu_add:
+                Toast.makeText(getActivity(), R.string.add, Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.menu_search:
+                mSearchCheck = true;
+                Toast.makeText(getActivity(), R.string.search, Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
+    }
+
+    private SearchView.OnQueryTextListener onQuerySearchView = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String s) {
+            if (mSearchCheck){
+                // implement your search here
+            }
+            return false;
+        }
+    };
 }

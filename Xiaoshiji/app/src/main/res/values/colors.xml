@@ -2,7 +2,7 @@
 <resources>
     <color name="actionbar">#f3c145</color>
     <color name="actionbartitle">#ffffff</color>
-    <!--<color name="rippelColor">#f3c145</color>-->
+    <color name="rippelColor">#f3c145</color>
     <color name="content">#4c4c4c</color>
     <!--//floatingactionbutton  #fe595f-->
     <color name="black_semi_transparent">#B2000000</color>

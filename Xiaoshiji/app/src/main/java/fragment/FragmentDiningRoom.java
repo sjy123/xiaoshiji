@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -210,11 +211,11 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("名字","地点"),"");
-                                fragmentTransaction.addToBackStack(null);
-                                fragmentTransaction.commit();
-
+//                                FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+//                                fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("名字","地点"),"");
+//                                fragmentTransaction.addToBackStack(null);
+//                                fragmentTransaction.commit();
+                            startActivity(new Intent(getActivity(),ActivityDiningRoomInfo.class));
 
                             }
                         });

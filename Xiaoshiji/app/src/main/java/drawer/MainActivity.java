@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityPersonMenu;
 import com.example.db.xiaoshiji.activity.ActivitySignIn;
 import com.example.db.xiaoshiji.activity.ActivitySignUp;
 
@@ -157,13 +158,13 @@ public class MainActivity extends NavigationLiveo implements  NavigationLiveoLis
     @Override
     public void onItemClickNavigation(int position, int layoutContainerId) {
 
-        FragmentManager mFragmentManager = getSupportFragmentManager();
+            FragmentManager mFragmentManager = getSupportFragmentManager();
 
-        Fragment mFragment = new FragmentMain().newInstance(mListNameItem.get(position));
+            Fragment mFragment = new FragmentMain().newInstance(mListNameItem.get(position));
 
-        if (mFragment != null){
-            mFragmentManager.beginTransaction().replace(layoutContainerId, mFragment).commit();
-        }
+            if (mFragment != null){
+                mFragmentManager.beginTransaction().replace(layoutContainerId, mFragment).commit();
+            }
     }
 
     @Override

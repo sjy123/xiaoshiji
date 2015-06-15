@@ -1,11 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<view.RippleBackground xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="fragment.FragmentAll"
     android:background="#ffffff"
-    android:id="@+id/content">
+    android:id="@+id/content"
+    app:rb_color="@color/actionbar"
+    app:rb_radius="32dp"
+    app:rb_rippleAmount="6"
+    app:rb_duration="3000"
+    app:rb_scale="6">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -60,5 +65,5 @@
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</view.RippleBackground>
 

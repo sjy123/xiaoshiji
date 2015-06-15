@@ -23,6 +23,8 @@ import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 import com.example.db.xiaoshiji.activity.ActivityDiningRoomInfo;
 
+import view.RippleBackground;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -45,7 +47,7 @@ public class FragmentAll extends Fragment {
     public static final String TITLE="附近";
 
     public ImageView mFoundDevice;
-//    public RippleBackground mRippleBackground;
+    public RippleBackground mRippleBackground;
     public TextView mTextViewTip;
 
     public LocationManager locationManager;
@@ -151,14 +153,14 @@ public class FragmentAll extends Fragment {
 
 
         mFoundDevice = (ImageView)RootView.findViewById(R.id.founddevice);
-//        mRippleBackground=(RippleBackground)RootView.findViewById(R.id.content);
+        mRippleBackground=(RippleBackground)RootView.findViewById(R.id.content);
         mTextViewTip = (TextView)RootView.findViewById(R.id.textview_tip);
 
         final Handler handler=new Handler();
         mFoundDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mRippleBackground.startRippleAnimation();
+                mRippleBackground.startRippleAnimation();
                 mTextViewTip.setText("正在搜索附近的食堂...");
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -216,7 +218,7 @@ public class FragmentAll extends Fragment {
 
     private void foundDevice(){
 
-//        mRippleBackground.stopRippleAnimation();
+        mRippleBackground.stopRippleAnimation();
         mTextViewTip.setText("点击发现附近的食堂");
 
         /*
