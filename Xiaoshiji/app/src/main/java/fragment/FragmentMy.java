@@ -85,10 +85,10 @@ public class FragmentMy extends Fragment {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_my, container, false);
 
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
-        toolBar.setTitle(TITLE);
-        toolBar.setSubtitle(null);
+//        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+//        toolBar=(((MainActivity)getActivity()).getToolbar());
+//        toolBar.setTitle(TITLE);
+//        toolBar.setSubtitle(null);
 
         mPersonalMenu = (TextView)RootView.findViewById(R.id.person_menu);
         mPutForward = (TextView)RootView.findViewById(R.id.person_notice);
@@ -118,7 +118,7 @@ public class FragmentMy extends Fragment {
             }
         });
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.uniBoys.Xiaoshiji", Context.MODE_PRIVATE);
-        mPersonName.setText(sharedPreferences.getString("NAME","未登录惹~"));
+        mPersonName.setText(sharedPreferences.getString("NAME","db"));
 
         mPersonalMenu.setOnClickListener(new View.OnClickListener() {
             @Override

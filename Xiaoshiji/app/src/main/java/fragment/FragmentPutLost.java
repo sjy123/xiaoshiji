@@ -23,7 +23,6 @@ import com.example.db.xiaoshiji.activity.ActivityPutLost;
 
 import beans.LostInfo;
 import utils.AppConstant;
-import view.materialedittext.MaterialEditText;
 
 /**
  * A simple {@link Fragment} subclass.

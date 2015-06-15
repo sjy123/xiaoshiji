@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal"
-        android:background="#f3f3f3">
+        android:background="@drawable/bkg">
         <TextView
             android:id="@+id/textview_all"
             android:layout_width="wrap_content"

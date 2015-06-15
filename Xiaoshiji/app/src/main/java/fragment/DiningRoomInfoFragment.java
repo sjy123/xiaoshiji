@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,7 +87,7 @@ public class DiningRoomInfoFragment extends Fragment {
                 android.support.v4.app.FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
                 if (tab.getPosition()==0)
                 {
-                    fragmentTransaction.replace(R.id.diningroom_container,new DiningRoomInfo_fragmentPos0());
+                    fragmentTransaction.replace(R.id.diningroom_container, new DiningRoomInfo_fragmentPos0());
                     fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
                     fragmentTransaction.commit();
                 }else{

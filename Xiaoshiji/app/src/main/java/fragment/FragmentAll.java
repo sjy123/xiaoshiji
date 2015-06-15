@@ -2,6 +2,7 @@ package fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,9 +21,7 @@ import android.widget.TextView;
 
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
-import com.tencent.map.geolocation.TencentLocation;
-
-import view.RippleBackground;
+import com.example.db.xiaoshiji.activity.ActivityDiningRoomInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +45,7 @@ public class FragmentAll extends Fragment {
     public static final String TITLE="附近";
 
     public ImageView mFoundDevice;
-    public RippleBackground mRippleBackground;
+//    public RippleBackground mRippleBackground;
     public TextView mTextViewTip;
 
     public LocationManager locationManager;
@@ -94,10 +93,11 @@ public class FragmentAll extends Fragment {
                              Bundle savedInstanceState) {
 
         View RootView = inflater.inflate(R.layout.fragment_fragment_all,container,false);
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
-        toolBar.setTitle(TITLE);
-        toolBar.setSubtitle(null);
+
+//        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+//        toolBar=(((MainActivity)getActivity()).getToolbar());
+//        toolBar.setTitle(TITLE);
+//        toolBar.setSubtitle(null);
         /*
         利用系统自带的GPS和NetWork来实现定位
          */
@@ -151,14 +151,14 @@ public class FragmentAll extends Fragment {
 
 
         mFoundDevice = (ImageView)RootView.findViewById(R.id.founddevice);
-        mRippleBackground=(RippleBackground)RootView.findViewById(R.id.content);
+//        mRippleBackground=(RippleBackground)RootView.findViewById(R.id.content);
         mTextViewTip = (TextView)RootView.findViewById(R.id.textview_tip);
 
         final Handler handler=new Handler();
         mFoundDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mRippleBackground.startRippleAnimation();
+//                mRippleBackground.startRippleAnimation();
                 mTextViewTip.setText("正在搜索附近的食堂...");
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -216,20 +216,23 @@ public class FragmentAll extends Fragment {
 
     private void foundDevice(){
 
-        mRippleBackground.stopRippleAnimation();
+//        mRippleBackground.stopRippleAnimation();
         mTextViewTip.setText("点击发现附近的食堂");
 
         /*
         创建定位事件，并将地理卫视的数据数据传给FragmentDiningRoom
         */
-        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
+        Intent intent = new Intent(getActivity(), ActivityDiningRoomInfo.class);
         bundle.putDouble("lat",latitude);
         bundle.putDouble("lng",longitude);
-        FragmentDiningRoom fragmentDiningRoom = new FragmentDiningRoom();
-        fragmentDiningRoom.setArguments(bundle);
-        fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
-        fragmentTransaction.replace(R.id.container,fragmentDiningRoom).addToBackStack(null).commit();
+//        FragmentDiningRoom fragmentDiningRoom = new FragmentDiningRoom();
+//        fragmentDiningRoom.setArguments(bundle);
+//        fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
+//        fragmentTransaction.replace(R.id.container,fragmentDiningRoom).addToBackStack(null).commit();
+        intent.putExtras(bundle);
+        startActivity(intent);
 
         Log.v("nmba",String.valueOf(latitude+" "+longitude));
 

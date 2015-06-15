@@ -8,19 +8,25 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityDiningRoomInfo;
 import com.tencent.lbssearch.TencentSearch;
 import com.tencent.lbssearch.httpresponse.BaseObject;
 import com.tencent.lbssearch.httpresponse.HttpResponseListener;
@@ -62,7 +68,9 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
     private String mParam2;
 
     private Toolbar toolBar;
-    public static final String TITLE="所有食堂";
+    public static final String TITLE="附近的食堂";
+
+    private boolean mSearchCheck;
 
     public ListView mListView;
     public MapView mMapView;
@@ -124,8 +132,8 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_fragment_dining_room,container,false);
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
+        (((ActivityDiningRoomInfo)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((ActivityDiningRoomInfo)getActivity()).getToolbar());
         toolBar.setTitle(TITLE);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -293,5 +301,58 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Auto-generated method stub
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu, menu);
 
+        //Select search item
+        final MenuItem menuItem = menu.findItem(R.id.menu_search);
+        menuItem.setVisible(true);
+
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint(this.getString(R.string.search));
+
+        ((EditText) searchView.findViewById(R.id.search_src_text))
+                .setHintTextColor(getResources().getColor(R.color.nliveo_white));
+        searchView.setOnQueryTextListener(onQuerySearchView);
+
+        menu.findItem(R.id.menu_add).setVisible(true);
+
+        mSearchCheck = false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+
+        switch (item.getItemId()) {
+
+            case R.id.menu_add:
+                Toast.makeText(getActivity(), R.string.add, Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.menu_search:
+                mSearchCheck = true;
+                Toast.makeText(getActivity(), R.string.search, Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
+    }
+
+    private SearchView.OnQueryTextListener onQuerySearchView = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String s) {
+            if (mSearchCheck){
+                // implement your search here
+            }
+            return false;
+        }
+    };
 }
