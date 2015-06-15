@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/actionbar_title_color"
+    tools:context="com.example.db.xiaoshiji.activity.DishesListActivity">
+    <LinearLayout
+        android:background="@color/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="25dp">
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/toolbar"></include>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_disheslist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

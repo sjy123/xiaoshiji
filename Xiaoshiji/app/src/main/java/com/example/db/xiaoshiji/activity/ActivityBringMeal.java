@@ -51,6 +51,17 @@ public class ActivityBringMeal extends AppCompatActivity implements FragmentBrin
         return toolbar;
     }
 
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+    @Override
+    public void onBackPressed() {
+        toolbar.setSubtitle(null);
+        super.onBackPressed();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -71,15 +82,5 @@ public class ActivityBringMeal extends AppCompatActivity implements FragmentBrin
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-    @Override
-    public void onBackPressed() {
-        toolbar.setSubtitle(null);
-        super.onBackPressed();
     }
 }

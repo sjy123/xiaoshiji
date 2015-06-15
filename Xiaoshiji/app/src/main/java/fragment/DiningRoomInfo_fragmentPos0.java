@@ -1,14 +1,17 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.DishesListActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +68,21 @@ public class DiningRoomInfo_fragmentPos0 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dining_room_info_fragment_pos0, container, false);
+        View view=inflater.inflate(R.layout.fragment_dining_room_info_fragment_pos0, container, false);
+        Button lookUpDishes= (Button) view.findViewById(R.id.bt_lookupDishes);
+        lookUpDishes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                android.support.v4.app.FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.container,DishesListFragment.newInstance(diningRoomName,"null"));
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+                Intent intent=new Intent(getActivity(), DishesListActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -75,16 +92,6 @@ public class DiningRoomInfo_fragmentPos0 extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
     @Override
     public void onDetach() {

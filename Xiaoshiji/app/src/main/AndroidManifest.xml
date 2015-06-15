@@ -94,6 +94,18 @@
             android:name=".activity.ActivitySignUp"
             android:label="@string/title_activity_activity_sign_up" >
         </activity>
+        <activity
+            android:name=".activity.DiningRoomInfoActivity"
+            android:label="@string/title_activity_dining_room_info" >
+        </activity>
+        <activity
+            android:name=".activity.DishesListActivity"
+            android:label="@string/title_activity_dishes_list" >
+        </activity>
+        <activity
+            android:name=".activity.DishesDetailActivity"
+            android:label="@string/title_activity_dishes_detail" >
+        </activity>
     </application>
 
 </manifest>

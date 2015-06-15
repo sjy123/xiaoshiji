@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:design:22.2.0'
     compile 'com.android.support:appcompat-v7:21.0.2'
     compile files('libs/RasterSDKv1.1.0.15299.jar')
@@ -35,4 +35,6 @@ dependencies {
     compile files('libs/TencentMapSDK_Raster_v1.0.6.jar')
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile files('libs/android-support-design.jar')
+    compile project(':timelytextview')
 }
+

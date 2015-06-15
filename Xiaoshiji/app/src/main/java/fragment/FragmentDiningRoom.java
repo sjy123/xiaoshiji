@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.DiningRoomInfoActivity;
 import com.tencent.lbssearch.TencentSearch;
 import com.tencent.lbssearch.httpresponse.BaseObject;
 import com.tencent.lbssearch.httpresponse.HttpResponseListener;
@@ -202,10 +204,12 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("名字","地点"),"");
-                                fragmentTransaction.addToBackStack(null);
-                                fragmentTransaction.commit();
+//                                FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
+//                                fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("名字","地点"),"");
+//                                fragmentTransaction.addToBackStack(null);
+//                                fragmentTransaction.commit();
+                                Intent intent=new Intent(getActivity(), DiningRoomInfoActivity.class);
+                                startActivity(intent);
 
 
                             }

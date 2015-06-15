@@ -8,16 +8,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import fragment.DiningRoomInfoFragment;
 import fragment.DiningRoomInfo_fragmentPos0;
 import fragment.DiningRoomInfo_fragmentPos1;
-import fragment.DishesDetailFragment;
-import fragment.DishesListFragment;
 import fragment.FragmentAccountInfo;
 import fragment.FragmentAll;
 import fragment.FragmentBringMeal;
@@ -40,15 +35,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                 ,FragmentFind.OnFragmentInteractionListener
                                                                 ,FragmentMy.OnFragmentInteractionListener
                                                                 , FragmentDiningRoom.OnFragmentInteractionListener
-                                                                , DiningRoomInfoFragment.OnFragmentInteractionListener
-                                                                , DishesListFragment.OnFragmentInteractionListener
                                                                 , FragmentPutForward.OnFragmentInteractionListener
                                                                 , FragmentHelpDetails.OnFragmentInteractionListener
                                                                 , FragmentSignUp.OnFragmentInteractionListener
                                                                 , FragmentAccountInfo.OnFragmentInteractionListener
                                                                 , DiningRoomInfo_fragmentPos0.OnFragmentInteractionListener
                                                                 , DiningRoomInfo_fragmentPos1.OnFragmentInteractionListener
-                                                                , DishesDetailFragment.OnFragmentInteractionListener
                                                                 , FragmentSignIn.OnFragmentInteractionListener
                                                                 , FragmentBringMeal.OnFragmentInteractionListener
                                                                 , FragmentLost.OnFragmentInteractionListener
@@ -135,16 +127,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onBackPressed() {

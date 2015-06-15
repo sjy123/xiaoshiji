@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NumberViewAttr"><attr name="android:textColor"/><attr format="dimension" name="strokeSize"/><attr format="dimension" name="viewSize"/><attr format="string" name="font"/></declare-styleable>
+</resources>
