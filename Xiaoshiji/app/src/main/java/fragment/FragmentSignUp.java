@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
@@ -45,7 +47,8 @@ public class FragmentSignUp extends Fragment {
     public Toolbar toolBar;
     public static final String TITLE="注册";
 
-    public Button mSignUp,mSendCheckCode;
+    public Button mSignUp;
+    public TextView mSendCheckCode;
     public EditText mUserName,mUserPsd,mCheckCode;
     public String username,userpsd,usercheckcode;
 
@@ -99,7 +102,7 @@ public class FragmentSignUp extends Fragment {
         });
 
         mSignUp = (Button)RootView.findViewById(R.id.btn_signup);
-        mSendCheckCode = (Button)RootView.findViewById(R.id.acquire_key);
+        mSendCheckCode = (TextView)RootView.findViewById(R.id.acquire_key);
 
         mUserName = (EditText)RootView.findViewById(R.id.user_name);
         mUserPsd = (EditText)RootView.findViewById(R.id.user_psd);
@@ -149,7 +152,8 @@ public class FragmentSignUp extends Fragment {
                                 // TODO Auto-generated method stub
                                 if (e==null){
                                     Toast.makeText(getActivity(),"注册成功惹~",Toast.LENGTH_SHORT).show();
-                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentSignIn()).commit();
+//                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentSignIn()).commit();
+                                startActivity(new Intent(getActivity(),ActivitySignUp.class));
                                 }else {
                                     Toast.makeText(getActivity(),"注册失败惹~",Toast.LENGTH_SHORT).show();
                                 }

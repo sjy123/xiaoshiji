@@ -112,6 +112,10 @@
             android:name=".activity.ActivityItemDiningRoomInfo"
             android:label="@string/title_activity_activity_item_dining_room_info" >
         </activity>
+        <activity
+            android:name=".activity.ActivityMyNotice"
+            android:label="@string/title_activity_activity_my_notice" >
+        </activity>
     </application>
 
 </manifest>

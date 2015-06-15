@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.ActivityMyNotice;
 import com.example.db.xiaoshiji.activity.ActivityPersonMenu;
 import com.example.db.xiaoshiji.activity.ActivitySignIn;
 import com.example.db.xiaoshiji.activity.ActivitySignUp;
@@ -130,7 +131,7 @@ public class FragmentMy extends Fragment {
         mPutForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getActivity(), ActivityMyNotice.class));
             }
         });
         mSetting.setOnClickListener(new View.OnClickListener() {

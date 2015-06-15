@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"></LinearLayout>
-                <Button
+                <TextView
                     android:layout_width="96dp"
                     android:layout_height="36dp"
                     android:layout_gravity="center"
@@ -151,7 +151,7 @@
                 android:gravity="center"
                 android:text="注册"
                 android:background="@drawable/border_selector"
-                android:textColor="@color/actionbar"/>
+                android:textColor="@color/white_pressed"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

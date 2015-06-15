@@ -112,7 +112,7 @@
                 android:gravity="center"
                 android:text="登陆"
                 android:background="@drawable/border_selector"
-                android:textColor="@color/actionbar"/>
+                android:textColor="@color/white_pressed"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
