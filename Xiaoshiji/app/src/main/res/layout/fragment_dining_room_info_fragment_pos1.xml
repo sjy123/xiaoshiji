@@ -3,12 +3,12 @@
     android:layout_height="match_parent" tools:context="fragment.DiningRoomInfo_fragmentPos1">
 
     <ListView
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:background="#fafafa"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
         android:layout_marginTop="8dp"
-        android:dividerHeight="16dp"
-        android:divider="@android:color/white"
         android:scrollbars="none"
+        android:divider="@null"
         android:id="@+id/listview_comment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
