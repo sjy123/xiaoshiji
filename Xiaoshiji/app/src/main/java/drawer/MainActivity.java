@@ -35,11 +35,8 @@ import com.example.db.xiaoshiji.activity.ActivitySignUp;
 import java.util.ArrayList;
 import java.util.List;
 
-import fragment.DiningRoomInfoFragment;
 import fragment.DiningRoomInfo_fragmentPos0;
 import fragment.DiningRoomInfo_fragmentPos1;
-import fragment.DishesDetailFragment;
-import fragment.DishesListFragment;
 import fragment.FragmentAccountInfo;
 import fragment.FragmentAll;
 import fragment.FragmentBringMeal;
@@ -47,7 +44,6 @@ import fragment.FragmentDiningRoom;
 import fragment.FragmentFind;
 import fragment.FragmentFound;
 import fragment.FragmentHelpDetails;
-import fragment.FragmentHome;
 import fragment.FragmentLost;
 import fragment.FragmentLostDetails;
 import fragment.FragmentMy;
@@ -55,7 +51,6 @@ import fragment.FragmentPutForward;
 import fragment.FragmentPutLost;
 import fragment.FragmentSignIn;
 import fragment.FragmentSignUp;
-import utils.AppConstant;
 import view.MaterialDrawer.liveo.interfaces.NavigationLiveoListener;
 import view.MaterialDrawer.liveo.navigationliveo.NavigationLiveo;
 
@@ -65,15 +60,12 @@ public class MainActivity extends NavigationLiveo implements  NavigationLiveoLis
                                                             , FragmentFind.OnFragmentInteractionListener
                                                             , FragmentMy.OnFragmentInteractionListener
                                                             , FragmentDiningRoom.OnFragmentInteractionListener
-                                                            , DiningRoomInfoFragment.OnFragmentInteractionListener
-                                                            , DishesListFragment.OnFragmentInteractionListener
                                                             , FragmentPutForward.OnFragmentInteractionListener
                                                             , FragmentHelpDetails.OnFragmentInteractionListener
                                                             , FragmentSignUp.OnFragmentInteractionListener
                                                             , FragmentAccountInfo.OnFragmentInteractionListener
                                                             , DiningRoomInfo_fragmentPos0.OnFragmentInteractionListener
                                                             , DiningRoomInfo_fragmentPos1.OnFragmentInteractionListener
-                                                            , DishesDetailFragment.OnFragmentInteractionListener
                                                             , FragmentSignIn.OnFragmentInteractionListener
                                                             , FragmentBringMeal.OnFragmentInteractionListener
                                                             , FragmentLost.OnFragmentInteractionListener

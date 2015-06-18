@@ -1,10 +1,13 @@
 package adapter;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v4.util.LruCache;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -18,7 +21,6 @@ import android.widget.TextView;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 
-import fragment.DishesDetailFragment;
 
 /**
  * Created by Jay on 15-6-4.
@@ -28,10 +30,17 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
     private int[] imageLab;
     private int imageWidth;
     private LruCache<Integer,Bitmap> lruCache;
+    public interface MyOnItemClickedListener{
+        public void onClick();
+    }
+    MyOnItemClickedListener myOnItemClickedListener=null;
+    public void setMyOnItemClickedListener(MyOnItemClickedListener myOnItemClickedListener){
+        this.myOnItemClickedListener=myOnItemClickedListener;
+    }
     public DishesListAdpter(Context context, int[] imageLab){
         this.context=context;
         this.imageLab=imageLab;
-        int margin=converDpToPixel(40f);
+        int margin=converDpToPixel(20);
         int width=((Activity)context).getWindowManager().getDefaultDisplay().getWidth();
         imageWidth=(width-margin)/2;
         lruCache=new LruCache<Integer,Bitmap>((int) (Runtime.getRuntime().maxMemory()/8)){
@@ -43,24 +52,51 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
     }
     @Override
     public MyHoler onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view= LayoutInflater.from(context).inflate(R.layout.dishes_list_item,null);
+        View view= LayoutInflater.from(context).inflate(R.layout.dishes_list_item, null);
         //设置dishesListItem点击进入菜品详情
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.support.v4.app.FragmentTransaction fragmentTransaction=((MainActivity) context).getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container,new DishesDetailFragment()).addToBackStack(null).commit();
+
+                  myOnItemClickedListener.onClick();
+//                android.support.v4.app.FragmentTransaction fragmentTransaction=((MainActivity) context).getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.container,new DishesDetailFragment()).addToBackStack(null).commit();
+
             }
         });
-        MyHoler myHoler=new MyHoler(view);
+        MyHoler myHoler=new MyHoler(view,i);
+        ViewGroup.LayoutParams layoutParams1=myHoler.textView.getLayoutParams();
+        layoutParams1.width = imageWidth;
+        myHoler.textView.setLayoutParams(layoutParams1);
         return myHoler;
     }
 
     @Override
     public void onBindViewHolder(MyHoler myHoler, int i) {
-        helpSetHeightAndBitmap(myHoler.imageView,i);
+        myHoler.position=i;
+        //提前确定view高度
+        BitmapFactory.Options optionsView=new BitmapFactory.Options();
+        optionsView.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(context.getResources(),imageLab[myHoler.position],optionsView);
+        ViewGroup.LayoutParams layoutParams=myHoler.imageView.getLayoutParams();
+        int viewHeight= (int) (imageWidth*(optionsView.outWidth*1.0/optionsView.outHeight*1.0));
+        layoutParams.height=viewHeight;
+        layoutParams.width=imageWidth;
+        myHoler.imageView.setLayoutParams(layoutParams);
+        Log.v("sjy", layoutParams.width + "   " + layoutParams.height);
+        //异步加载
+          new MyAscTask().execute(myHoler);
+//        helpSetHeightAndBitmap(myHoler.imageView,i);
     }
-
+    private int calSampleSize(BitmapFactory.Options options, int reqWidth){
+        int size=1;
+        while (options.outWidth/size>reqWidth)
+        {
+            size*=2;
+       }
+        Log.v("sjy",size+"");
+        return size;
+    }
     @Override
     public int getItemCount() {
         return imageLab.length;
@@ -69,44 +105,56 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
     public static class MyHoler extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView textView;
-        public MyHoler(View itemView) {
+        Integer position;
+        public MyHoler(View itemView,Integer position) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.iv_dishes);
             textView= (TextView) itemView.findViewById(R.id.tv_dishes);
-
+            this.position=position;
 
         }
     }
-    private int converDpToPixel(float dp) {
-        Resources resources=context.getResources();
+
+    public class MyAscTask extends AsyncTask<MyHoler,Object,Bitmap>{
+        MyHoler myHoler;
+
+
+        @Override
+        protected Bitmap doInBackground(MyHoler... params) {
+            myHoler = params[0];
+            //缓存有bitmap直接返回
+            if (lruCache.get(myHoler.position) != null) {
+              Log.v("sjy","lrucache has");
+                return lruCache.get(myHoler.position);
+            }//缓存无bitmap要加载
+            final BitmapFactory.Options options=new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeResource(context.getResources(),imageLab[myHoler.position],options);
+            options.inSampleSize=calSampleSize(options,imageWidth);
+            options.inJustDecodeBounds=false;
+            Log.v("sjy","samplesize is "+options.inSampleSize+"imageWidth is "+imageWidth);
+            Log.v("sjy","befor decode height is "+options.outHeight+"width is"+options.outWidth);
+
+            Bitmap bitmap= BitmapFactory.decodeResource(context.getResources(), imageLab[myHoler.position], options);
+
+            Log.v("sjy","after decode height is "+bitmap.getHeight()+"width is"+bitmap.getWidth());
+            lruCache.put(myHoler.position,bitmap);
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+
+            myHoler.imageView.setImageBitmap(bitmap);
+            myHoler.textView.setText("theFucker" + myHoler.position);
+
+        }
+    }
+   private int converDpToPixel(float dp) {
+     Resources resources=context.getResources();
         DisplayMetrics metrics=resources.getDisplayMetrics();
-        float px=dp * (metrics.densityDpi/160f);
+       float px=dp * (metrics.densityDpi/160f);
         return (int) px;
     }
-    public void helpSetHeightAndBitmap(ImageView imageView,int position){
-        if (lruCache.get(position)==null){
-            Log.v("sjy", "lrunot");
 
-            ViewGroup.LayoutParams layoutParams =imageView.getLayoutParams();
-        BitmapFactory.Options options=new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-
-            BitmapFactory.decodeResource(context.getResources(), imageLab[position], options);
-
-        int height= (int) ((imageWidth*1.0*options.outHeight)/options.outWidth);
-        options.inJustDecodeBounds=false;
-        options.inSampleSize=options.outWidth/imageWidth;
-        layoutParams.height=height;
-        layoutParams.width=imageWidth;
-        imageView.setLayoutParams(layoutParams);
-            Bitmap bitmap= BitmapFactory.decodeResource(context.getResources(), imageLab[position], options);
-            imageView.setImageBitmap(bitmap);
-            lruCache.put(position,bitmap);
-
-    }
-        else {
-            Log.v("sjy", "lruhas");
-            imageView.setImageBitmap(lruCache.get(position));
-        }
-    }
 }

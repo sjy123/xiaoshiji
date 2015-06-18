@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.DiningRoomInfoActivity;
 import com.example.db.xiaoshiji.activity.ActivityDiningRoomInfo;
 import com.tencent.lbssearch.TencentSearch;
 import com.tencent.lbssearch.httpresponse.BaseObject;
@@ -215,7 +216,9 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
 //                                fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("名字","地点"),"");
 //                                fragmentTransaction.addToBackStack(null);
 //                                fragmentTransaction.commit();
-                            startActivity(new Intent(getActivity(),ActivityDiningRoomInfo.class));
+                                Intent intent=new Intent(getActivity(), DiningRoomInfoActivity.class);
+                                startActivity(intent);
+
 
                             }
                         });

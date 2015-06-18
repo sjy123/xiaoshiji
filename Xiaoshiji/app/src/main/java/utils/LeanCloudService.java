@@ -90,14 +90,18 @@ public class LeanCloudService {
     public static ArrayList<LostInfo> findLostInfosByRqs(){
 
         AVQuery<LostInfo> query = AVQuery.getQuery(LostInfo.class);
-        query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
-        query.orderByAscending("updateAt");
-        query.limit(1000);
         List<LostInfo> lostInfos = new ArrayList<LostInfo>();
-        try {
-            lostInfos = query.find();
-        }catch (AVException e){
-            Log.e("tag1", "Query todos failed.", e);
+        if (AVUser.getCurrentUser()!=null){
+            query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
+            query.orderByAscending("updateAt");
+            query.limit(1000);
+            try {
+                lostInfos = query.find();
+            }catch (AVException e){
+                Log.e("tag1", "Query todos failed.", e);
+            }
+        }else {
+            Log.v("jb","null");
         }
         return (ArrayList<LostInfo>)lostInfos;
     }
@@ -107,14 +111,18 @@ public class LeanCloudService {
     public static ArrayList<FoundInfo> findFoundInfosByRqs(){
 
         AVQuery<FoundInfo> query = AVQuery.getQuery(FoundInfo.class);
-        query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
-        query.orderByAscending("updateAt");
-        query.limit(1000);
         List<FoundInfo> foundInfos = new ArrayList<FoundInfo>();
-        try {
-            foundInfos = query.find();
-        }catch (AVException e){
-            Log.e("tag1", "Query todos failed.", e);
+        if (AVUser.getCurrentUser()!=null){
+            query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
+            query.orderByAscending("updateAt");
+            query.limit(1000);
+            try {
+                foundInfos = query.find();
+            }catch (AVException e){
+                Log.e("tag1", "Query todos failed.", e);
+            }
+        }else {
+            Log.v("jb","null");
         }
         return (ArrayList<FoundInfo>)foundInfos;
     }
@@ -124,15 +132,20 @@ public class LeanCloudService {
     public static ArrayList<BringMealInfo> findBringMealInfosByRqs(){
 
         AVQuery<BringMealInfo> query = AVQuery.getQuery(BringMealInfo.class);
-        query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
-        query.orderByAscending("updateAt");
-        query.limit(1000);
         List<BringMealInfo> bringMealInfoList = new ArrayList<BringMealInfo>();
-        try {
-            bringMealInfoList = query.find();
-        }catch (AVException e){
-            Log.e("tag", "Query todos failed.", e);
+        if (AVUser.getCurrentUser()!=null){
+            query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
+            query.orderByAscending("updateAt");
+            query.limit(1000);
+            try {
+                bringMealInfoList = query.find();
+            }catch (AVException e){
+                Log.e("tag", "Query todos failed.", e);
+            }
+        }else {
+            Log.v("jb","null");
         }
+
         return (ArrayList<BringMealInfo>)bringMealInfoList;
     }
 }

@@ -115,5 +115,6 @@
     <orderEntry type="library" exported="" name="circleimageview-1.2.2" level="project" />
     <orderEntry type="library" exported="" name="weibo.sdk.android.sso" level="project" />
     <orderEntry type="library" exported="" name="avoscloud-sdk-v2.7" level="project" />
+    <orderEntry type="module" module-name="timelytextview" exported="" />
   </component>
 </module>

@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity">
     <LinearLayout
@@ -21,46 +22,57 @@
         android:background="#f3f3f3">
 
         </FrameLayout>
-    <LinearLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        app:tabIndicatorColor="@color/white_pressed"
+        app:tabTextColor="@color/white_pressed"
+        app:tabSelectedTextColor="@color/actionbar"
+        android:layout_below="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:background="@drawable/bkg">
-        <TextView
-            android:id="@+id/textview_all"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_todo_detail_reminder"
-            android:paddingTop="12dp"
-            android:text="附近"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="10sp"
-            android:layout_gravity="center"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/textview_find"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_event_location"
-            android:paddingTop="12dp"
-            android:text="发现"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="10sp"
-            android:layout_gravity="center"
-            android:gravity="center"/>
-        <TextView
-            android:id="@+id/textview_my"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_event_attendee"
-            android:paddingTop="12dp"
-            android:text="我的"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="10sp"
-            android:layout_gravity="center"
-            android:gravity="center"/>
-        </LinearLayout>
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
+        android:background="#f1f4f4"
+        ></android.support.design.widget.TabLayout>
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="56dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:background="#f1f4f4">-->
+        <!--<TextView-->
+            <!--android:id="@+id/textview_all"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:drawableTop="@drawable/ic_menu_apollo_off"-->
+            <!--android:paddingTop="12dp"-->
+            <!--android:text="附近"-->
+            <!--android:textColor="@android:color/darker_gray"-->
+            <!--android:textSize="10sp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/textview_find"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:drawableTop="@drawable/ic_menu_deal_off"-->
+            <!--android:paddingTop="12dp"-->
+            <!--android:text="发现"-->
+            <!--android:textColor="@android:color/darker_gray"-->
+            <!--android:textSize="10sp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/textview_my"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:drawableTop="@drawable/ic_menu_user_off"-->
+            <!--android:paddingTop="12dp"-->
+            <!--android:text="我的"-->
+            <!--android:textColor="@android:color/darker_gray"-->
+            <!--android:textSize="10sp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"/>-->
+        <!--</LinearLayout>-->
 </LinearLayout>

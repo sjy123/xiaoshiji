@@ -92,7 +92,7 @@ public class FragmentSignUp extends Fragment {
         View RootView = inflater.inflate(R.layout.fragment_fragment_sign_up, container, false);
 
         (((ActivitySignUp)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolBar=(((ActivitySignIn)getActivity()).getToolbar());
+        toolBar=(((ActivitySignUp)getActivity()).getToolbar());
         toolBar.setTitle(TITLE);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +123,7 @@ public class FragmentSignUp extends Fragment {
                         @Override
                         public void done(AVException e) {
                             if (e == null) {
-                                mSendCheckCode.setText("60s后重发");
+//                                mSendCheckCode.setText("");
                             } else {
                                 Log.v("leanclouderror", e.getMessage());
                             }

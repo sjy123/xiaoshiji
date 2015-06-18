@@ -16,6 +16,9 @@
     <string name="title_activity_activity_found_details">ActivityFoundDetails</string>
     <string name="title_activity_activity_sign_in">ActivitySignIn</string>
     <string name="title_activity_activity_sign_up">ActivitySignUp</string>
+    <string name="title_activity_dining_room_info">DiningRoomInfoActivity</string>
+    <string name="title_activity_dishes_list">DishesListActivity</string>
+    <string name="title_activity_dishes_detail">DishesDetailActivity</string>
 
 
     <string name="sign_in">Sign in</string>

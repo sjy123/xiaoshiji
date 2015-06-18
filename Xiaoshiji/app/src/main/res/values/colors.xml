@@ -4,6 +4,7 @@
     <color name="actionbartitle">#ffffff</color>
     <color name="rippelColor">#f3c145</color>
     <color name="content">#4c4c4c</color>
+    <color name="indicator">@android:color/darker_gray</color>
     <!--//floatingactionbutton  #fe595f-->
     <color name="black_semi_transparent">#B2000000</color>
     <color name="background">#e5e5e5</color>

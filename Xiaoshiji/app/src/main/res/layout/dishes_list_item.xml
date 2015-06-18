@@ -11,37 +11,54 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         >
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
             <ImageView
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/abc_ic_ab_back_mtrl_am_alpha"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:id="@+id/iv_dishes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@android:color/darker_gray"/>
-            <TextView
-                android:id="@+id/tv_dishes"
-                android:gravity="center"
-                android:text="阿三大赛大赛"
-                android:layout_marginBottom="8dp"
-                android:textColor="@android:color/background_dark"
+                android:layout_height="match_parent" />
+            <FrameLayout
+                android:layout_gravity="bottom"
+                android:background="#7f000000"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="match_parent">
+                <TextView
+                    android:textColor="@color/actionbar_title_color"
+                    android:text="theFuck"
+                    android:id="@+id/tv_dishes"
+                    android:textSize="16sp"
+                    android:layout_gravity="right|center_vertical"
+                    android:gravity="right|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+            <!--<ImageView-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:background="@drawable/abc_ic_ab_back_mtrl_am_alpha"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:id="@+id/iv_dishes"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginLeft="24dp"-->
+                <!--android:layout_marginRight="24dp"-->
+                <!--android:layout_marginTop="4dp"-->
+                <!--android:layout_marginBottom="4dp"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:background="@android:color/darker_gray"/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/tv_dishes"-->
+                <!--android:gravity="center"-->
+                <!--android:text="阿三大赛大赛"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:textColor="@android:color/background_dark"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+
 
 
 

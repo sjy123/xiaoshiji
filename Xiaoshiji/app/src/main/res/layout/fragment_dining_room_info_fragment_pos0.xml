@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="fragment.DiningRoomInfo_fragmentPos0">
     <TextView
@@ -10,5 +10,18 @@
         android:layout_marginRight="10dp"
         android:textSize="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="match_parent"
+        />
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/bt_lookupDishes"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_selector"
+        android:text="查看菜品"
+        android:textSize="16dp"
+        android:layout_width="120dp"
+        android:layout_height="36dp" />
+</RelativeLayout>

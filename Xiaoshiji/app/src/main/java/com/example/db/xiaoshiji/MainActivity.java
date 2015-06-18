@@ -4,21 +4,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import fragment.DiningRoomInfoFragment;
 import fragment.DiningRoomInfo_fragmentPos0;
 import fragment.DiningRoomInfo_fragmentPos1;
-import fragment.DishesDetailFragment;
-import fragment.DishesListFragment;
 import fragment.FragmentAccountInfo;
 import fragment.FragmentAll;
 import fragment.FragmentBringMeal;
@@ -41,15 +38,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                 ,FragmentFind.OnFragmentInteractionListener
                                                                 ,FragmentMy.OnFragmentInteractionListener
                                                                 , FragmentDiningRoom.OnFragmentInteractionListener
-                                                                , DiningRoomInfoFragment.OnFragmentInteractionListener
-                                                                , DishesListFragment.OnFragmentInteractionListener
                                                                 , FragmentPutForward.OnFragmentInteractionListener
                                                                 , FragmentHelpDetails.OnFragmentInteractionListener
                                                                 , FragmentSignUp.OnFragmentInteractionListener
                                                                 , FragmentAccountInfo.OnFragmentInteractionListener
                                                                 , DiningRoomInfo_fragmentPos0.OnFragmentInteractionListener
                                                                 , DiningRoomInfo_fragmentPos1.OnFragmentInteractionListener
-                                                                , DishesDetailFragment.OnFragmentInteractionListener
                                                                 , FragmentSignIn.OnFragmentInteractionListener
                                                                 , FragmentBringMeal.OnFragmentInteractionListener
                                                                 , FragmentLost.OnFragmentInteractionListener
@@ -58,8 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                                                 , FragmentLostDetails.OnFragmentInteractionListener{
 
     public TextView mTextViewAll,mTextViewFind,mTextViewMy;
-    public FragmentTransaction fragmentTransaction;
     public Toolbar toolbar;
+
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AppConstant.setStatus(true, this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         /*
         存储本地账户的相关信息
@@ -82,12 +78,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         init();
 
         if (savedInstanceState==null){
-            fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
-
             fragmentTransaction.replace(R.id.container,new FragmentAll()).commit();
         }
 
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.v("sjy", "selected" + tab.getPosition());
+
+                if (tab.getPosition()==0)
+                {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, new FragmentAll());
+                    fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
+                    fragmentTransaction.commit();
+                }else if (tab.getPosition()==1){
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container,new FragmentFind());
+                    fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
+                    fragmentTransaction.commit();
+                }else {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container,new FragmentMy());
+                    fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
+                    fragmentTransaction.commit();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                Log.v("sjy","unselected"+tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                Log.v("sjy","reselected"+tab.getPosition());
+
+            }
+        });
 
     }
 
@@ -101,15 +133,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Build.VERSION.SDK_INT>=21)
         toolbar.setElevation(24);
         setSupportActionBar(toolbar);
-        mTextViewAll = (TextView)findViewById(R.id.textview_all);
-        mTextViewFind = (TextView)findViewById(R.id.textview_find);
-        mTextViewMy = (TextView)findViewById(R.id.textview_my);
 
-        mTextViewAll.setTextColor(this.getResources().getColor(R.color.actionbar));
+        //设置tabLayout
+        tabLayout = (TabLayout)findViewById(R.id.tablayout);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.tab_item0,null)));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.tab_item1, null)));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.tab_item2, null)));
 
-        mTextViewAll.setOnClickListener(this);
-        mTextViewFind.setOnClickListener(this);
-        mTextViewMy.setOnClickListener(this);
+//        mTextViewAll = (TextView)findViewById(R.id.textview_all);
+//        mTextViewFind = (TextView)findViewById(R.id.textview_find);
+//        mTextViewMy = (TextView)findViewById(R.id.textview_my);
+//
+//        mTextViewAll.setTextColor(this.getResources().getColor(R.color.actionbar));
+//
+//        mTextViewAll.setOnClickListener(this);
+//        mTextViewFind.setOnClickListener(this);
+//        mTextViewMy.setOnClickListener(this);
     }
     public Toolbar getToolbar(){
         return toolbar;
@@ -117,38 +156,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
-            case R.id.textview_all:
-
-                mTextViewAll.setTextColor(this.getResources().getColor(R.color.actionbar));
-                mTextViewFind.setTextColor(this.getResources().getColor(R.color.white_pressed));
-                mTextViewMy.setTextColor(this.getResources().getColor(R.color.white_pressed));
-
-                fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container,new FragmentAll()).commit();
-
-                break;
-            case R.id.textview_find:
-
-                mTextViewFind.setTextColor(this.getResources().getColor(R.color.actionbar));
-                mTextViewAll.setTextColor(this.getResources().getColor(R.color.white_pressed));
-                mTextViewMy.setTextColor(this.getResources().getColor(R.color.white_pressed));
-
-                fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container, new FragmentFind()).commit();
-
-                break;
-            case R.id.textview_my:
-
-                mTextViewMy.setTextColor(this.getResources().getColor(R.color.actionbar));
-                mTextViewAll.setTextColor(this.getResources().getColor(R.color.white_pressed));
-                mTextViewFind.setTextColor(this.getResources().getColor(R.color.white_pressed));
-
-                fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.container,new FragmentMy()).commit();
-
-                break;
-        }
+//        switch (view.getId()){
+//            case R.id.textview_all:
+//
+//                mTextViewAll.setTextColor(this.getResources().getColor(R.color.actionbar));
+//                mTextViewFind.setTextColor(this.getResources().getColor(R.color.indicator));
+//                mTextViewMy.setTextColor(this.getResources().getColor(R.color.indicator));
+//
+//                fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.container,new FragmentAll()).commit();
+//
+//                break;
+//            case R.id.textview_find:
+//
+//                mTextViewFind.setTextColor(this.getResources().getColor(R.color.actionbar));
+//                mTextViewAll.setTextColor(this.getResources().getColor(R.color.indicator));
+//                mTextViewMy.setTextColor(this.getResources().getColor(R.color.indicator));
+//
+//                fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.container, new FragmentFind()).commit();
+//
+//                break;
+//            case R.id.textview_my:
+//
+//                mTextViewMy.setTextColor(this.getResources().getColor(R.color.actionbar));
+//                mTextViewAll.setTextColor(this.getResources().getColor(R.color.indicator));
+//                mTextViewFind.setTextColor(this.getResources().getColor(R.color.indicator));
+//
+//                fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.container,new FragmentMy()).commit();
+//
+//                break;
+//        }
     }
 
     @Override
@@ -156,16 +195,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onBackPressed() {
