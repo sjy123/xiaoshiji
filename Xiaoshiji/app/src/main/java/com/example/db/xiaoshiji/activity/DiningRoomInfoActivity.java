@@ -1,5 +1,6 @@
 package com.example.db.xiaoshiji.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.db.xiaoshiji.R;
 
@@ -20,6 +22,8 @@ import utils.AppConstant;
 public class DiningRoomInfoActivity extends AppCompatActivity {
     Toolbar toolbar;
     TabLayout tabLayout;
+    ImageButton imageButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppConstant.setStatus(true, this);
@@ -34,7 +38,7 @@ public class DiningRoomInfoActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("食堂信息"));
         tabLayout.addTab(tabLayout.newTab().setText("食堂评价"));
         //初始化pos0
-        android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
         fragmentTransaction.replace(R.id.diningroom_container, new DiningRoomInfo_fragmentPos0());
         fragmentTransaction.commit();
@@ -43,16 +47,15 @@ public class DiningRoomInfoActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Log.v("sjy", "selected" + tab.getPosition());
-                android.support.v4.app.FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-                if (tab.getPosition()==0)
-                {
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                if (tab.getPosition() == 0) {
 
                     fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
                     fragmentTransaction.replace(R.id.diningroom_container, new DiningRoomInfo_fragmentPos0());
                     fragmentTransaction.commit();
-                }else{
+                } else {
 
-                    fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
+                    fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
                     fragmentTransaction.replace(R.id.diningroom_container, new DiningRoomInfo_fragmentPos1());
                     fragmentTransaction.commit();
                 }
@@ -60,14 +63,23 @@ public class DiningRoomInfoActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.v("sjy","unselected"+tab.getPosition());
+                Log.v("sjy", "unselected" + tab.getPosition());
 
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                Log.v("sjy","reselected"+tab.getPosition());
+                Log.v("sjy", "reselected" + tab.getPosition());
 
+            }
+        });
+        //初始化评价按钮
+        imageButton = (ImageButton) findViewById(R.id.tb_comment);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DiningRoomInfoActivity.this,DiningRoomCommentActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -78,7 +90,7 @@ public class DiningRoomInfoActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.actionbar_title_color));
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
-        if (Build.VERSION.SDK_INT>=21)
+        if (Build.VERSION.SDK_INT >= 21)
             toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -1,28 +1,23 @@
 package com.example.db.xiaoshiji.activity;
 
-import android.animation.ObjectAnimator;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
 import com.github.adnansm.timelytextview.TimelyView;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.ValueAnimator;
-
-import java.util.ArrayList;
 
 import adapter.DishCommentAdapter;
 import utils.AppConstant;
@@ -35,6 +30,9 @@ public class DishesDetailActivity extends AppCompatActivity {
     private TimelyView timelyView;
     private TextView tv_imageNumber;
     private ListView listView;
+    private ImageButton dishesComment;
+    AlertDialog.Builder builder;
+    AlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppConstant.setStatus(true,this);
@@ -55,10 +53,37 @@ public class DishesDetailActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new MyViewPagerListener());
 
         tv_imageNumber= (TextView) findViewById(R.id.dishes_imageNumber);
-        tv_imageNumber.setText("/"+(imageLib.length+1));
+        tv_imageNumber.setText("/" + (imageLib.length + 1));
 
         listView= (ListView) findViewById(R.id.lv_dish);
         listView.setAdapter(new DishCommentAdapter());
+
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle("撰写评价");
+        builder.setCancelable(false);
+        builder.setView(R.layout.comment_edit);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setPositiveButton("提交", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialog = builder.create();
+
+
+        dishesComment = (ImageButton) findViewById(R.id.ib_dishesComment);
+        dishesComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.show();
+            }
+        });
     }
 
     private void initToolBar() {
@@ -97,7 +122,7 @@ public class DishesDetailActivity extends AppCompatActivity {
             if (position!=getCount()-1)
             {
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setImageResource(imageLib[position]);}
+                imageView.setImageResource(imageLib[position]);}
             else {
                 imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 imageView.setImageResource(R.drawable.ic_launcher);
@@ -122,7 +147,7 @@ public class DishesDetailActivity extends AppCompatActivity {
         }
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //向右滑动
+            //向右滑动
 
 //            objectAnimator.setCurrentPlayTime((long) (positionOffset*duration));
             Log.v("sjy","onscrool pos is "+position+"  posoffset is"+positionOffset);
@@ -138,30 +163,30 @@ public class DishesDetailActivity extends AppCompatActivity {
 
         @Override
         public void onPageScrollStateChanged(int state) {
-                switch (state)
-                {
-                    case ViewPager.SCROLL_STATE_DRAGGING:
-                        Log.v("s","drag");
-                        if (objectAnimator.isRunning()){
+            switch (state)
+            {
+                case ViewPager.SCROLL_STATE_DRAGGING:
+                    Log.v("s","drag");
+                    if (objectAnimator.isRunning()){
 
-                            objectAnimator.setCurrentPlayTime(duration);
-                            objectAnimator.cancel();
-                        }
-                        break;
-                    case ViewPager.SCROLL_STATE_IDLE:
-                        Log.v("s","idle");
-                        postionNext=viewPager.getCurrentItem();
-                        if (postionNow==postionNext)
+                        objectAnimator.setCurrentPlayTime(duration);
+                        objectAnimator.cancel();
+                    }
+                    break;
+                case ViewPager.SCROLL_STATE_IDLE:
+                    Log.v("s","idle");
+                    postionNext=viewPager.getCurrentItem();
+                    if (postionNow==postionNext)
                         objectAnimator = timelyView.animate(postionNext);
-                        else objectAnimator= timelyView.animate(postionNow,postionNext);
-                        objectAnimator.setDuration(duration);
-                        objectAnimator.start();
-                        postionNow=postionNext;
-                        break;
-                    case ViewPager.SCROLL_STATE_SETTLING:
-                        Log.v("s","settling");
-                        break;
-                }
+                    else objectAnimator= timelyView.animate(postionNow,postionNext);
+                    objectAnimator.setDuration(duration);
+                    objectAnimator.start();
+                    postionNow=postionNext;
+                    break;
+                case ViewPager.SCROLL_STATE_SETTLING:
+                    Log.v("s","settling");
+                    break;
+            }
         }
     }
 }

@@ -24,6 +24,7 @@
             android:layout_marginRight="8dp"
             android:gravity="center">
             <ImageView
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/profile2"
