@@ -35,7 +35,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="小食记"
-        android:theme="@style/myTheme" >
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="TencentMapSDK"
             android:value="6QLBZ-TTKAD-M4M4M-P5GUB-WWULF-OWF2Y" />

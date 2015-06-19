@@ -92,7 +92,7 @@ public class LeanCloudService {
         AVQuery<LostInfo> query = AVQuery.getQuery(LostInfo.class);
         List<LostInfo> lostInfos = new ArrayList<LostInfo>();
         if (AVUser.getCurrentUser()!=null){
-            query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
+            query.whereEqualTo("lostcontact", AVUser.getCurrentUser().getUsername());
             query.orderByAscending("updateAt");
             query.limit(1000);
             try {
@@ -113,7 +113,7 @@ public class LeanCloudService {
         AVQuery<FoundInfo> query = AVQuery.getQuery(FoundInfo.class);
         List<FoundInfo> foundInfos = new ArrayList<FoundInfo>();
         if (AVUser.getCurrentUser()!=null){
-            query.whereEqualTo("contacttype", AVUser.getCurrentUser().getUsername());
+            query.whereEqualTo("foundcontact", AVUser.getCurrentUser().getUsername());
             query.orderByAscending("updateAt");
             query.limit(1000);
             try {
