@@ -1,19 +1,38 @@
 package com.example.db.xiaoshiji;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import beans.DishMenuInfo;
+import database.MyDataBaseHelper;
 import fragment.DiningRoomInfo_fragmentPos0;
 import fragment.DiningRoomInfo_fragmentPos1;
 import fragment.FragmentAccountInfo;
@@ -120,7 +139,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
+        AppConstant.readTxt(getApplicationContext());
+//        Log.v("jbjb0",String.valueOf(readTxt().size()));
     }
 
 
@@ -211,4 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setSubtitle(null);
         super.onBackPressed();
     }
+
+
+
 }

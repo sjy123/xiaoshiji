@@ -201,27 +201,24 @@ public class FragmentDiningRoom extends Fragment implements TencentLocationListe
                             latLngs.add(latLng);
                             diningRoomInfos.add(diningRoomInfo);
                         }
-                        mCount.setText("一共发现"+String.valueOf(diningRoomInfos.size())+"个食堂");
+                        mCount.setText("一共发现"+String.valueOf(6)+"个食堂");
                         if (diningRoomInfos!=null){
-                            DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity(),diningRoomInfos);
+                            DiningRoomListAdapter diningRoomListAdapter=new DiningRoomListAdapter(getActivity());
                             mListView.setAdapter(diningRoomListAdapter);
                         }else {
                             Toast.makeText(getActivity(),"没有发现食堂惹~",Toast.LENGTH_SHORT).show();
                         }
 
-                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                                FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-//                                fragmentTransaction.replace(R.id.container,DiningRoomInfoFragment.newInstance("名字","地点"),"");
-//                                fragmentTransaction.addToBackStack(null);
-//                                fragmentTransaction.commit();
-                                Intent intent=new Intent(getActivity(), DiningRoomInfoActivity.class);
-                                startActivity(intent);
-
-
-                            }
-                        });
+//                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                            @Override
+//                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                                Intent intent=new Intent(getActivity(), DiningRoomInfoActivity.class);
+//                                startActivity(intent);
+//
+//
+//                            }
+//                        });
 
                         /*
                         利用腾讯地图的标注功能对附近的食堂进行标注

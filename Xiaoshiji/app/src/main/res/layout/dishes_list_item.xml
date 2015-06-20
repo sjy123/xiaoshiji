@@ -9,28 +9,31 @@
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        >
+        android:layout_margin="5dp">
 
             <ImageView
                 android:scaleType="centerCrop"
                 android:id="@+id/iv_dishes"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                />
             <FrameLayout
                 android:layout_gravity="bottom"
                 android:background="#7f000000"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
-                    android:textColor="@color/actionbar_title_color"
+                    android:textColor="@color/actionbar"
                     android:text="theFuck"
                     android:id="@+id/tv_dishes"
                     android:textSize="16sp"
                     android:layout_gravity="right|center_vertical"
-                    android:gravity="right|center_vertical"
+                    android:gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="48dp"
+                    android:paddingLeft="8dp"
+                    android:background="@color/white_pressed"
+                    />
             </FrameLayout>
             <!--<ImageView-->
                 <!--android:layout_marginLeft="5dp"-->

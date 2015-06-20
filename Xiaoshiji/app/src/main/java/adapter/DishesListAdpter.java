@@ -21,14 +21,26 @@ import android.widget.TextView;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+import beans.DishMenuInfo;
+
 
 /**
  * Created by Jay on 15-6-4.
  */
 public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHoler> {
+
     private Context context;
     private int[] imageLab;
     private int imageWidth;
+
+    /*
+    db 菜谱惹~
+     */
+    public ArrayList<DishMenuInfo> dishMenuInfos;
+
     private LruCache<Integer,Bitmap> lruCache;
     public interface MyOnItemClickedListener{
         public void onClick();
@@ -37,9 +49,10 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
     public void setMyOnItemClickedListener(MyOnItemClickedListener myOnItemClickedListener){
         this.myOnItemClickedListener=myOnItemClickedListener;
     }
-    public DishesListAdpter(Context context, int[] imageLab){
+    public DishesListAdpter(Context context, int[] imageLab,ArrayList<DishMenuInfo> dishMenuInfos){
         this.context=context;
         this.imageLab=imageLab;
+        this.dishMenuInfos = dishMenuInfos;
         int margin=converDpToPixel(20);
         int width=((Activity)context).getWindowManager().getDefaultDisplay().getWidth();
         imageWidth=(width-margin)/2;
@@ -74,10 +87,14 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
     @Override
     public void onBindViewHolder(MyHoler myHoler, int i) {
         myHoler.position=i;
+        /*
+        db 生成随机数惹~
+         */
+        Random random=new Random();
         //提前确定view高度
         BitmapFactory.Options optionsView=new BitmapFactory.Options();
         optionsView.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(context.getResources(),imageLab[myHoler.position],optionsView);
+        BitmapFactory.decodeResource(context.getResources(),imageLab[random.nextInt(8)],optionsView);
         ViewGroup.LayoutParams layoutParams=myHoler.imageView.getLayoutParams();
         int viewHeight= (int) (imageWidth*(optionsView.outWidth*1.0/optionsView.outHeight*1.0));
         layoutParams.height=viewHeight;
@@ -93,13 +110,13 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
         while (options.outWidth/size>reqWidth)
         {
             size*=2;
-       }
+        }
         Log.v("sjy",size+"");
         return size;
     }
     @Override
     public int getItemCount() {
-        return imageLab.length;
+        return dishMenuInfos.size();
     }
 
     public static class MyHoler extends RecyclerView.ViewHolder{
@@ -146,7 +163,8 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
         protected void onPostExecute(Bitmap bitmap) {
 
             myHoler.imageView.setImageBitmap(bitmap);
-            myHoler.textView.setText("theFucker" + myHoler.position);
+            Log.v("ggg",dishMenuInfos.get(myHoler.position).getDiningRoomName());
+            myHoler.textView.setText(dishMenuInfos.get(myHoler.position).getMealName()+"  "+dishMenuInfos.get(myHoler.position).getMealPrice()+"/份");
 
         }
     }

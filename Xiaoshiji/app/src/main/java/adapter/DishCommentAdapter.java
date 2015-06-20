@@ -1,5 +1,7 @@
 package adapter;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +11,27 @@ import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
 
+import java.util.ArrayList;
+
+import beans.CommitInfo;
+
 /**
  * Created by Jay on 15-6-5.
  */
 public class DishCommentAdapter extends BaseAdapter {
+
+    public Context context;
+    public ArrayList<CommitInfo> commitInfos;
+
+    public DishCommentAdapter(Context context,ArrayList<CommitInfo> commitInfos){
+        super();
+        this.context = context;
+        this.commitInfos = commitInfos;
+    }
+
     @Override
     public int getCount() {
-        return 12;
+        return commitInfos.size();
     }
 
     @Override
@@ -40,6 +56,10 @@ public class DishCommentAdapter extends BaseAdapter {
         }else {
             viewHolder=(ViewHolder)view.getTag();
         }
+        Log.v("nmnm",commitInfos.get(position).getContent());
+        viewHolder.tv_dishComment.setText(commitInfos.get(position).getContent());
+        viewHolder.tv_Date.setText(commitInfos.get(position).getDate());
+
         return view;
     }
     public static class ViewHolder{

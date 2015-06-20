@@ -48,7 +48,7 @@ public class FragmentSignUp extends Fragment {
     public static final String TITLE="注册";
 
     public Button mSignUp;
-    public TextView mSendCheckCode;
+    public TextView mSendCheckCode,mSignIn;
     public EditText mUserName,mUserPsd,mCheckCode;
     public String username,userpsd,usercheckcode;
 
@@ -103,6 +103,7 @@ public class FragmentSignUp extends Fragment {
 
         mSignUp = (Button)RootView.findViewById(R.id.btn_signup);
         mSendCheckCode = (TextView)RootView.findViewById(R.id.acquire_key);
+        mSignIn = (TextView)RootView.findViewById(R.id.forget_psd);
 
         mUserName = (EditText)RootView.findViewById(R.id.user_name);
         mUserPsd = (EditText)RootView.findViewById(R.id.user_psd);
@@ -167,6 +168,12 @@ public class FragmentSignUp extends Fragment {
                     Toast.makeText(getActivity(),"用户名和密码不能为空惹~",Toast.LENGTH_SHORT).show();
                 }
 
+            }
+        });
+        mSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),ActivitySignIn.class));
             }
         });
 

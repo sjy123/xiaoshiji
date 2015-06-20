@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 import beans.BringMealInfo;
+import beans.CommitInfo;
+import beans.DishMenuInfo;
 import beans.FoundInfo;
 import beans.LostInfo;
 
@@ -35,6 +37,8 @@ public class LeanCloudService {
         AVObject.registerSubclass(BringMealInfo.class);
         AVObject.registerSubclass(LostInfo.class);
         AVObject.registerSubclass(FoundInfo.class);
+        AVObject.registerSubclass(CommitInfo.class);
+        AVObject.registerSubclass(DishMenuInfo.class);
     }
     /*
     后台查找BringMealInfo对象
@@ -148,4 +152,26 @@ public class LeanCloudService {
 
         return (ArrayList<BringMealInfo>)bringMealInfoList;
     }
+    /*
+    在后台获取评论
+     */
+    public static ArrayList<CommitInfo> findCommitInfos(){
+
+        AVQuery<CommitInfo> query = AVQuery.getQuery(CommitInfo.class);
+            /*
+            db 如果是查找某一个食堂的所有评论，就加一个条件
+            query.whereEqualTo("diningroomname", "食堂名称");
+             */
+            query.orderByAscending("updateAt");
+            query.limit(1000);
+        List<CommitInfo> commitInfoList = new ArrayList<CommitInfo>();
+            try {
+                commitInfoList = query.find();
+            }catch (AVException e){
+                Log.e("tag", "Query todos failed.", e);
+            }
+
+        return (ArrayList<CommitInfo>)commitInfoList;
+    }
+
 }

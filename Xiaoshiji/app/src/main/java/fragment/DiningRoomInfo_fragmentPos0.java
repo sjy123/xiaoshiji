@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,11 @@ public class DiningRoomInfo_fragmentPos0 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    /*
+    db 接受activity传来的值
+     */
+    public Bundle bundle;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,15 +75,18 @@ public class DiningRoomInfo_fragmentPos0 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_dining_room_info_fragment_pos0, container, false);
+
+        bundle = this.getArguments();
+
         Button lookUpDishes= (Button) view.findViewById(R.id.bt_lookupDishes);
         lookUpDishes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                android.support.v4.app.FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.container,DishesListFragment.newInstance(diningRoomName,"null"));
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
-                Intent intent=new Intent(getActivity(), DishesListActivity.class);
+
+                Intent intent = new Intent(getActivity(), DishesListActivity.class);
+                if (bundle!=null){
+                    intent.putExtras(bundle);
+                }
                 startActivity(intent);
 
             }

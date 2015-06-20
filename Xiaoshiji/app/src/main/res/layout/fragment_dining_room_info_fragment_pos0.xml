@@ -3,7 +3,7 @@
     android:layout_height="match_parent" tools:context="fragment.DiningRoomInfo_fragmentPos0">
     <TextView
         android:id="@+id/textview_info"
-        android:text="位于阿斯顿的麻辣隔壁的东一食堂是一座NB的养猪厂，每人流量30000次，都疯了"
+        android:text="华中科技大学xx食堂是华中科技大学东校区开放时间比较长的一个食堂，比一般正常时间开放的食堂的开放时间长点。大约早饭可以吃到十点，中午饭可以吃到一点左右，晚饭可以吃到七点。"
         android:textColor="@color/content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="24dp"
@@ -23,5 +23,6 @@
         android:text="查看菜品"
         android:textSize="16dp"
         android:layout_width="120dp"
-        android:layout_height="36dp" />
+        android:layout_height="36dp"
+        android:textColor="@color/white_pressed"/>
 </RelativeLayout>

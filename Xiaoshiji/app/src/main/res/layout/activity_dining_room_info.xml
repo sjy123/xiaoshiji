@@ -58,15 +58,19 @@
                                 android:textStyle="bold"
                                 android:textColor="@android:color/background_dark"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:ellipsize="end"/>
                             <TextView
                                 android:id="@+id/textview_location"
-                                android:text="董斌勾搭妹子的地方"
+                                android:text="邂逅的地方"
                                 android:textSize="14sp"
                                 android:layout_marginTop="8dp"
                                 android:textColor="@color/content"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:ellipsize="end"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

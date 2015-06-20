@@ -17,10 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+            res.srcDirs = ['src/main/res', 'src/main/res/raw']
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:design:22.2.0'
     compile 'com.android.support:appcompat-v7:21.0.2'
     compile files('libs/RasterSDKv1.1.0.15299.jar')
@@ -36,5 +42,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile files('libs/android-support-design.jar')
     compile project(':timelytextview')
+    compile files('libs/dom4j-1.6.1.jar')
+    compile files('libs/sitemesh-2.2.1.jar')
 }
 

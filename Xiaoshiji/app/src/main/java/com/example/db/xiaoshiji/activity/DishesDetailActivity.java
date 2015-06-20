@@ -9,18 +9,26 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SaveCallback;
 import com.example.db.xiaoshiji.R;
 import com.github.adnansm.timelytextview.TimelyView;
 
 import adapter.DishCommentAdapter;
+import beans.CommitInfo;
 import utils.AppConstant;
+import utils.LeanCloudService;
 
 public class DishesDetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -33,6 +41,11 @@ public class DishesDetailActivity extends AppCompatActivity {
     private ImageButton dishesComment;
     AlertDialog.Builder builder;
     AlertDialog alertDialog;
+
+    /*
+    db 写的对对话框的控件和监听
+     */
+    public EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppConstant.setStatus(true,this);
@@ -56,22 +69,56 @@ public class DishesDetailActivity extends AppCompatActivity {
         tv_imageNumber.setText("/" + (imageLib.length + 1));
 
         listView= (ListView) findViewById(R.id.lv_dish);
-        listView.setAdapter(new DishCommentAdapter());
+        if (LeanCloudService.findCommitInfos()!=null){
+            listView.setAdapter(new DishCommentAdapter(getApplicationContext(),LeanCloudService.findCommitInfos()));
+        }else {
+            Toast.makeText(getApplicationContext(),"没有评论惹~",Toast.LENGTH_SHORT).show();
+        }
 
         builder = new AlertDialog.Builder(this);
+        View mCustomView = LayoutInflater.from(this).inflate(R.layout.comment_edit,null);
+        editText = (EditText)mCustomView.findViewById(R.id.et_diningRoomComment);
         builder.setTitle("撰写评价");
         builder.setCancelable(false);
-        builder.setView(R.layout.comment_edit);
+        builder.setView(mCustomView);
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.dismiss();
             }
         });
         builder.setPositiveButton("提交", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String content = editText.getText().toString().trim();
+                if (AVUser.getCurrentUser()!=null){
+                    if (content!=null){
+                        CommitInfo commitInfo = new CommitInfo();
+                        commitInfo.setContent(content);
+                        commitInfo.setDate(AppConstant.getCurrentTime());
+                        commitInfo.setUser(AVUser.getCurrentUser().getUsername());
+                        /*
+                        db 评价的食堂的名字，由于菜谱暂时没搞好，这个先只填东一吧
+                         */
+                        commitInfo.setDiningRoomName("东一");
+                        commitInfo.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                if (e==null){
+                                    Toast.makeText(getApplicationContext(),"评论成功惹~",Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Log.v("error1",e.getMessage());
+                                }
+                            }
+                        });
+                    }else {
+                        Toast.makeText(getApplicationContext(),"评论不能为空",Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(),"请先注册惹~",Toast.LENGTH_SHORT).show();
+                }
 
+                dialog.dismiss();
             }
         });
         alertDialog = builder.create();

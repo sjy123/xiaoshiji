@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,13 @@ import adapter.DishesListAdpter;
 import utils.AppConstant;
 
 public class DishesListActivity extends AppCompatActivity {
+
+    /*
+    db 与食堂一一对应
+     */
+    public Bundle bundle;
+    public String diningroomname;
+
     Toolbar toolbar;
     RecyclerView recyclerView;
     int[] imageLib={R.drawable._1,R.drawable._2,R.drawable._3,R.drawable._4,R.drawable._5,R.drawable._6,R.drawable._7,R.drawable._8};
@@ -29,6 +37,13 @@ public class DishesListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dishes_list);
         initToolBar();
+
+        bundle = this.getIntent().getExtras();
+        if (bundle!=null){
+            diningroomname = bundle.getString("diningroomname");
+            Log.v("nnnn",diningroomname);
+        }
+
         init();
     }
 
@@ -37,7 +52,7 @@ public class DishesListActivity extends AppCompatActivity {
         StaggeredGridLayoutManager staggeredGridLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
 //        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
 //        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        DishesListAdpter dishesListAdpter=new DishesListAdpter(this,imageLib);
+        DishesListAdpter dishesListAdpter=new DishesListAdpter(this,imageLib,AppConstant.getDishMenuInfos(getApplicationContext(),diningroomname));
         dishesListAdpter.setMyOnItemClickedListener(new DishesListAdpter.MyOnItemClickedListener() {
             @Override
             public void onClick() {
