@@ -9,9 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.FindCallback;
 import com.example.db.xiaoshiji.R;
 
+import java.util.List;
+
 import adapter.DiningRoomCommentListAdpter;
+import beans.DiningRoomCommentInfo;
+import utils.LeanCloudService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +34,7 @@ public class DiningRoomInfo_fragmentPos1 extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private String diningroomname;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -59,7 +65,7 @@ public class DiningRoomInfo_fragmentPos1 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+             diningroomname = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -69,9 +75,16 @@ public class DiningRoomInfo_fragmentPos1 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_dining_room_info_fragment_pos1, container, false);
-         DiningRoomCommentListAdpter diningRoomCommentListAdpter=new DiningRoomCommentListAdpter();
-        ListView listView= (ListView) view.findViewById(R.id.listview_comment);
-        listView.setAdapter(diningRoomCommentListAdpter);
+        final ListView listView= (ListView) view.findViewById(R.id.listview_comment);
+        LeanCloudService.findDiningRoomCommentInfos(new FindCallback<DiningRoomCommentInfo>() {
+            @Override
+            public void done(List<DiningRoomCommentInfo> list, AVException e) {
+                if (e==null)
+                {
+                    listView.setAdapter(new DiningRoomCommentListAdpter(list));
+                }
+            }
+        },diningroomname);
         return  view;
     }
 

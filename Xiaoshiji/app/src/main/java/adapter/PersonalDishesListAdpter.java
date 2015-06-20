@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,26 +10,34 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.DishesDetailActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import beans.LostInfo;
+import beans.PersonalDishesInfo;
 
 /**
  * Created by Jay on 15-6-17.
  */
 public class PersonalDishesListAdpter extends BaseAdapter{
 
-    public Context context;
-
-    public PersonalDishesListAdpter(Context context){
-        super();
-        this.context = context;
+    List<PersonalDishesInfo> list;
+    public interface MyOnItemClickedListener{
+         void onClick(String diningroomname,String mealname,String mealprice);
+    }
+    MyOnItemClickedListener myOnItemClickedListener=null;
+    public void setMyOnItemClickedListener(MyOnItemClickedListener myOnItemClickedListener){
+        this.myOnItemClickedListener=myOnItemClickedListener;
+    }
+    public PersonalDishesListAdpter( List<PersonalDishesInfo> list){
+        this.list=list;
     }
 
     @Override
     public int getCount() {
-      return 10;
+      return list.size();
     }
 
     @Override
@@ -42,23 +51,28 @@ public class PersonalDishesListAdpter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder;
         View view=convertView;
         if (view==null){
-            view= LayoutInflater.from(context).inflate(R.layout.diningroom_list_item,null);
+            view= LayoutInflater.from(parent.getContext()).inflate(R.layout.diningroom_list_item,null);
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)view.getTag();
         }
-        viewHolder.logo.setImageResource(R.drawable._6);
         viewHolder.details.setText("查看详情");
-        viewHolder.name.setText("糖醋里脊");
-        viewHolder.address.setText("西一食堂");
-        viewHolder.cost.setText("￥3.5/份");
+        viewHolder.name.setText(list.get(position).getString("mealname"));
+        viewHolder.address.setText(list.get(position).getString("diningroomname"));
+        viewHolder.cost.setText("￥"+list.get(position).getString("mealprice"));
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myOnItemClickedListener.onClick(list.get(position).getString("diningroomname"),list.get(position).getString("mealname"),list.get(position).getString("mealprice"));
 
+            }
+        });
 
         return view;
     }

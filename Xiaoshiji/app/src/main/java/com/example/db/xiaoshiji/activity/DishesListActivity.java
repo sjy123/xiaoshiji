@@ -30,7 +30,8 @@ public class DishesListActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     RecyclerView recyclerView;
-    int[] imageLib={R.drawable._1,R.drawable._2,R.drawable._3,R.drawable._4,R.drawable._5,R.drawable._6,R.drawable._7,R.drawable._8};
+    int[] imageLib = {R.drawable._1, R.drawable._2, R.drawable._3, R.drawable._4, R.drawable._5, R.drawable._6, R.drawable._7, R.drawable._8};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppConstant.setStatus(true, this);
@@ -39,24 +40,26 @@ public class DishesListActivity extends AppCompatActivity {
         initToolBar();
 
         bundle = this.getIntent().getExtras();
-        if (bundle!=null){
+        if (bundle != null) {
             diningroomname = bundle.getString("diningroomname");
-            Log.v("nnnn",diningroomname);
+            Log.v("nnnn", diningroomname);
         }
 
         init();
     }
 
     private void init() {
-        recyclerView= (RecyclerView)findViewById(R.id.recycler_disheslist);
-        StaggeredGridLayoutManager staggeredGridLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-//        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
-//        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        DishesListAdpter dishesListAdpter=new DishesListAdpter(this,imageLib,AppConstant.getDishMenuInfos(getApplicationContext(),diningroomname));
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_disheslist);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        DishesListAdpter dishesListAdpter = new DishesListAdpter(this, imageLib, AppConstant.getDishMenuInfos(getApplicationContext(), diningroomname));
         dishesListAdpter.setMyOnItemClickedListener(new DishesListAdpter.MyOnItemClickedListener() {
             @Override
-            public void onClick() {
-                startActivity(new Intent(DishesListActivity.this,DishesDetailActivity.class));
+            public void onClick(String mealname, String mealprice) {
+                Intent intent=new Intent(DishesListActivity.this, DishesDetailActivity.class);
+                bundle.putString("mealname",mealname);
+                bundle.putString("mealprice",mealprice);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -69,7 +72,7 @@ public class DishesListActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(getResources().getColor(R.color.actionbar_title_color));
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
-        if (Build.VERSION.SDK_INT>=21)
+        if (Build.VERSION.SDK_INT >= 21)
             toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

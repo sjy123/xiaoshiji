@@ -22,6 +22,7 @@
             <TextView
                 android:textSize="16sp"
                 android:text="真的很好吃惹~"
+                android:id="@+id/textview_info"
                 android:textColor="@android:color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

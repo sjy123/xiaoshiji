@@ -43,7 +43,8 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
 
     private LruCache<Integer,Bitmap> lruCache;
     public interface MyOnItemClickedListener{
-        public void onClick();
+        public void onClick(String mealname,String mealprice);
+      //  public void onClick(dishMenuInfos.get(myHoler.position).getMealName()+"  "+dishMenuInfos.get(myHoler.position).getMealPrice()+"/份");
     }
     MyOnItemClickedListener myOnItemClickedListener=null;
     public void setMyOnItemClickedListener(MyOnItemClickedListener myOnItemClickedListener){
@@ -67,16 +68,7 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
     public MyHoler onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(context).inflate(R.layout.dishes_list_item, null);
         //设置dishesListItem点击进入菜品详情
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                  myOnItemClickedListener.onClick();
-//                android.support.v4.app.FragmentTransaction fragmentTransaction=((MainActivity) context).getSupportFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.container,new DishesDetailFragment()).addToBackStack(null).commit();
-
-            }
-        });
         MyHoler myHoler=new MyHoler(view,i);
         ViewGroup.LayoutParams layoutParams1=myHoler.textView.getLayoutParams();
         layoutParams1.width = imageWidth;
@@ -87,14 +79,11 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
     @Override
     public void onBindViewHolder(MyHoler myHoler, int i) {
         myHoler.position=i;
-        /*
-        db 生成随机数惹~
-         */
-        Random random=new Random();
+
         //提前确定view高度
         BitmapFactory.Options optionsView=new BitmapFactory.Options();
         optionsView.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(context.getResources(),imageLab[random.nextInt(8)],optionsView);
+        BitmapFactory.decodeResource(context.getResources(),imageLab[i%8],optionsView);
         ViewGroup.LayoutParams layoutParams=myHoler.imageView.getLayoutParams();
         int viewHeight= (int) (imageWidth*(optionsView.outWidth*1.0/optionsView.outHeight*1.0));
         layoutParams.height=viewHeight;
@@ -120,11 +109,13 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
     }
 
     public static class MyHoler extends RecyclerView.ViewHolder{
+        View itemView;
         ImageView imageView;
         TextView textView;
         Integer position;
         public MyHoler(View itemView,Integer position) {
             super(itemView);
+            this.itemView = itemView;
             imageView = (ImageView) itemView.findViewById(R.id.iv_dishes);
             textView= (TextView) itemView.findViewById(R.id.tv_dishes);
             this.position=position;
@@ -146,13 +137,13 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
             }//缓存无bitmap要加载
             final BitmapFactory.Options options=new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
-            BitmapFactory.decodeResource(context.getResources(),imageLab[myHoler.position],options);
+            BitmapFactory.decodeResource(context.getResources(),imageLab[myHoler.position%8],options);
             options.inSampleSize=calSampleSize(options,imageWidth);
             options.inJustDecodeBounds=false;
             Log.v("sjy","samplesize is "+options.inSampleSize+"imageWidth is "+imageWidth);
             Log.v("sjy","befor decode height is "+options.outHeight+"width is"+options.outWidth);
 
-            Bitmap bitmap= BitmapFactory.decodeResource(context.getResources(), imageLab[myHoler.position], options);
+            Bitmap bitmap= BitmapFactory.decodeResource(context.getResources(), imageLab[myHoler.position%8], options);
 
             Log.v("sjy","after decode height is "+bitmap.getHeight()+"width is"+bitmap.getWidth());
             lruCache.put(myHoler.position,bitmap);
@@ -163,9 +154,14 @@ public class DishesListAdpter extends RecyclerView.Adapter<DishesListAdpter.MyHo
         protected void onPostExecute(Bitmap bitmap) {
 
             myHoler.imageView.setImageBitmap(bitmap);
-            Log.v("ggg",dishMenuInfos.get(myHoler.position).getDiningRoomName());
-            myHoler.textView.setText(dishMenuInfos.get(myHoler.position).getMealName()+"  "+dishMenuInfos.get(myHoler.position).getMealPrice()+"/份");
-
+            Log.v("ggg", dishMenuInfos.get(myHoler.position).getDiningRoomName());
+            myHoler.textView.setText(dishMenuInfos.get(myHoler.position).getMealName() + "  ￥" + dishMenuInfos.get(myHoler.position).getMealPrice() + "/份");
+            myHoler.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myOnItemClickedListener.onClick(dishMenuInfos.get(myHoler.position).getMealName(),dishMenuInfos.get(myHoler.position).getMealPrice());
+                }
+            });
         }
     }
    private int converDpToPixel(float dp) {

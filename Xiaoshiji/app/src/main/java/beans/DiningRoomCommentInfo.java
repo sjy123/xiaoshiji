@@ -4,14 +4,12 @@ import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
 /**
- * Created by db on 6/20/15.
+ * Created by Jay on 15-6-20.
  */
-@AVClassName(CommitInfo.COMMITINFO_CLASS)
-public class CommitInfo extends AVObject {
-    public static final String COMMITINFO_CLASS="commit";
+@AVClassName("diningroomcommentinfo")
+public class DiningRoomCommentInfo extends AVObject {
     public String CONTENT = "content";
     public String DATE = "date";
-    public String MEALNAME="mealname";
     public String USER = "user";
     public String DININGROOMNAME = "diningroomname";
     public void setContent(String content){
@@ -37,14 +35,5 @@ public class CommitInfo extends AVObject {
     }
     public String getDiningRoomName(){
         return this.getString(DININGROOMNAME);
-    }
-
-    public void setMEALNAME(String mealname) {
-
-        put(MEALNAME,mealname);
-    }
-
-    public String getMEALNAME() {
-        return getString(MEALNAME);
     }
 }

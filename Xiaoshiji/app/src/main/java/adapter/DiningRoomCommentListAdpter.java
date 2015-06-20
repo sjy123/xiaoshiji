@@ -8,14 +8,22 @@ import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
 
+import java.util.List;
+
+import beans.DiningRoomCommentInfo;
+
 
 /**
  * Created by Jay on 15-6-1.
  */
 public class DiningRoomCommentListAdpter extends BaseAdapter {
+    List<DiningRoomCommentInfo> list;
+    public DiningRoomCommentListAdpter(List list){
+        this.list=list;
+    }
     @Override
     public int getCount() {
-        return 8;
+        return list.size();
     }
 
     @Override
@@ -42,6 +50,8 @@ public class DiningRoomCommentListAdpter extends BaseAdapter {
         {
             viewHolder= (ViewHolder) convertView.getTag();
         }
+        viewHolder.date.setText(list.get(position).getDate());
+        viewHolder.tv_comment.setText(list.get(position).getContent());
         return convertView;
     }
 

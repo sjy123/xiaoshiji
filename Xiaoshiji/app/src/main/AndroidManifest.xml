@@ -126,8 +126,9 @@
             android:name=".activity.ActivityMyNotice"
             android:label="@string/title_activity_activity_my_notice" >
         </activity>
-        <activity android:name=".activity.DiningRoomCommentActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        <activity
+            android:name=".activity.DiningRoomCommentActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_dining_room_comment">
         </activity>
     </application>

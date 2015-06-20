@@ -87,7 +87,7 @@ public class DiningRoomInfoActivity extends AppCompatActivity {
                 } else {
 
                     fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
-                    fragmentTransaction.replace(R.id.diningroom_container, new DiningRoomInfo_fragmentPos1());
+                    fragmentTransaction.replace(R.id.diningroom_container, DiningRoomInfo_fragmentPos1.newInstance(diningroomname,""));
                     fragmentTransaction.commit();
                 }
             }
@@ -110,6 +110,10 @@ public class DiningRoomInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(DiningRoomInfoActivity.this,DiningRoomCommentActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("diningroomname", diningroomname);
+                bundle.putString("diningroomaddress",diningroomaddress);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

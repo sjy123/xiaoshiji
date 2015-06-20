@@ -111,18 +111,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (tab.getPosition()==0)
                 {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container, new FragmentAll());
                     fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
+                    fragmentTransaction.replace(R.id.container, new FragmentAll());
                     fragmentTransaction.commit();
                 }else if (tab.getPosition()==1){
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container,new FragmentFind());
                     fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
+                    fragmentTransaction.replace(R.id.container, new FragmentFind());
                     fragmentTransaction.commit();
                 }else {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container,new FragmentMy());
                     fragmentTransaction.setCustomAnimations(R.anim.abc_fade_in,R.anim.abc_fade_out);
+                    fragmentTransaction.replace(R.id.container, new FragmentMy());
                     fragmentTransaction.commit();
                 }
             }
@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //设置tabLayout
         tabLayout = (TabLayout)findViewById(R.id.tablayout);
+
         tabLayout.addTab(tabLayout.newTab().setCustomView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.tab_item0,null)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.tab_item1, null)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(LayoutInflater.from(getApplicationContext()).inflate(R.layout.tab_item2, null)));
