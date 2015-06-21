@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -34,7 +34,7 @@
     <application
         android:name="utils.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/log"
         android:label="小食记"
         android:theme="@style/AppTheme" >
         <meta-data
@@ -43,7 +43,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@drawable/log"
             android:label="小食记" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -95,10 +95,10 @@
             android:name=".activity.ActivitySignUp"
             android:label="@string/title_activity_activity_sign_up" >
         </activity>
-        <activity android:name="drawer.MainActivity"
+        <activity
+            android:name="drawer.MainActivity"
             android:label="小食记"
-            android:theme="@style/nLiveoDrawer"
-            ></activity>
+            android:theme="@style/nLiveoDrawer" />
         <activity
             android:name=".activity.DiningRoomInfoActivity"
             android:label="@string/title_activity_dining_room_info" >
@@ -108,10 +108,9 @@
             android:label="@string/title_activity_dishes_list" >
         </activity>
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".activity.DishesDetailActivity"
-            android:label="@string/title_activity_dishes_detail" >
-
+            android:label="@string/title_activity_dishes_detail"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity android:name="drawer.SettingsActivity" />
         <activity
@@ -128,8 +127,16 @@
         </activity>
         <activity
             android:name=".activity.DiningRoomCommentActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:label="@string/title_activity_dining_room_comment">
+            android:label="@string/title_activity_dining_room_comment"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".activity.AccountInfoActivity"
+            android:label="@string/title_activity_account_info" >
+        </activity>
+        <activity
+            android:name=".activity.FoundDetailActivity"
+            android:label="@string/title_activity_found_detail" >
         </activity>
     </application>
 

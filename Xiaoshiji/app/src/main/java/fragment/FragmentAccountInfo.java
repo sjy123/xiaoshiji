@@ -1,6 +1,7 @@
 package fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,9 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.AccountInfoActivity;
+import com.example.db.xiaoshiji.activity.ActivitySignUp;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,8 +77,8 @@ public class FragmentAccountInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        (((MainActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolBar=(((MainActivity)getActivity()).getToolbar());
+        (((AccountInfoActivity)getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        toolBar=(((AccountInfoActivity)getActivity()).getToolbar());
         toolBar.setTitle(TITLE);
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +86,22 @@ public class FragmentAccountInfo extends Fragment {
                 getActivity().onBackPressed();
             }
         });
-        return inflater.inflate(R.layout.fragment_fragment_account_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment_account_info, container, false);
+        TextView tv_nickname= (TextView) view.findViewById(R.id.tv_nickname);
+        tv_nickname.setText(AVUser.getCurrentUser().getUsername());
+        TextView tv_realname= (TextView) view.findViewById(R.id.tv_realname);
+        tv_realname.setText(AVUser.getCurrentUser().getUsername());
+        TextView tv_tele= (TextView) view.findViewById(R.id.tv_tele);
+        tv_tele.setText(AVUser.getCurrentUser().getUsername());
+        Button change_accout= (Button) view.findViewById(R.id.bt_change);
+        change_accout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ActivitySignUp.class));
+                getActivity().finish();
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

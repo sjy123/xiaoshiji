@@ -164,7 +164,7 @@
                     android:gravity="left|center"
                     android:textColor="@color/white_pressed"
                     android:textSize="14sp"
-                    android:text="我发布的公告"
+                    android:text="我的发布"
                     android:drawableRight="@drawable/tableview_arrow_pressed"
                     android:background="@drawable/border_selector"
                     android:clickable="true"/>

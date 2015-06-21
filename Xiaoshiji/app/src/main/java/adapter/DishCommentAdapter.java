@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.db.xiaoshiji.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import beans.CommitInfo;
@@ -26,6 +27,7 @@ public class DishCommentAdapter extends BaseAdapter {
 
     public DishCommentAdapter(Context context,List<CommitInfo> commitInfos){
         super();
+        Collections.reverse(commitInfos);
         this.context = context;
         this.commitInfos = commitInfos;
     }

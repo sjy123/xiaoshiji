@@ -38,7 +38,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/phone1"
+                android:background="@drawable/main_search"
                 android:id="@+id/founddevice"/>
             <LinearLayout
                 android:layout_width="wrap_content"

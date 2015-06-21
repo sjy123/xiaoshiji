@@ -88,11 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         包括姓名、登陆状态
         在初始的时候显示
          */
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.uniBoys.Xiaoshiji", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("NAME","未登录惹~");
-        editor.putBoolean("STATUS",false);
-        editor.commit();
+
 
         init();
 

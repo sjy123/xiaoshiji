@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.db.xiaoshiji.R;
 
+import java.util.Collections;
 import java.util.List;
 
 import beans.DiningRoomCommentInfo;
@@ -19,6 +20,7 @@ import beans.DiningRoomCommentInfo;
 public class DiningRoomCommentListAdpter extends BaseAdapter {
     List<DiningRoomCommentInfo> list;
     public DiningRoomCommentListAdpter(List list){
+        Collections.reverse(list);
         this.list=list;
     }
     @Override

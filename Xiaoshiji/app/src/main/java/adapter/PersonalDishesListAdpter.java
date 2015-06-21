@@ -13,6 +13,7 @@ import com.example.db.xiaoshiji.R;
 import com.example.db.xiaoshiji.activity.DishesDetailActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import beans.LostInfo;
@@ -32,6 +33,7 @@ public class PersonalDishesListAdpter extends BaseAdapter{
         this.myOnItemClickedListener=myOnItemClickedListener;
     }
     public PersonalDishesListAdpter( List<PersonalDishesInfo> list){
+        Collections.reverse(list);
         this.list=list;
     }
 

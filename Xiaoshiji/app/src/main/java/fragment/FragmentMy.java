@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.example.db.xiaoshiji.MainActivity;
 import com.example.db.xiaoshiji.R;
+import com.example.db.xiaoshiji.activity.AccountInfoActivity;
 import com.example.db.xiaoshiji.activity.ActivityMyNotice;
 import com.example.db.xiaoshiji.activity.ActivityPersonMenu;
 import com.example.db.xiaoshiji.activity.ActivitySignIn;
@@ -102,14 +103,14 @@ public class FragmentMy extends Fragment {
             @Override
             public void onClick(View view) {
                 AVUser avUser = AVUser.getCurrentUser();
-                if (avUser!=null){
+                if (avUser != null) {
 //                    getActivity().getSupportFragmentManager()
 //                                 .beginTransaction()
 //                                 .replace(R.id.container, new FragmentSignIn())
 //                                 .addToBackStack(null)
 //                                 .commit();
-                    startActivity(new Intent(getActivity(), ActivitySignIn.class));
-                }else {
+                    startActivity(new Intent(getActivity(), AccountInfoActivity.class));
+                } else {
 //                    getActivity().getSupportFragmentManager()
 //                                 .beginTransaction()
 //                                 .replace(R.id.container, new FragmentSignUp())
@@ -120,7 +121,7 @@ public class FragmentMy extends Fragment {
             }
         });
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.uniBoys.Xiaoshiji", Context.MODE_PRIVATE);
-        mPersonName.setText(sharedPreferences.getString("NAME","db"));
+        mPersonName.setText(sharedPreferences.getString("NAME","未登录呢~"));
 
         mPersonalMenu.setOnClickListener(new View.OnClickListener() {
             @Override

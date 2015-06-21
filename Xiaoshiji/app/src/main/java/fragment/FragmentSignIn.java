@@ -126,8 +126,9 @@ public class FragmentSignIn extends Fragment {
 //                                             .beginTransaction()
 //                                             .replace(R.id.container,new FragmentMy())
 //                                             .commit();
-                                startActivity(new Intent(getActivity(),MainActivity.class));
+                                startActivity(new Intent(getActivity(), MainActivity.class));
                                 Toast.makeText(getActivity(),"登陆成功惹~",Toast.LENGTH_SHORT).show();
+                                getActivity().finish();
                             }else {
                                 Toast.makeText(getActivity(),"登陆失败惹~",Toast.LENGTH_SHORT).show();
                             }

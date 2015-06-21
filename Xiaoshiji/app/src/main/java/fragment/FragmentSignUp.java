@@ -154,7 +154,7 @@ public class FragmentSignUp extends Fragment {
                                 if (e==null){
                                     Toast.makeText(getActivity(),"注册成功惹~",Toast.LENGTH_SHORT).show();
 //                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new FragmentSignIn()).commit();
-                                startActivity(new Intent(getActivity(),ActivitySignUp.class));
+                                    getActivity().finish();
                                 }else {
                                     Toast.makeText(getActivity(),"注册失败惹~",Toast.LENGTH_SHORT).show();
                                 }
@@ -174,6 +174,7 @@ public class FragmentSignUp extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),ActivitySignIn.class));
+                getActivity().finish();
             }
         });
 
